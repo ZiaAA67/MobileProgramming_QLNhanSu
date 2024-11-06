@@ -1,0 +1,3 @@
+[submodule "MyApplication"]
+	path = MyApplication
+	url = https://github.com/ZiaAA67/MobileProgramming_QLNhanSu.git
