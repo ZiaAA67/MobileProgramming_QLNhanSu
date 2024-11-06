@@ -8,8 +8,9 @@ import androidx.annotation.Nullable;
 
 public class CreateDatabase extends SQLiteOpenHelper {
 
+//link tham khao: https://www.youtube.com/watch?v=b5Iaq1W-UW0&list=PLwjYpXF3o7v8o-dIpIXwahYTeUcXGqLpW&index=7
 
-    private static final String DATABASE_NAME = "human_resource_management.db";
+    private static final String DATABASE_NAME = "Employees_Manager";// Database Name
     private static final int DATABASE_VERSION = 1;
 
 
@@ -24,8 +25,14 @@ public class CreateDatabase extends SQLiteOpenHelper {
         db.execSQL(tbEmployee_RewardsDiscipline.CREATE_TABLE);
         db.execSQL(tbEmployee_Shift.CREATE_TABLE);
         db.execSQL(tbEmployees.CREATE_TABLE);
-        db.execSQL(tbShift.CREATE_TABLE);
+        db.execSQL(tbLeavePermissionLetter.CREATE_TABLE);
+        db.execSQL(tbPosition.CREATE_TABLE);
+        db.execSQL(tbRewardsDiscipline.CREATE_TABLE);
+        db.execSQL(tbRoles.CREATE_TABLE);
+        db.execSQL(tbSalary.CREATE_TABLE);
+        db.execSQL(tbSection.CREATE_TABLE);
         db.execSQL(tbSession.CREATE_TABLE);
+        db.execSQL(tbShift.CREATE_TABLE);
         db.execSQL(tbTimekeeping.CREATE_TABLE);
         db.execSQL(tbUsers.CREATE_TABLE);
     }
@@ -37,8 +44,14 @@ public class CreateDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Employee_RewardsDiscipline");
         db.execSQL("DROP TABLE IF EXISTS Employee_Shift");
         db.execSQL("DROP TABLE IF EXISTS Employees");
-        db.execSQL("DROP TABLE IF EXISTS Shift");
+        db.execSQL("DROP TABLE IF EXISTS LeavePermissionLetter");
+        db.execSQL("DROP TABLE IF EXISTS Position");
+        db.execSQL("DROP TABLE IF EXISTS RewardsDiscipline");
+        db.execSQL("DROP TABLE IF EXISTS Roles");
+        db.execSQL("DROP TABLE IF EXISTS Salary");
+        db.execSQL("DROP TABLE IF EXISTS Section");
         db.execSQL("DROP TABLE IF EXISTS Session");
+        db.execSQL("DROP TABLE IF EXISTS Shift");
         db.execSQL("DROP TABLE IF EXISTS Timekeeping");
         db.execSQL("DROP TABLE IF EXISTS Users");
 
