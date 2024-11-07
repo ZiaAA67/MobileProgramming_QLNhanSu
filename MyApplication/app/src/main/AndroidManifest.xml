@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".Demo.UpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Employee"
+            android:exported="false" />
+        <activity
             android:name=".GiaoDienLogin"
             android:exported="true"
             android:label="@string/title_activity_employee"
@@ -24,7 +30,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Employee"
+            android:name=".Demo.DemoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
