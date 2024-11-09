@@ -15,7 +15,7 @@ public class Department {
     private String departmentName;
 
     // Constructor
-    public Department(String departmentName, String note) {
+    public Department(String departmentName) {
         this.departmentName = departmentName;
     }
 

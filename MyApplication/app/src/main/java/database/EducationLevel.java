@@ -17,14 +17,11 @@ public class EducationLevel {
     @ColumnInfo(name = "Major")
     private String major;
 
-    @ColumnInfo(name = "Note")
-    private String note;
 
     // Constructor
-    public EducationLevel(String educationLevelName, String major, String note) {
+    public EducationLevel(String educationLevelName, String major) {
         this.educationLevelName = educationLevelName;
         this.major = major;
-        this.note = note;
     }
 
     // Getters and Setters
@@ -50,13 +47,5 @@ public class EducationLevel {
 
     public void setMajor(String major) {
         this.major = major;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 }
