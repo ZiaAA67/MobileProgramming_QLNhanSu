@@ -1,5 +1,6 @@
 package com.example.myapplication.database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -29,15 +30,16 @@ public class Employee_RewardDiscipline {
     @ColumnInfo(name = "RewardDisciplineID")
     private int rewardDisciplineId;
 
+    @NonNull
     @ColumnInfo(name = "Date")
-    private LocalDate date;
+    private String date;
 
     @ColumnInfo(name = "Bonus")
     private Float bonus;
 
 
     // Constructor
-    public Employee_RewardDiscipline(int rewardDisciplineId, LocalDate date, Float bonus) {
+    public Employee_RewardDiscipline(int rewardDisciplineId, String date, Float bonus) {
         this.rewardDisciplineId = rewardDisciplineId;
         this.date = date;
         this.bonus = bonus;
@@ -61,11 +63,11 @@ public class Employee_RewardDiscipline {
         this.rewardDisciplineId = rewardDisciplineId;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

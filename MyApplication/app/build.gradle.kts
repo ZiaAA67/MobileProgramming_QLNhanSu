@@ -69,8 +69,14 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
+    //Room database
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
 
+    //RecyclerView
     implementation(libs.recyclerview)
+
+    //Map api
+    implementation(libs.gms.maps)
+    implementation(libs.gms.location)
 }

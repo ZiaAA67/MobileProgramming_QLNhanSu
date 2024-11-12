@@ -22,23 +22,23 @@ public class Timekeeping {
     private int timekeepingId;
 
     @ColumnInfo(name = "TimeIn")
-    private LocalTime timeIn;
+    private String timeIn;
 
     @ColumnInfo(name = "TimeOut")
-    private LocalTime timeOut;
+    private String timeOut;
 
     @ColumnInfo(name = "IsAbsent")
     private Integer isAbsent;
 
     @ColumnInfo(name = "Overtime")
-    private LocalTime overtime;
+    private String overtime;
 
     @ColumnInfo(name = "SessionID")
     private int sessionId;
 
 
     // Constructor
-    public Timekeeping(LocalTime timeIn, LocalTime timeOut, Integer isAbsent, LocalTime overtime, int sessionId) {
+    public Timekeeping(String timeIn, String timeOut, Integer isAbsent, String overtime, int sessionId) {
         this.timeIn = timeIn;
         this.timeOut = timeOut;
         this.isAbsent = isAbsent;
@@ -56,19 +56,19 @@ public class Timekeeping {
         this.timekeepingId = timekeepingId;
     }
 
-    public LocalTime getTimeIn() {
+    public String getTimeIn() {
         return timeIn;
     }
 
-    public void setTimeIn(LocalTime timeIn) {
+    public void setTimeIn(String timeIn) {
         this.timeIn = timeIn;
     }
 
-    public LocalTime getTimeOut() {
+    public String getTimeOut() {
         return timeOut;
     }
 
-    public void setTimeOut(LocalTime timeOut) {
+    public void setTimeOut(String timeOut) {
         this.timeOut = timeOut;
     }
 
@@ -80,11 +80,11 @@ public class Timekeeping {
         this.isAbsent = isAbsent;
     }
 
-    public LocalTime getOvertime() {
+    public String getOvertime() {
         return overtime;
     }
 
-    public void setOvertime(LocalTime overtime) {
+    public void setOvertime(String overtime) {
         this.overtime = overtime;
     }
 

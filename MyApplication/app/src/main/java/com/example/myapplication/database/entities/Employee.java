@@ -14,7 +14,7 @@ import java.time.LocalDate;
                 @ForeignKey(entity = Department.class, parentColumns = "DepartmentID", childColumns = "DepartmentID", onDelete = ForeignKey.SET_NULL),
                 @ForeignKey(entity = Position.class, parentColumns = "PositionID", childColumns = "PositionID", onDelete = ForeignKey.SET_NULL),
                 @ForeignKey(entity = EducationLevel.class, parentColumns = "EducationID", childColumns = "EducationID", onDelete = ForeignKey.SET_NULL),
-                @ForeignKey(entity = User.class, parentColumns = "UserID", childColumns = "userID", onDelete = ForeignKey.SET_NULL)
+                @ForeignKey(entity = User.class, parentColumns = "UserID", childColumns = "UserID", onDelete = ForeignKey.SET_NULL)
         }
 )
 public class Employee {
@@ -30,7 +30,7 @@ public class Employee {
     private int gender;
 
     @ColumnInfo(name = "Birth")
-    private LocalDate birth;
+    private String birth;
 
     @ColumnInfo(name = "IdentityNumber")
     private String identityNumber;
@@ -48,7 +48,7 @@ public class Employee {
     private Integer active;
 
     @ColumnInfo(name = "JoinDate")
-    private LocalDate joinDate;
+    private String joinDate;
 
     @ColumnInfo(name = "ImagePath")
     private String imagePath;
@@ -69,7 +69,7 @@ public class Employee {
     private Integer userId;
 
     // Constructor
-    public Employee(String fullName, int gender, LocalDate birth, String identityNumber, String address, String phoneNumber, String email, Integer active, LocalDate joinDate, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId) {
+    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, Integer active, String joinDate, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId) {
         this.fullName = fullName;
         this.gender = gender;
         this.birth = birth;
@@ -112,11 +112,11 @@ public class Employee {
         this.gender = gender;
     }
 
-    public LocalDate getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(LocalDate birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 
@@ -160,11 +160,11 @@ public class Employee {
         this.active = active;
     }
 
-    public LocalDate getJoinDate() {
+    public String getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(LocalDate joinDate) {
+    public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
     }
 
