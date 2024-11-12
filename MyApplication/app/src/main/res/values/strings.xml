@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="flag_icon">Mô tả về biểu tượng cờ</string>
+    <string name="title_activity_employee">Employee</string>
+</resources>

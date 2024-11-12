@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EAF0F8"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="ExtraText" >
+
+        <TextView
+            android:id="@+id/version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="Phiên bản: "
+            android:textColor="#808080"
+            android:textSize="12sp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/account"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:hint="Tên Người Dùng"
+            android:inputType="text"
+            android:orientation="horizontal"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="188dp"
+        android:src="@drawable/logo" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        app:endIconMode="password_toggle"
+
+        >
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/baseline_password_24"
+            android:drawablePadding="10dp"
+            android:hint="Mật Khẩu"
+            android:inputType="textPassword"
+            android:padding="8dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;LinearLayout&#xA;
+        android:id=&quot;@+id/LinearLayout2&quot;&#xA;        android:layout_width=&quot;match_parent&quot;&#xA;        android:layout_height=&quot;match_parent&quot;&#xA;        android:orientation=&quot;horizontal&quot;>&#xA;        &lt;LinearLayout&#xA;            android:layout_width=&quot;match_parent&quot;&#xA;            android:layout_height=&quot;wrap_content&quot;&#xA;            android:gravity=&quot;center_vertical&quot;&#xA;            app:layout_constraintTop_toTopOf=&quot;parent&quot;>&#xA;&#xA;            &lt;Spinner&#xA;            android:id=&quot;@+id/language_spinner&quot;&#xA;            android:layout_width=&quot;50dp&quot;&#xA;            android:layout_height=&quot;50dp&quot;&#xA;            android:layout_marginHorizontal=&quot;30dp&quot;&#xA;            android:layout_marginTop=&quot;15dp&quot;&#xA;            app:layout_constraintTop_toTopOf=&quot;parent&quot;>&#xA;    &lt;/LinearLayout>&#xA;&#xA;&#xA;    &lt;/LinearLayout>" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;LinearLayout&#xA;            android:layout_width=&quot;match_parent&quot;&#xA;            android:layout_height=&quot;wrap_content&quot;&#xA;            android:gravity=&quot;center_vertical&quot;&#xA;            app:layout_constraintTop_toTopOf=&quot;parent&quot;>&#xA;&#xA;            &lt;Spinner&#xA;            android:id=&quot;@+id/language_spinner&quot;&#xA;            android:layout_width=&quot;50dp&quot;&#xA;            android:layout_height=&quot;50dp&quot;&#xA;            android:layout_marginHorizontal=&quot;30dp&quot;&#xA;            android:layout_marginTop=&quot;15dp&quot;&#xA;            app:layout_constraintTop_toTopOf=&quot;parent&quot;>&#xA;    &lt;/LinearLayout>" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;Spinner&#xA;            android:id=&quot;@+id/language_spinner&quot;&#xA;            android:layout_width=&quot;50dp&quot;&#xA;            android:layout_height=&quot;50dp&quot;&#xA;            android:layout_marginHorizontal=&quot;30dp&quot;&#xA;            android:layout_marginTop=&quot;15dp&quot;&#xA;            app:layout_constraintTop_toTopOf=&quot;parent&quot;>" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/light_blue"
+            android:padding="15dp"
+            android:text="Đăng Nhập"
+            android:textColor="#FFFFFF"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/light_blue"
+            android:padding="15dp"
+            android:text="Đăng Ký"
+            android:textColor="#FFFFFF"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Quên Mật Khẩu"
+            android:textColor="#0066CC"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
