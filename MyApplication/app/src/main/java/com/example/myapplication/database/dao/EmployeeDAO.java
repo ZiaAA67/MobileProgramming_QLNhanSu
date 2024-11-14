@@ -1,6 +1,44 @@
 package com.example.myapplication.database.dao;
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
+
+import com.example.myapplication.database.entities.Employee;
+
+import java.util.List;
 
 @Dao
 public interface EmployeeDAO {
+
+    @Insert
+    void insert(Employee... employees);
+
+    @Update
+    void update(Employee employee);
+
+    @Delete
+    void delete(Employee employee);
+
+    @Query("SELECT * FROM Employee")
+    List<Employee> getAll();
+
+    @Query("SELECT * FROM Employee WHERE EmployeeID = :employeeId")
+    Employee getById(int employeeId);
+
+    @Query("SELECT * FROM Employee WHERE FullName LIKE :fullName")
+    List<Employee> getByName(String fullName);
+
+    @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId")
+    List<Employee> getByDepartmentId(int departmentId);
+
+    @Query("SELECT * FROM Employee WHERE Active = 1")
+    List<Employee> getActiveEmployees();
+
+    @Query("SELECT * FROM Employee WHERE Active = 0")
+    List<Employee> getInactiveEmployees();
+
+    @Query("SELECT * FROM Employee WHERE PositionID = :positionId")
+    List<Employee> getByPositionId(int positionId);
 }
