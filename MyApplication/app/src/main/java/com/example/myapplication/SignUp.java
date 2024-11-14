@@ -117,7 +117,7 @@ public class SignUp extends AppCompatActivity {
         // Add employee
         Employee employee = new Employee(
                 strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail,
-                1, null, null, null, null, null, (int) userId);
+                1, null, null, null, null, null, (int) userId, null);
         AppDatabase.getInstance(this).employeeDao().insert(employee);
 
         // Show success message

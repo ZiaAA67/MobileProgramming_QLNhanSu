@@ -24,7 +24,8 @@ import com.example.myapplication.database.dao.*;
         Employee_RewardDiscipline.class,
         LeaveRequest.class,
         Employee_Session.class,
-        User.class
+        User.class,
+        Workplace.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -54,4 +55,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract LeaveRequestDAO leavePermissionLetterDao();
     public abstract Employee_SessionDAO employeeShiftDao();
     public abstract UserDAO userDao();
+    public abstract WorkplaceDAO workplaceDAO();
 }

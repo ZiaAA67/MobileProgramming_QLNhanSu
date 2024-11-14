@@ -14,7 +14,8 @@ import java.time.LocalDate;
                 @ForeignKey(entity = Department.class, parentColumns = "DepartmentID", childColumns = "DepartmentID", onDelete = ForeignKey.SET_NULL),
                 @ForeignKey(entity = Position.class, parentColumns = "PositionID", childColumns = "PositionID", onDelete = ForeignKey.SET_NULL),
                 @ForeignKey(entity = EducationLevel.class, parentColumns = "EducationID", childColumns = "EducationID", onDelete = ForeignKey.SET_NULL),
-                @ForeignKey(entity = User.class, parentColumns = "UserID", childColumns = "UserID", onDelete = ForeignKey.SET_NULL)
+                @ForeignKey(entity = User.class, parentColumns = "UserID", childColumns = "UserID", onDelete = ForeignKey.SET_NULL),
+                @ForeignKey(entity = Workplace.class, parentColumns = "WorkplaceID", childColumns = "WorkplaceID", onDelete = ForeignKey.SET_NULL)
         }
 )
 public class Employee {
@@ -65,11 +66,13 @@ public class Employee {
     @ColumnInfo(name = "UserID")
     private Integer userId;
 
+    @ColumnInfo(name = "WorkplaceID")
+    private Integer workplaceId;
+
     // Constructor
-    public Employee(String fullName, int gender, String birth, String identityNumber, String address,
-                    String phoneNumber, String email, Integer active, String imagePath,
-                    Integer salaryId, Integer departmentId, Integer positionId,
-                    Integer educationId, Integer userId) {
+
+
+    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, Integer active, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId, Integer workplaceId) {
         this.fullName = fullName;
         this.gender = gender;
         this.birth = birth;
@@ -84,6 +87,7 @@ public class Employee {
         this.positionId = positionId;
         this.educationId = educationId;
         this.userId = userId;
+        this.workplaceId = workplaceId;
     }
 
     // Getters and Getters
@@ -205,5 +209,13 @@ public class Employee {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getWorkplaceId() {
+        return workplaceId;
+    }
+
+    public void setWorkplaceId(Integer workplaceId) {
+        this.workplaceId = workplaceId;
     }
 }
