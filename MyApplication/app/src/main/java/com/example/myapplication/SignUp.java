@@ -108,14 +108,16 @@ public class SignUp extends AppCompatActivity {
         }
 
         // If validation passes, proceed with inserting user and employee
+
+        // Add user
         User user = new User(strUserName, md5(strPassword), createDate, null);
+        AppDatabase.getInstance(this).userDao().insert(user);
+        long userId = AppDatabase.getInstance(this).userDao().insert(user);
+
+        // Add employee
         Employee employee = new Employee(
                 strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail,
-                1, null, null, null, null, null, null
-        );
-
-        // Insert user and employee into the database
-        AppDatabase.getInstance(this).userDao().insert(user);
+                1, null, null, null, null, null, (int) userId);
         AppDatabase.getInstance(this).employeeDao().insert(employee);
 
         // Show success message

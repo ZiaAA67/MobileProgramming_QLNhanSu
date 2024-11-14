@@ -66,7 +66,10 @@ public class Employee {
     private Integer userId;
 
     // Constructor
-    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, Integer active, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId) {
+    public Employee(String fullName, int gender, String birth, String identityNumber, String address,
+                    String phoneNumber, String email, Integer active, String imagePath,
+                    Integer salaryId, Integer departmentId, Integer positionId,
+                    Integer educationId, Integer userId) {
         this.fullName = fullName;
         this.gender = gender;
         this.birth = birth;

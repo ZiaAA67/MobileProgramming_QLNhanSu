@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserDAO {
 
     @Insert
-    void insert(User user);
+    long insert(User user);
 
     @Update
     void update(User user);
