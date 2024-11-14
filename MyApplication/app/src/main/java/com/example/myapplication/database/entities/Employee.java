@@ -47,9 +47,6 @@ public class Employee {
     @ColumnInfo(name = "Active")
     private Integer active;
 
-    @ColumnInfo(name = "JoinDate")
-    private String joinDate;
-
     @ColumnInfo(name = "ImagePath")
     private String imagePath;
 
