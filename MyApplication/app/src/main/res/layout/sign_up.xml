@@ -185,7 +185,7 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/edit_cnumberPhone"
+            android:id="@+id/edit_numberPhone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Nhập số điện thoại" />
@@ -193,9 +193,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Email: "
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Nhập email" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/bt_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

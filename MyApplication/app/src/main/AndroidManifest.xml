@@ -21,15 +21,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
-
         <activity
-            android:name=".Demo.DemoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Demo.UpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Employee"
+            android:name=".Employe"
             android:exported="false" />
         <activity
             android:name=".GiaoDienLogin"
@@ -43,7 +36,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Demo.DemoMapActivity"
+            android:name=".SignUp"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
