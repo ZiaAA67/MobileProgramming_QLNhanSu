@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.login_register;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.myapplication.R;
 
 public class FlagAdapter extends BaseAdapter {
     private Context context;

@@ -79,4 +79,7 @@ dependencies {
     //Map api
     implementation(libs.gms.maps)
     implementation(libs.gms.location)
+
+    //Viewpager2
+    implementation(libs.viewpager2)
 }

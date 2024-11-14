@@ -22,21 +22,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
         <activity
-            android:name=".Employe"
-            android:exported="false" />
-        <activity
-            android:name=".GiaoDienLogin"
+            android:name=".login_register.GiaoDienLogin"
             android:exported="true"
             android:label="@string/title_activity_employee"
             android:theme="@style/Theme.MyApplication" />
         <activity
-            android:name=".GiaoDienChinh"
+            android:name=".SignUp"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".Demo.DemoMapActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
