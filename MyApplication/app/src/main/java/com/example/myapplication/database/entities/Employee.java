@@ -69,7 +69,7 @@ public class Employee {
     private Integer userId;
 
     // Constructor
-    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, Integer active, String joinDate, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId) {
+    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, Integer active, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId) {
         this.fullName = fullName;
         this.gender = gender;
         this.birth = birth;
@@ -78,7 +78,6 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.active = active;
-        this.joinDate = joinDate;
         this.imagePath = imagePath;
         this.salaryId = salaryId;
         this.departmentId = departmentId;
@@ -158,14 +157,6 @@ public class Employee {
 
     public void setActive(Integer active) {
         this.active = active;
-    }
-
-    public String getJoinDate() {
-        return joinDate;
-    }
-
-    public void setJoinDate(String joinDate) {
-        this.joinDate = joinDate;
     }
 
     public String getImagePath() {

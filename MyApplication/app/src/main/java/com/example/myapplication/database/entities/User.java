@@ -29,9 +29,6 @@ public class User {
     @ColumnInfo(name = "Password")
     private String password;
 
-    @ColumnInfo(name = "Salt")
-    private String salt;
-
     @ColumnInfo(name = "CreateDate")
     private String createDate;
 
@@ -40,10 +37,9 @@ public class User {
 
 
     // Constructor
-    public User(String username, String password, String salt, String createDate, Integer roleId) {
+    public User(String username, String password, String createDate, Integer roleId) {
         this.username = username;
         this.password = password;
-        this.salt = salt;
         this.createDate = createDate;
         this.roleId = roleId;
     }
@@ -73,10 +69,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getSalt() { return salt; }
-
-    public void setSalt(String salt) { this.salt = salt; }
 
     public String getCreateDate() {
         return createDate;
