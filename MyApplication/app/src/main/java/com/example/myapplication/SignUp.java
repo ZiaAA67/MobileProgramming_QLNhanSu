@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.dao.EmployeeDAO;
+import com.example.myapplication.database.dao.UserDAO;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.User;
 
@@ -99,9 +101,9 @@ public class SignUp extends AppCompatActivity {
 
         String createDate = LocalDate.now().format(Configuration.FORMATTER);
 
-        // Validate input fields
-        if (!check(strUserName, strPassword, strPasswordAgain, strFullName, strBirth, strCCCD, strNumberPhone, strEmail)) {
-            Toast.makeText(this, "Thông tin không hợp lệ. Vui lòng kiểm tra lại!", Toast.LENGTH_SHORT).show();
+        // Check validate input fields
+        if (!checkValidData(strUserName, strPassword, strPasswordAgain, strFullName, strBirth, strCCCD, strNumberPhone, strEmail)) {
+            Toast.makeText(this, "Thất bại", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -121,7 +123,7 @@ public class SignUp extends AppCompatActivity {
     }
 
 
-    private boolean check(String strUserName, String strPassword, String strPassWordAgain,
+    private boolean checkValidData(String strUserName, String strPassword, String strPassWordAgain,
                           String strFullName, String strBirth, String strCCCD, String strNumberPhone, String strEmail) {
 
         if (TextUtils.isEmpty(strUserName) || TextUtils.isEmpty(strPassword)) {
@@ -142,24 +144,60 @@ public class SignUp extends AppCompatActivity {
 
         // Kiểm tra CCCD (đúng 12 ký tự và toàn bộ là số)
         if (strCCCD.length() != 12 || !strCCCD.matches("\\d+")) {
-            Toast.makeText(this, "Nhập chính xác số CCCD", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nhập chính xác số CCCD đủ 12 chữ số", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Kiểm tra số điện thoại (đúng 10 ký tự và toàn bộ là số)
-        if (strNumberPhone.length() != 10 || !strNumberPhone.matches("\\d+")) {
-            Toast.makeText(this, "Nhập chính xác số điện thoại", Toast.LENGTH_SHORT).show();
+        if (strNumberPhone.length() != 10 || !strNumberPhone.matches("\\d+") || strNumberPhone.charAt(0) != '0') {
+            Toast.makeText(this, "Nhập chính xác số điện thoại đủ 10 chữ số bắt đầu bằng số 0", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        String emailPattern = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
+        String emailPattern = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";// Kiểm tra ký tự của chuỗi email
         if (TextUtils.isEmpty(strEmail) || !strEmail.matches(emailPattern)) {
             Toast.makeText(this, "Nhập địa chỉ email hợp lệ", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        return true;
+        if (checkUserNameExists(strUserName)) {
+            Toast.makeText(this, "Tên người dùng đã tồn tại. Vui lòng chọn tên khác.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (checkEmployeeIdentityNumberExists(strCCCD)) {
+            Toast.makeText(this, "Số căn cước công dân này đã có người dùng", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (checkEmployeePhoneNumberExists(strNumberPhone)) {
+            Toast.makeText(this, "Số điện thoại này đã có người sử dụng", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;// Valid input data
     }
+
+
+    // Kiểm tra trùng lặp dữ liệu
+    private boolean checkUserNameExists(String userName) {
+        UserDAO userDAO = AppDatabase.getInstance(this).userDao();
+        User user = userDAO.getUserByUsername(userName);
+        return user != null;
+    }
+
+    private boolean checkEmployeePhoneNumberExists(String phoneNumber) {
+        EmployeeDAO employeeDAO = AppDatabase.getInstance(this).employeeDao();
+        Employee employee = employeeDAO.getByPhoneNumber(phoneNumber);
+        return employee != null;
+    }
+
+    private boolean checkEmployeeIdentityNumberExists(String identityNumber) {
+        EmployeeDAO employeeDAO = AppDatabase.getInstance(this).employeeDao();
+        Employee employee = employeeDAO.getByIdentityNumber(identityNumber);
+        return employee != null;
+    }
+
 
     // MD5 hashed
     public static String md5(String input) {

@@ -30,6 +30,14 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE FullName LIKE :fullName")
     List<Employee> getByName(String fullName);
 
+    // Kiểm tra CCCD
+    @Query("SELECT * FROM Employee WHERE IdentityNumber LIKE :identityNumber")
+    Employee getByIdentityNumber(String identityNumber);
+
+    // Kiểm tra SDT
+    @Query("SELECT * FROM Employee WHERE PhoneNumber LIKE :phoneNumber")
+    Employee getByPhoneNumber(String phoneNumber);
+
     @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId")
     List<Employee> getByDepartmentId(int departmentId);
 
