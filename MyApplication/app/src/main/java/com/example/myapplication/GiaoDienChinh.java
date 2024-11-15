@@ -1,8 +1,9 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,11 @@ public class GiaoDienChinh extends AppCompatActivity {
 
     }
 
-
+    public void timeKeeping(View view){
+        startActivity(new Intent(this,TimeKeeping.class));
+    }
+    public void employeeProfile(View view){
+        startActivity(new Intent(this, Employeer.class));
+    }
 
 }
