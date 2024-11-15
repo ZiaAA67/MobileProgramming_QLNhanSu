@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--  Location permission  -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,31 +16,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
+        <!--  Google map API key  -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
         <activity
-            android:name=".ChangePassword"
-            android:exported="false" />
-        <activity
-            android:name=".AttendanceHistory"
-            android:exported="false" />
-        <activity
-            android:name=".TimeKeeping"
-            android:exported="false" />
-        <activity
-            android:name=".GiaoDienLogin"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Employeer"
-            android:exported="false"
+            android:name=".login_register.GiaoDienLogin"
+            android:exported="true"
             android:label="@string/title_activity_employee"
             android:theme="@style/Theme.MyApplication" />
         <activity
-            android:name=".GiaoDienChinh"
+            android:name=".SignUp"
             android:exported="false" />
         <activity
-            android:name=".Profile"
-            android:exported="true"
-            tools:ignore="DuplicateActivity">
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Demo.DemoMapActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

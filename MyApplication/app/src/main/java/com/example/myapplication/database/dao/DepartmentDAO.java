@@ -1,0 +1,34 @@
+package com.example.myapplication.database.dao;
+
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
+
+import java.util.List;
+
+import com.example.myapplication.database.entities.Department;
+
+
+@Dao
+public interface DepartmentDAO {
+
+    @Insert
+    void insert(Department... departments);
+
+    @Update
+    void update(Department department);
+
+    @Delete
+    void delete(Department department);
+
+    @Query("SELECT * FROM Department")
+    List<Department> getAll();
+
+    @Query("SELECT * FROM Department WHERE DepartmentID = :departmentId")
+    Department getById(int departmentId);
+
+    @Query("SELECT * FROM Department WHERE DepartmentName = :departmentName")
+    Department getByName(String departmentName);
+}
