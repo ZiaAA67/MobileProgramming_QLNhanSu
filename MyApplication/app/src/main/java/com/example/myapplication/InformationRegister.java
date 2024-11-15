@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.dao.EmployeeDAO;
 import com.example.myapplication.database.entities.Employee;
+import com.example.myapplication.database.entities.User;
 
 import java.time.LocalDate;
 import java.util.Calendar;

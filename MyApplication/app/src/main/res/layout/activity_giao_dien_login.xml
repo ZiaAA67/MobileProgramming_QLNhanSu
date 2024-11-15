@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".GiaoDienLogin">
+    android:layout_height="match_parent">
+<!--    tools:context=".GiaoDienLogin"-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,10 @@
             android:id="@+id/language_spinner"
             android:layout_width="110dp"
             android:layout_height="45dp"
-            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:spinnerMode="dropdown"
-            />
+            tools:ignore="RtlHardcoded" />
 
         <ImageView
             android:id="@+id/logo"
@@ -32,41 +31,43 @@
             android:layout_marginTop="0dp"
             android:src="@drawable/logo" />
 
-        <EditText
-            android:id="@+id/username"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/account"
-            android:drawablePadding="10dp"
-            android:hint="Tên Người Dùng"
-            android:inputType="text"
-            android:orientation="horizontal"
-            android:padding="5dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp">
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/account"
+                android:drawablePadding="10dp"
+                android:hint="Tên Người Dùng"
+                android:inputType="text"
+                android:orientation="horizontal"
+                android:padding="5dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            app:endIconMode="password_toggle"
-            >
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/baseline_password_24"
-            android:drawablePadding="10dp"
-            android:hint="Mật Khẩu"
-            android:inputType="textPassword"
-            android:padding="8dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+            app:endIconMode="password_toggle">
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/baseline_password_24"
+                android:drawablePadding="10dp"
+                android:hint="Mật Khẩu"
+                android:inputType="textPassword"
+                android:padding="8dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="55dp"
@@ -109,6 +110,7 @@
                 android:layout_weight="1"
                 android:background="@color/light_black" />
         </LinearLayout>
+
         <!-- Các nút login khác -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,42 +119,32 @@
             android:gravity="center"
             android:weightSum="5">
 
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
-                app:strokeWidth="2dp"
-                app:cornerRadius="8dp"
-                app:strokeColor="@color/light_grey"
-                android:backgroundTint="@color/light_light_grey"
-                android:drawableLeft="@drawable/phone"
-                android:text=""
-                android:contentDescription="Phone login"
+                android:background="@drawable/white_bg_gray_bold_border"
+                android:src="@drawable/phone"
                 android:padding="25dp" />
 
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="65dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
-                app:strokeColor="@color/light_grey"
-                android:drawableLeft="@mipmap/ic_facebook"
-                android:text=""
-                android:contentDescription="Facebook login"
-                android:padding="0.1dp" />
+                android:background="@drawable/white_bg_gray_bold_border"
+                android:src="@mipmap/ic_facebook_foreground"
+                android:padding="25dp" />
 
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="65dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
-                app:strokeColor="@color/light_grey"
-                android:drawableLeft="@mipmap/ic_google"
-                android:text=""
-                android:contentDescription="Google login"
-                android:padding="0.5dp" />
-
+                android:background="@drawable/white_bg_gray_bold_border"
+                android:src="@mipmap/ic_google_foreground"
+                android:padding="25dp" />
 
         </LinearLayout>
 
@@ -162,7 +154,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/register_button"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="55dp"
