@@ -26,17 +26,36 @@
             app:cornerRadius="17dp">
 
             <EditText
-                android:id="@+id/editName"
+                android:id="@+id/edt_fullName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/edittext_border"
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/grey"
-                android:hint="Họ Và Tên"
+                android:hint="Họ tên"
                 android:padding="8dp"
                 android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_pass_background"
+            app:cornerRadius="17dp">
+
+            <Spinner
+                android:id="@+id/spinner_gender"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_border"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/grey"
+                android:padding="8dp"
+                android:textSize="15sp"
+                app:hintTextColor="@color/light_grey" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -48,35 +67,36 @@
             app:cornerRadius="17dp">
 
             <EditText
-                android:id="@+id/sex"
+                android:id="@+id/edt_birth"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/edittext_border"
+                android:drawableEnd="@drawable/calendar"
                 android:drawablePadding="10dp"
+                android:focusable="false"
+                android:cursorVisible="false"
                 android:drawableTint="@color/grey"
-                android:hint="Email hoặc Tên Người Dùng"
+                android:hint="Chọn ngày sinh"
                 android:padding="8dp"
                 android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background"
-            app:cornerRadius="17dp">
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            app:endIconTint="@color/grey">
 
             <EditText
-                android:id="@+id/current_pass"
+                android:id="@+id/edt_cccd"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"
                 android:drawablePadding="10dp"
-                android:drawableTint="@color/grey"
-                android:hint="Email hoặc Tên Người Dùng"
+                android:hint="Căn cước công dân"
                 android:padding="8dp"
                 android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
@@ -89,17 +109,15 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/rounded_pass_background"
-            app:endIconMode="password_toggle"
             app:endIconTint="@color/grey">
 
             <EditText
-                android:id="@+id/editAddress"
+                android:id="@+id/edt_address"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@android:color/transparent"
-
+                android:background="@drawable/edittext_border"
                 android:drawablePadding="10dp"
-                android:hint="Địa Chỉ"
+                android:hint="Địa chỉ"
                 android:padding="8dp"
                 android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
@@ -111,17 +129,37 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_pass_background"
-            app:endIconMode="password_toggle"
+            android:background="@drawable/edittext_border"
             app:endIconTint="@color/grey">
 
             <EditText
-                android:id="@+id/confirm_pass"
+                android:id="@+id/edt_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"
                 android:drawablePadding="10dp"
-                android:hint="Số Điện Thoại"
+                android:hint="Số điện thoại"
+                android:padding="8dp"
+                android:textSize="15sp"
+                app:hintTextColor="@color/light_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_border"
+            app:endIconTint="@color/grey">
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:hint="Email"
                 android:padding="8dp"
                 android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
@@ -129,7 +167,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btn_confirm"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
