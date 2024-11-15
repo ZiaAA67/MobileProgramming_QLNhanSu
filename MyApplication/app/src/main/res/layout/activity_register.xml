@@ -7,4 +7,104 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/logo"
+        tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/lavender"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_pass_background"
+            app:cornerRadius="17dp">
+
+            <EditText
+                android:id="@+id/current_pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/account"
+                android:drawableTint="@color/grey"
+                android:drawablePadding="10dp"
+                android:hint="Email hoặc Tên Người Dùng"
+                android:padding="8dp"
+                android:textSize="15sp"
+                app:hintTextColor="@color/light_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_pass_background"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/grey">
+
+            <EditText
+                android:id="@+id/new_pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/current_pass"
+                android:drawablePadding="10dp"
+                android:hint="Mật Khẩu"
+                android:padding="8dp"
+                android:textSize="15sp"
+                app:hintTextColor="@color/light_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_pass_background"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/grey">
+
+            <EditText
+                android:id="@+id/confirm_pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/current_pass"
+                android:drawablePadding="10dp"
+                android:hint="Xác Nhận Mật Khẩu"
+                android:padding="8dp"
+                android:textSize="15sp"
+                app:hintTextColor="@color/light_grey" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/light_sea_green"
+            android:drawableRight="@drawable/arrow_right"
+            android:text="Đăng Ký"
+            android:textSize="17dp"
+            app:cornerRadius="17dp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
