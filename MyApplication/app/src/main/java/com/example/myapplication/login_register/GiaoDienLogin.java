@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.InformationRegister;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
@@ -51,10 +52,7 @@ public class GiaoDienLogin extends AppCompatActivity {
         setupSpinnerLanguage();
 
 
-
-
-
-
+        // bắt sự kiện click nút Đăng nhập
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,19 +70,17 @@ public class GiaoDienLogin extends AppCompatActivity {
         });
 
 
+        // bắt sự kiện click nút đăng ký
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = edtUsername.getText().toString();
-                password = edtPassword.getText().toString();
-                User user = new User(username, md5(password), "15/11/2000", null);
-                AppDatabase.getInstance(GiaoDienLogin.this).userDao().insert(user);
+                Intent intent = new Intent(GiaoDienLogin.this, InformationRegister.class);
+                startActivity(intent);
             }
         });
 
-
-
     }
+
 
     private void bindingView() {
         edtUsername = findViewById(R.id.edt_username);
@@ -92,6 +88,7 @@ public class GiaoDienLogin extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login);
         btnRegister = findViewById(R.id.btn_register);
     }
+
 
     private void setupSpinnerLanguage() {
         Spinner spinner = findViewById(R.id.language_spinner);
@@ -102,6 +99,7 @@ public class GiaoDienLogin extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
     }
+
 
     // MD5 hashed
     public static String md5(String input) {

@@ -30,6 +30,9 @@
             android:name=".main_app.GiaoDienChinh"
             android:exported="false"/>
         <activity
+            android:name=".InformationRegister"
+            android:exported="false"/>
+        <activity
             android:name=".login_register.GiaoDienLogin"
             android:exported="true">
             <intent-filter>

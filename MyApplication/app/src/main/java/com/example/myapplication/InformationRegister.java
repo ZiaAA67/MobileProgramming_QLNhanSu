@@ -29,6 +29,7 @@ public class InformationRegister extends AppCompatActivity {
     private EditText edtPhoneNumber;
     private EditText edtEmail;
     private Button btnConfirm;
+    private Button btnRegisterBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +39,12 @@ public class InformationRegister extends AppCompatActivity {
         initUI();
 
         setupSpinner();
+
         edtBirth.setOnClickListener(v -> showDatePickerDialog());
+
+        btnRegisterBack.setOnClickListener(view -> {
+            finish();
+        });
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +82,6 @@ public class InformationRegister extends AppCompatActivity {
     }
 
     private void Confirm() {
-
         String strFullName = edtFullName.getText().toString().trim();
         int gender = spinner.getSelectedItemPosition(); // Male = 0, Female = 1, Other = 2
         String strBirth = edtBirth.getText().toString().trim();
@@ -177,5 +182,6 @@ public class InformationRegister extends AppCompatActivity {
         edtPhoneNumber = findViewById(R.id.edt_phoneNumber);
         edtEmail = findViewById(R.id.edt_email);
         btnConfirm = findViewById(R.id.btn_confirm);
+        btnRegisterBack = findViewById(R.id.btn_register_back);
     }
 }
