@@ -57,17 +57,30 @@ public class GiaoDienLogin extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = edtUsername.getText().toString();
-                password = edtPassword.getText().toString();
+                username = edtUsername.getText().toString().trim();
+                password = edtPassword.getText().toString().trim();
+
                 User user = AppDatabase.getInstance(GiaoDienLogin.this).userDao().getUserByUsername(username);
-                if (user != null && Objects.equals(user.getPassword(), Configuration.md5(password))) {
-                    Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
-                    intent.putExtra("UserID", user.getUsersId());
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(GiaoDienLogin.this, "Đăng nhập thất bại!!!", Toast.LENGTH_SHORT).show();
+
+                if(user == null) {
+                    edtUsername.setError("Tài khoản không tồn tại!");
+                    edtUsername.setText("");
+                    edtPassword.setText("");
+                    edtUsername.requestFocus();
+                    return;
                 }
+
+                if(!Objects.equals(user.getPassword(), Configuration.md5(password))) {
+                    edtPassword.setError("Mật khẩu không chính xác!");
+                    edtPassword.setText("");
+                    edtPassword.requestFocus();
+                    return;
+                }
+
+                Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
+                intent.putExtra("UserID", user.getUsersId());
+                startActivity(intent);
             }
         });
 
@@ -80,7 +93,6 @@ public class GiaoDienLogin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
 
