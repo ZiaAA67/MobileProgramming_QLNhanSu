@@ -39,7 +39,8 @@ public class Employee_RewardDiscipline {
 
 
     // Constructor
-    public Employee_RewardDiscipline(int rewardDisciplineId, String date, Float bonus) {
+    public Employee_RewardDiscipline(int employeeId, int rewardDisciplineId, String date, Float bonus) {
+        this.employeeId = employeeId;
         this.rewardDisciplineId = rewardDisciplineId;
         this.date = date;
         this.bonus = bonus;

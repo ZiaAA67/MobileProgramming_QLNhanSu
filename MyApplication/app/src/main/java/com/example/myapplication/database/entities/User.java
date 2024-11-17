@@ -20,6 +20,7 @@ import java.time.LocalDate;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "UserID")
     private int usersId;
 

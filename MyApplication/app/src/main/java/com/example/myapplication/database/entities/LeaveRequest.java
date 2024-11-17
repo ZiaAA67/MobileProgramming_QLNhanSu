@@ -16,7 +16,9 @@ import java.time.LocalDate;
         )
 )
 public class LeaveRequest {
+
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "LeaveRequestID")
     private int leaveRequestId;
 

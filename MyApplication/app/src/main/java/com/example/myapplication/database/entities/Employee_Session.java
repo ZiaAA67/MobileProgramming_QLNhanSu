@@ -20,6 +20,7 @@ import androidx.room.ForeignKey;
         }
 )
 public class Employee_Session {
+
     @ColumnInfo(name = "EmployeeID")
     private int employeeId;
 

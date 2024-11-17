@@ -9,12 +9,11 @@ import com.example.myapplication.database.entities.User;
 
 import java.util.List;
 
-
 @Dao
 public interface UserDAO {
 
     @Insert
-    long insert(User user);
+    void insert(User user);
 
     @Update
     void update(User user);

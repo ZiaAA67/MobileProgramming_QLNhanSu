@@ -10,6 +10,7 @@ import java.time.LocalTime;
 public class Shift {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "ShiftID")
     private int shiftId;
 

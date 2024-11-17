@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 public class Salary {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "SalaryID")
     private int salaryId;
 
