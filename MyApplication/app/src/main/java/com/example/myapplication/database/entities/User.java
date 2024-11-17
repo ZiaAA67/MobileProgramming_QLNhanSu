@@ -36,7 +36,6 @@ public class User {
     @ColumnInfo(name = "RoleID")
     private Integer roleId;
 
-
     // Constructor
     public User(String username, String password, String createDate, Integer roleId) {
         this.username = username;
@@ -44,7 +43,6 @@ public class User {
         this.createDate = createDate;
         this.roleId = roleId;
     }
-
 
     // Getters and Setters
     public int getUsersId() {

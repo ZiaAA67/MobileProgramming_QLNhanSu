@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/tv_emloyeename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thái Đỗ Thịnh"
@@ -45,7 +45,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/position"
+                android:id="@+id/tv_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nhân viên phục vụ"
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <Button
-            android:id="@+id/btnCheckIn"
+            android:id="@+id/btn_checkin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -79,7 +79,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnHistory"
+            android:id="@+id/btn_history"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

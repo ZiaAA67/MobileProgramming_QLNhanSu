@@ -39,8 +39,11 @@ public class GiaoDienChinh extends AppCompatActivity {
         // Ánh xạ view
         initUI();
 
+        // Get USER
+        int userId = getIntent().getIntExtra("UserID", -1);
+
         // Khởi tạo Adapter và gán cho Viewpager2
-        Viewpager2Adapter adapter = new Viewpager2Adapter(this);
+        Viewpager2Adapter adapter = new Viewpager2Adapter(this, userId);
         viewPager2.setAdapter(adapter);
 
         // Bắt sự kiện vuốt màn hình
@@ -80,7 +83,6 @@ public class GiaoDienChinh extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     private void initUI() {

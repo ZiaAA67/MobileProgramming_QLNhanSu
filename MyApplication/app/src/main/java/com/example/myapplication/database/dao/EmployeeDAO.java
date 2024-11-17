@@ -49,4 +49,7 @@ public interface EmployeeDAO {
 
     @Query("SELECT * FROM Employee WHERE PositionID = :positionId")
     List<Employee> getByPositionId(int positionId);
+
+    @Query("SELECT * FROM Employee WHERE UserID = :userId LIMIT 1")
+    Employee getEmployeeByUserId(int userId);
 }

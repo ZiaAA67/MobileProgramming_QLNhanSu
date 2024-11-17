@@ -62,6 +62,7 @@ public class GiaoDienLogin extends AppCompatActivity {
                 if (user != null && Objects.equals(user.getPassword(), md5(password))) {
                     Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
+                    intent.putExtra("UserID", user.getUsersId());
                     startActivity(intent);
                 } else {
                     Toast.makeText(GiaoDienLogin.this, "Đăng nhập thất bại!!!", Toast.LENGTH_SHORT).show();
