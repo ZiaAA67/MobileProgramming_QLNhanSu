@@ -1,130 +1,133 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
-    android:fillViewport="true">
+    android:background="@color/light_sea_green">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
         android:orientation="vertical"
-        android:padding="16dp">
+        tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/light_sea_green"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:text="Tài Khoản"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
 
-            <ImageView
-                android:id="@+id/img_profile"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/circle_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_user" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/circle_background" />
 
-            <TextView
-                android:id="@+id/tv_employee_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Hihi"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hihi"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hihi"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_employee_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#FFFFFF"
-            android:elevation="4dp"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:text="Thái Đỗ Thịnh"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginTop="10dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
+        <TextView
+            android:id="@+id/tv_position"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhân viên phục vụ" />
+    </LinearLayout>
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_password"
-                    android:layout_marginEnd="16dp" />
-
-                <Button
-                    android:id="@+id/btn_change_password"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Đổi Mật Khẩu"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:backgroundTint="#FFFFFF" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_setting"
-                    android:layout_marginEnd="16dp" />
-
-                <Button
-                    android:id="@+id/btn_setting"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Cài Đặt"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:backgroundTint="#FFFFFF" />
-            </LinearLayout>
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#F7F7FF"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/btn_logout"
+            android:id="@+id/btn_change_password"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/password_reset"
+            android:drawableRight="@drawable/arrow_right"
+            android:gravity="center_vertical|start"
+            android:layout_marginTop="10dp"
+            android:padding="16dp"
+            android:text="Đổi Mật Khẩu"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:cornerRadius="17dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp"
+            android:onClick="changePass" />
+
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/setting"
+            android:drawableRight="@drawable/arrow_right"
+            android:gravity="center_vertical|start"
+            android:padding="16dp"
+            android:text="Cài Đặt"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:cornerRadius="17dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/light_sea_green"
-            android:padding="12dp"
-            android:text="Đăng Xuất"
-            android:textColor="#FFFFFF" />
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/light_sea_green"
+                android:text="Đăng Xuất"
+                android:textSize="17dp"
+                app:cornerRadius="17dp"
+                android:onClick="giaoDienLogin" />
+
+            <Button
+                android:id="@+id/btn_closeapp"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/light_sea_green"
+                android:text="Đóng Ứng Dụng"
+                android:textSize="17dp"
+                app:cornerRadius="17dp"
+                android:onClick="closeApp" />
+        </LinearLayout>
+
     </LinearLayout>
-</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

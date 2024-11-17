@@ -26,6 +26,9 @@ public class ProfileFragment extends Fragment {
     private TextView tvUserName;
     private TextView tvPosition;
     private Button btnChangePassword;
+    private Button btnSetting;
+    private Button btnLogout;
+    private Button btnClose;
 
     @Nullable
     @Override
@@ -54,6 +57,9 @@ public class ProfileFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tv_username);
         tvPosition = view.findViewById(R.id.tv_position);
         btnChangePassword = view.findViewById(R.id.btn_change_password);
+        btnSetting = view.findViewById(R.id.btn_setting);
+        btnLogout = view.findViewById(R.id.btn_logout);
+        btnClose = view.findViewById(R.id.btn_closeapp);
     }
 
     private void showEmployeeInfo() {
