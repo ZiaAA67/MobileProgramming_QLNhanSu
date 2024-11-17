@@ -2,6 +2,7 @@ package com.example.myapplication.main_app;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -37,7 +38,7 @@ public class GiaoDienChinh extends AppCompatActivity {
         });
 
         // Ánh xạ view
-        initUI();
+        bindingView();
 
         // Get USER
         int userId = getIntent().getIntExtra("UserID", -1);
@@ -83,9 +84,12 @@ public class GiaoDienChinh extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
     }
 
-    private void initUI() {
+    private void bindingView() {
         navigationView = findViewById(R.id.bottom_navigation);
         viewPager2 = findViewById(R.id.view_pager);
     }

@@ -1,6 +1,7 @@
 package com.example.myapplication.main_app;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +19,7 @@ import java.util.List;
 public class EmployeeRequestActivity extends AppCompatActivity {
 
     ListView mListView;
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,23 @@ public class EmployeeRequestActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Ánh xạ view
+        bindingView();
 
-        mListView = findViewById(R.id.list_view);
-        List<Employee> mlist = AppDatabase.getInstance(this).employeeDao().getAll();
+        // Lấy list ds đơn cần duyệt
+        List<Employee> mlist = AppDatabase.getInstance(this).employeeDao().getInactiveEmployees();
+
+        // Set adapter
         RequestEmployeeAdapter profileAdapter = new RequestEmployeeAdapter(EmployeeRequestActivity.this, mlist);
-
-
         mListView.setAdapter(profileAdapter);
+
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
+    }
+
+    private void bindingView() {
+        mListView = findViewById(R.id.list_view);
+        btnBack = findViewById(R.id.btn_back);
     }
 }

@@ -1,9 +1,11 @@
 package com.example.myapplication.main_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,35 +22,34 @@ public class HomeFragment extends Fragment {
     private int userId;
     private TextView employeeNameTextView;
     private TextView positionTextView;
+    private Button btnEmployeeRequest;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         initUI(view);
-
         // Lấy userId từ Bundle
         if (getArguments() != null) {
             userId = getArguments().getInt("UserID", -1);
         }
-
         showEmployeeInfo();
+
+        btnEmployeeRequest.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
+            startActivity(intent);
+        });
 
         return view;
     }
-
     private void showEmployeeInfo() {
         if (userId != -1) {
             AppDatabase db = AppDatabase.getInstance(getContext());
             Employee employee = db.employeeDao().getEmployeeByUserId(userId);
-
             if (employee != null) {
                 Position position = db.positionDao().getPositionById(employee.getPositionId());
-
                 employeeNameTextView = employeeNameTextView.findViewById(R.id.tv_emloyeename);
                 positionTextView = positionTextView.findViewById(R.id.tv_position);
-
                 employeeNameTextView.setText(employee.getFullName());
                 positionTextView.setText(position != null ? position.getPositionName() : "Không chức vụ");
             } else {
@@ -59,9 +60,9 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
     private void initUI(View view) {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
+        btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
     }
 }

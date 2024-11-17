@@ -29,7 +29,7 @@ public class InformationRegister extends AppCompatActivity {
     private EditText edtPhoneNumber;
     private EditText edtEmail;
     private Button btnConfirm;
-    private Button btnRegisterBack;
+    private Button btnBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class InformationRegister extends AppCompatActivity {
 
         edtBirth.setOnClickListener(v -> showDatePickerDialog());
 
-        btnRegisterBack.setOnClickListener(view -> {
+        btnBack.setOnClickListener(view -> {
             finish();
         });
 
@@ -182,6 +182,6 @@ public class InformationRegister extends AppCompatActivity {
         edtPhoneNumber = findViewById(R.id.edt_phoneNumber);
         edtEmail = findViewById(R.id.edt_email);
         btnConfirm = findViewById(R.id.btn_confirm);
-        btnRegisterBack = findViewById(R.id.btn_register_back);
+        btnBack = findViewById(R.id.btn_back);
     }
 }

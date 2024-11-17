@@ -17,6 +17,7 @@ recyclerview = "1.3.1"
 gms-maps = "18.0.2"
 gms-location = "21.0.1"
 viewpager2 = "1.1.0"
+javamail = "1.6.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -43,6 +44,8 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 gms-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "gms-maps" }
 gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "gms-location" }
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+javamail-mail = { module = "com.sun.mail:android-mail", version.ref = "javamail" }
+javamail-activation = { module = "com.sun.mail:android-activation", version.ref = "javamail" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

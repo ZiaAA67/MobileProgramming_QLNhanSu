@@ -82,4 +82,7 @@ dependencies {
 
     //Viewpager2
     implementation(libs.viewpager2)
+
+    implementation(libs.javamail.mail)
+    implementation(libs.javamail.activation)
 }

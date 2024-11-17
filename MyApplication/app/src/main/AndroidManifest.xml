@@ -4,6 +4,7 @@
     <!-- Location permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,8 @@
 <!--            android:exported="true"-->
 <!--            android:label="@string/title_activity_employee"-->
 <!--            android:theme="@style/Theme.MyApplication" />-->
+        <activity
+            android:name=".main_app.EmployeeRequestActivity"/>
         <activity
             android:name=".main_app.GiaoDienChinh"
             android:exported="false"/>

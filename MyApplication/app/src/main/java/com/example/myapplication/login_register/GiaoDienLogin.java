@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.Configuration;
 import com.example.myapplication.InformationRegister;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
@@ -59,7 +60,7 @@ public class GiaoDienLogin extends AppCompatActivity {
                 username = edtUsername.getText().toString();
                 password = edtPassword.getText().toString();
                 User user = AppDatabase.getInstance(GiaoDienLogin.this).userDao().getUserByUsername(username);
-                if (user != null && Objects.equals(user.getPassword(), md5(password))) {
+                if (user != null && Objects.equals(user.getPassword(), Configuration.md5(password))) {
                     Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
                     intent.putExtra("UserID", user.getUsersId());
@@ -102,32 +103,5 @@ public class GiaoDienLogin extends AppCompatActivity {
     }
 
 
-    // MD5 hashed
-    public static String md5(String input) {
-        try {
-            // Lấy đối tượng MessageDigest với thuật toán MD5
-            MessageDigest digest = MessageDigest.getInstance("MD5");
 
-            // Băm chuỗi đầu vào và trả về mảng byte
-            byte[] bytes = digest.digest(input.getBytes());
-
-            // Chuyển đổi mảng byte thành chuỗi hex
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : bytes) {
-                // Chuyển đổi từng byte thành chuỗi hex và thêm vào kết quả
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-
-            // Trả về chuỗi hex
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            // Nếu thuật toán không tồn tại, trả về null
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

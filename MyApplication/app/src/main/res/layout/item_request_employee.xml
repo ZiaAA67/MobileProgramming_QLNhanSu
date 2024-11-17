@@ -29,13 +29,13 @@
         android:layout_below="@id/tv_employee_address"
         android:text="Ngay sinh: 04/02/2000" />
 
-    <TextView
-        android:id="@+id/tv_employee_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_employee_address"
-        android:layout_toEndOf="@id/tv_employee_birth"
-        android:text=", Gioi tinh: Nam"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tv_employee_gender"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/tv_employee_address"-->
+<!--        android:layout_toEndOf="@id/tv_employee_birth"-->
+<!--        android:text=", Gioi tinh: Nam"/>-->
 
     <TextView
         android:id="@+id/tv_employee_phone"
@@ -52,21 +52,23 @@
         android:text="Email: vana@gmail.com"/>
 
     <Button
-        android:id="@+id/approve"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_approve"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:backgroundTint="#4CAF50"
-        android:text="Duyệt"/>
+        android:drawableTint="@color/white"
+        android:drawableRight="@drawable/check" />
 
     <Button
-        android:id="@+id/disapprove"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_disapprove"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/approve"
+        android:layout_below="@id/btn_approve"
         android:backgroundTint="#C31212"
-        android:text="Huỷ bỏ"/>
+        android:drawableTint="@color/white"
+        android:drawableRight="@drawable/close"/>
 
 
 </RelativeLayout>
