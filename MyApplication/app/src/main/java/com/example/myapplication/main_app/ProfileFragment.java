@@ -1,6 +1,7 @@
 package com.example.myapplication.main_app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.User;
 import com.example.myapplication.database.entities.Employee;
+import com.example.myapplication.login_register.GiaoDienLogin;
 
 public class ProfileFragment extends Fragment {
 
@@ -43,11 +45,13 @@ public class ProfileFragment extends Fragment {
 
         showEmployeeInfo();
 
-//        btnChangePassword.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), ChangePassword.class);
-//            intent.putExtra("UserID", userId);
-//            startActivity(intent);
-//        });
+        btnChangePassword.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChangePassword.class);
+            startActivity(intent);
+        });
+
+        btnLogout.setOnClickListener(v -> logout());
+        btnClose.setOnClickListener(v -> closeApp());
 
         return view;
     }
@@ -90,5 +94,28 @@ public class ProfileFragment extends Fragment {
             tvEmployeeName.setText("");
             tvPosition.setText("");
         }
+    }
+
+    private void logout() {
+        Intent intent = new Intent(requireContext(), GiaoDienLogin.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa ngăn xếp hoạt động
+        startActivity(intent);
+    }
+
+    private void closeApp() {
+        // Show dialog
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Xác nhận đóng ứng dụng")
+                .setMessage("Bạn có chắc muốn đóng ứng dụng không?")
+                .setPositiveButton("Đồng ý", (dialog, which) -> {
+                    // Close app
+                    requireActivity().finishAffinity(); // Đóng toàn bộ các activity trong stack
+                    System.exit(0); // Dừng tiến trình ứng dụng
+                })
+                .setNegativeButton("Hủy", (dialog, which) -> {
+                    // Close dialog
+                    dialog.dismiss();
+                })
+                .show();
     }
 }
