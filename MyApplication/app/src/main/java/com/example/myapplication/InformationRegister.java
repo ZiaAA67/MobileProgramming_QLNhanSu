@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.dao.EmployeeDAO;
 import com.example.myapplication.database.entities.Employee;
+import com.example.myapplication.login_register.GiaoDienLogin;
 
 import java.util.Calendar;
 
@@ -42,15 +46,15 @@ public class InformationRegister extends AppCompatActivity {
 
         edtBirth.setOnClickListener(v -> showDatePickerDialog());
 
-        btnBack.setOnClickListener(view -> {
-            finish();
-        });
-
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Confirm();
             }
+        });
+
+        btnBack.setOnClickListener(view -> {
+            backToLogin();
         });
     }
 
@@ -103,6 +107,7 @@ public class InformationRegister extends AppCompatActivity {
         try {
             AppDatabase.getInstance(this).employeeDao().insert(employee);
             Toast.makeText(this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
+            showRegistrationSuccessDialog();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Lỗi khi lưu dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -171,6 +176,29 @@ public class InformationRegister extends AppCompatActivity {
         EmployeeDAO employeeDAO = AppDatabase.getInstance(this).employeeDao();
         Employee employee = employeeDAO.getByIdentityNumber(identityNumber);
         return employee != null;
+    }
+
+    private void backToLogin(){
+        Intent intent = new Intent(this, GiaoDienLogin.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa ngăn xếp hoạt động
+        startActivity(intent);
+        finish();
+    }
+
+    private void showRegistrationSuccessDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Đăng ký thành viên thành công!")
+                .setMessage("Cảm ơn bạn! Vui lòng chờ đợi phê duyệt.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        backToLogin();
+                    }
+                })
+                .setCancelable(false); // Không cho phép người dùng nhấn ngoài để đóng dialog
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void initUI() {
