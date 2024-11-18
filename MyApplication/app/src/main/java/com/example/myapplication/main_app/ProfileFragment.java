@@ -1,7 +1,6 @@
 package com.example.myapplication.main_app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         if (getArguments() != null) {
             userId = getArguments().getInt("UserID", -1);
         }
@@ -45,9 +45,13 @@ public class ProfileFragment extends Fragment {
 
         showEmployeeInfo();
 
-        btnChangePassword.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ChangePassword.class);
-            startActivity(intent);
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangePassword.class);
+                intent.putExtra("UserID", userId);
+                startActivity(intent);
+            }
         });
 
         btnLogout.setOnClickListener(v -> logout());

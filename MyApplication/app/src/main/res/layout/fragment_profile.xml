@@ -77,8 +77,7 @@
             android:textSize="17dp"
             app:cornerRadius="17dp"
             app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp"
-            android:onClick="changePass" />
+            app:strokeWidth="1dp"/>
 
         <Button
             android:id="@+id/btn_setting"

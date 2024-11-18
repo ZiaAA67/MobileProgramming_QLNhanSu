@@ -41,14 +41,11 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/lavender"
         android:gravity="center|top"
         android:orientation="vertical"
         android:padding="10dp">
-
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
