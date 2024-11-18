@@ -14,5 +14,4 @@
         android:id="@+id/profile"
         android:icon="@drawable/baseline_manage_search_24"
         android:title="Profile" />
-
 </menu>

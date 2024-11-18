@@ -10,6 +10,7 @@ import java.time.LocalTime;
 public class Shift {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "ShiftID")
     private int shiftId;
 
@@ -17,14 +18,14 @@ public class Shift {
     private String shiftType;
 
     @ColumnInfo(name = "TimeStart")
-    private LocalTime timeStart;
+    private String timeStart;
 
     @ColumnInfo(name = "TimeEnd")
-    private LocalTime timeEnd;
+    private String timeEnd;
 
 
     // Constructor
-    public Shift(String shiftType, LocalTime timeStart, LocalTime timeEnd) {
+    public Shift(String shiftType, String timeStart, String timeEnd) {
         this.shiftType = shiftType;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
@@ -48,19 +49,19 @@ public class Shift {
         this.shiftType = shiftType;
     }
 
-    public LocalTime getTimeStart() {
+    public String getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(LocalTime timeStart) {
+    public void setTimeStart(String timeStart) {
         this.timeStart = timeStart;
     }
 
-    public LocalTime getTimeEnd() {
+    public String getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(LocalTime timeEnd) {
+    public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 }

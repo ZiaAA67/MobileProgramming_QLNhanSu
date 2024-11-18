@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 public class Position {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "PositionID")
     private int positionId;
 

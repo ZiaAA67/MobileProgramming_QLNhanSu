@@ -20,6 +20,7 @@ import java.time.LocalDate;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "UserID")
     private int usersId;
 
@@ -30,20 +31,18 @@ public class User {
     private String password;
 
     @ColumnInfo(name = "CreateDate")
-    private LocalDate createDate;
+    private String createDate;
 
     @ColumnInfo(name = "RoleID")
     private Integer roleId;
 
-
     // Constructor
-    public User(String username, String password, LocalDate createDate, Integer roleId) {
+    public User(String username, String password, String createDate, Integer roleId) {
         this.username = username;
         this.password = password;
         this.createDate = createDate;
         this.roleId = roleId;
     }
-
 
     // Getters and Setters
     public int getUsersId() {
@@ -70,11 +69,11 @@ public class User {
         this.password = password;
     }
 
-    public LocalDate getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 

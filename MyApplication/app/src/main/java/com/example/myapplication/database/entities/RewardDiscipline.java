@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "RewardDiscipline")
 public class RewardDiscipline {
+
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "RewardDisciplineID")
     private int rewardDisciplineId;
 

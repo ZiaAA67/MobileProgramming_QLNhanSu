@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 public class Role {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "RoleID")
     private int roleId;
 

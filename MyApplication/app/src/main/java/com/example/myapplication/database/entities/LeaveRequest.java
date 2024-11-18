@@ -16,7 +16,9 @@ import java.time.LocalDate;
         )
 )
 public class LeaveRequest {
+
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "LeaveRequestID")
     private int leaveRequestId;
 
@@ -27,10 +29,10 @@ public class LeaveRequest {
     private String sendDate;
 
     @ColumnInfo(name = "OffDateFrom")
-    private LocalDate offDateFrom;
+    private String offDateFrom;
 
     @ColumnInfo(name = "OffDateTo")
-    private LocalDate offDateTo;
+    private String offDateTo;
 
     @ColumnInfo(name = "Status")
     private int status;
@@ -39,7 +41,7 @@ public class LeaveRequest {
     private Integer employeeId;
 
     //Constructor
-    public LeaveRequest(String reason, String sendDate, LocalDate offDateFrom, LocalDate offDateTo, int status, Integer employeeId) {
+    public LeaveRequest(String reason, String sendDate, String offDateFrom, String offDateTo, int status, Integer employeeId) {
         this.reason = reason;
         this.sendDate = sendDate;
         this.offDateFrom = offDateFrom;
@@ -73,19 +75,19 @@ public class LeaveRequest {
         this.sendDate = sendDate;
     }
 
-    public LocalDate getOffDateFrom() {
+    public String getOffDateFrom() {
         return offDateFrom;
     }
 
-    public void setOffDateFrom(LocalDate offDateFrom) {
+    public void setOffDateFrom(String offDateFrom) {
         this.offDateFrom = offDateFrom;
     }
 
-    public LocalDate getOffDateTo() {
+    public String getOffDateTo() {
         return offDateTo;
     }
 
-    public void setOffDateTo(LocalDate offDateTo) {
+    public void setOffDateTo(String offDateTo) {
         this.offDateTo = offDateTo;
     }
 

@@ -16,6 +16,7 @@ import androidx.room.PrimaryKey;
 public class Session {
 
     @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "SessionID")
     private int sessionId;
 

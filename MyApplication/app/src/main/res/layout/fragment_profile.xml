@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_sea_green">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tài Khoản"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/circle_background" />
+
+        <TextView
+            android:id="@+id/tv_employee_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thái Đỗ Thịnh"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhân viên phục vụ" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#F7F7FF"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_change_password"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/password_reset"
+            android:drawableRight="@drawable/arrow_right"
+            android:gravity="center_vertical|start"
+            android:layout_marginTop="10dp"
+            android:padding="16dp"
+            android:text="Đổi Mật Khẩu"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:cornerRadius="17dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp"/>
+
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/setting"
+            android:drawableRight="@drawable/arrow_right"
+            android:gravity="center_vertical|start"
+            android:padding="16dp"
+            android:text="Cài Đặt"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:cornerRadius="17dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/light_sea_green"
+                android:text="Đăng Xuất"
+                android:textSize="17dp"
+                app:cornerRadius="17dp"
+                android:onClick="giaoDienLogin" />
+
+            <Button
+                android:id="@+id/btn_closeapp"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/light_sea_green"
+                android:text="Đóng Ứng Dụng"
+                android:textSize="17dp"
+                app:cornerRadius="17dp"
+                android:onClick="closeApp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
