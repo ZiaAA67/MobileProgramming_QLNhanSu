@@ -34,6 +34,9 @@
             android:name=".main_app.LeaveRequestForm"
             android:exported="false"/>
         <activity
+            android:name=".main_app.ChangePassword"
+            android:exported="false"/>
+        <activity
             android:name=".login_register.GiaoDienLogin"
             android:exported="true">
             <intent-filter>
