@@ -1,31 +1,52 @@
 package com.example.myapplication.login_register;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.dao.EmployeeDAO;
+import com.example.myapplication.database.entities.EducationLevel;
 import com.example.myapplication.database.entities.Employee;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class InformationRegister extends AppCompatActivity {
-    private Spinner spinner;
+    private static final int MY_REQUEST_CODE = 10;
+    private Spinner spinnerGender;
+    private Spinner spinnerEducationLevel;
     private EditText edtFullName;
     private EditText edtBirth;
     private EditText edtCCCD;
@@ -34,6 +55,32 @@ public class InformationRegister extends AppCompatActivity {
     private EditText edtEmail;
     private Button btnConfirm;
     private Button btnBack;
+    private ImageView imageUpload;
+    private Button btnUploadImage;
+
+    public static final String TAG = InformationRegister.class.getName();
+
+    // Get image from gallery, get uri convert to bitmap
+    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Log.e(TAG, "onActivityResult");
+                    Intent data = result.getData();
+                    if (data == null) {
+                        return;
+                    }
+                    Uri uri = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                        imageUpload.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +89,8 @@ public class InformationRegister extends AppCompatActivity {
 
         initUI();
 
-        setupSpinner();
+        setupSpinnerGender();
+        setupSpinnerEducationLevel();
 
         edtBirth.setOnClickListener(v -> showDatePickerDialog());
 
@@ -56,14 +104,72 @@ public class InformationRegister extends AppCompatActivity {
         btnBack.setOnClickListener(view -> {
             backToLogin();
         });
+
+        btnUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRequestPermission();
+            }
+        });
     }
 
-    private void setupSpinner() {
+
+    // Permission upload image
+
+    private void setupSpinnerGender() {
         String[] items = new String[]{"Nam", "Nữ", "Khác"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spiner, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinnerGender.setAdapter(adapter);
     }
+
+    private void onClickRequestPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return;
+        }
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            openGallery();
+        } else {
+            String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            requestPermissions(permission, MY_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, int deviceId) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId);
+        if (requestCode == MY_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openGallery();
+            }
+        }
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        mActivityResultLauncher.launch(Intent.createChooser(intent, "Select picture"));
+    }
+
+    private void setupSpinnerEducationLevel() {
+        List<EducationLevel> educationLevels = AppDatabase.getInstance(this).educationLevelDao().getAll();
+        List<String> educationLevelNames = new ArrayList<>();
+
+        if (educationLevels.isEmpty()) {
+            educationLevelNames.add("Không có");
+        }
+
+        for (EducationLevel level : educationLevels) {
+            educationLevelNames.add(level.getEducationLevelName());  // Lấy tên của từng mức độ giáo dục
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spiner, educationLevelNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEducationLevel.setAdapter(adapter);
+    }
+
 
     private void showDatePickerDialog() {
         // Get today
@@ -87,7 +193,8 @@ public class InformationRegister extends AppCompatActivity {
 
     private void Confirm() {
         String strFullName = edtFullName.getText().toString().trim();
-        int gender = spinner.getSelectedItemPosition(); // Male = 0, Female = 1, Other = 2
+        int gender = spinnerGender.getSelectedItemPosition(); // Male = 0, Female = 1, Other = 2
+        int educationLevel = spinnerEducationLevel.getSelectedItemPosition(); // Male = 0, Female = 1, Other = 2
         String strBirth = edtBirth.getText().toString().trim();
         String strCCCD = edtCCCD.getText().toString().trim();
         String strAddress = edtAddress.getText().toString().trim();
@@ -103,7 +210,7 @@ public class InformationRegister extends AppCompatActivity {
 
         // Add employee
         Employee employee = new Employee(strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail
-                , 0, null, null, null, null, null, null, null);
+                , 0, null, null, null, null, educationLevel, null, null);
         try {
             AppDatabase.getInstance(this).employeeDao().insert(employee);
             Toast.makeText(this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
@@ -178,7 +285,7 @@ public class InformationRegister extends AppCompatActivity {
         return employee != null;
     }
 
-    private void backToLogin(){
+    private void backToLogin() {
         Intent intent = new Intent(this, GiaoDienLogin.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa ngăn xếp hoạt động
         startActivity(intent);
@@ -203,7 +310,8 @@ public class InformationRegister extends AppCompatActivity {
 
     private void initUI() {
         edtFullName = findViewById(R.id.edt_fullName);
-        spinner = findViewById(R.id.spinner_gender);
+        spinnerGender = findViewById(R.id.spinner_gender);
+        spinnerEducationLevel = findViewById(R.id.spinner_education_level);
         edtBirth = findViewById(R.id.edt_birth);
         edtCCCD = findViewById(R.id.edt_cccd);
         edtAddress = findViewById(R.id.edt_address);
@@ -211,5 +319,7 @@ public class InformationRegister extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email);
         btnConfirm = findViewById(R.id.btn_confirm);
         btnBack = findViewById(R.id.btn_back);
+        btnUploadImage = findViewById(R.id.btn_choose_image);
+        imageUpload = findViewById(R.id.img_imageUser);
     }
 }
