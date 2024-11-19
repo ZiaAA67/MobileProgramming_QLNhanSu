@@ -137,7 +137,7 @@
             android:padding="16dp"
             android:text="Phiếu Lương"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -146,17 +146,30 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="16dp"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout2"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
+            android:id="@+id/btn_leave_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/light_light_grey"
+            android:drawableLeft="@drawable/request"
+            android:padding="16dp"
+            android:text="Quản Lý Nghỉ Phép"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/btn_employee_request"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:cornerRadius="7dp"
