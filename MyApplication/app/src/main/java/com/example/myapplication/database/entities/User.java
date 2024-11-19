@@ -22,7 +22,7 @@ public class User {
     @PrimaryKey(autoGenerate = true)
 
     @ColumnInfo(name = "UserID")
-    private int usersId;
+    private int userId;
 
     @ColumnInfo(name = "Username")
     private String username;
@@ -45,12 +45,14 @@ public class User {
     }
 
     // Getters and Setters
-    public int getUsersId() {
-        return usersId;
+
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsersId(int usersId) {
-        this.usersId = usersId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

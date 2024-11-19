@@ -20,6 +20,8 @@ import com.example.myapplication.Configuration;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
+import com.example.myapplication.database.entities.Role;
+import com.example.myapplication.database.entities.User;
 import com.example.myapplication.login_register.GiaoDienLogin;
 
 import java.text.Normalizer;
@@ -82,11 +84,6 @@ public class RequestEmployeeAdapter extends ArrayAdapter<Employee> {
     }
 
     private void handleApproveClick(Employee employee) {
-        employee.setActive(1);
-        AppDatabase.getInstance(this.getContext()).employeeDao().update(employee);
-        list.remove(employee);
-        this.notifyDataSetChanged();
-
         String to = employee.getEmail();
         String sub = "Đăng ký thông tin thành công!!!";
 
@@ -101,6 +98,30 @@ public class RequestEmployeeAdapter extends ArrayAdapter<Employee> {
 
 
         Configuration.sendMail(context, to, sub, content);
+
+        try {
+            // Lưu user xuống db
+            Role EmployeeRole = AppDatabase.getInstance(this.getContext()).roleDao().getRoleByName("Employee");
+            if(EmployeeRole == null) {
+                EmployeeRole = new Role("Employee", "Nhân viên quèn");
+                AppDatabase.getInstance(this.getContext()).roleDao().insert(EmployeeRole);
+                EmployeeRole = AppDatabase.getInstance(this.getContext()).roleDao().getRoleByName("Employee");
+            }
+
+            User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY, EmployeeRole.getRoleId());
+            AppDatabase.getInstance(this.getContext()).userDao().insert(user);
+            user = AppDatabase.getInstance(this.getContext()).userDao().getUserByUsername(username);
+
+            employee.setActive(1);
+            employee.setUserId(user.getUserId());
+            AppDatabase.getInstance(this.getContext()).employeeDao().update(employee);
+            list.remove(employee);
+            this.notifyDataSetChanged();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void handleDisapproveClick(Employee employee) {
