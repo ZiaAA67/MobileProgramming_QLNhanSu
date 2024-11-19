@@ -21,26 +21,23 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
-
-<!--        <activity-->
-<!--            android:name=".login_register.GiaoDienLogin"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/title_activity_employee"-->
-<!--            android:theme="@style/Theme.MyApplication" />-->
         <activity
-            android:name=".main_app.EmployeeRequestActivity"/>
+            android:name=".login_register.InformationRegister"
+            android:exported="false"/>
         <activity
             android:name=".main_app.GiaoDienChinh"
             android:exported="false"/>
         <activity
-            android:name=".InformationRegister"
+            android:name=".main_app.EmployeeRequestActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".main_app.LeaveRequestForm"
             android:exported="false"/>
         <activity
             android:name=".login_register.GiaoDienLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

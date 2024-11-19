@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.main_app;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Configuration;
+import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
 import com.example.myapplication.login_register.GiaoDienLogin;

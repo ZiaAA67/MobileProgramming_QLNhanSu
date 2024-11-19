@@ -140,4 +140,5 @@
             android:textSize="17dp"
             app:cornerRadius="17dp" />
     </LinearLayout>
+
 </LinearLayout>

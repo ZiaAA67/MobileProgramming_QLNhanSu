@@ -27,8 +27,8 @@ public class HomeFragment extends Fragment {
     private TextView employeeNameTextView;
     private TextView positionTextView;
     private Button btnEmployeeRequest;
-    private Button btnUserLeaveRequest;
-    private Button btnLeaveRequestForm;
+    private Button btnEmployeeLeaveRequest;
+    private Button btnLeaveRequestManager;
 
     @Nullable
     @Override
@@ -40,23 +40,17 @@ public class HomeFragment extends Fragment {
 
         showEmployeeInfo();
 
-        adminButton(userId, "admin", btnUserLeaveRequest, btnEmployeeRequest);
+        adminButton(userId, "admin", btnEmployeeRequest, btnLeaveRequestManager);
 
         btnEmployeeRequest.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
             startActivity(intent);
         });
-
-        btnUserLeaveRequest.setOnClickListener(v -> {
-//            Intent intent = new Intent(requireActivity(), UserLeaveRequest.class);
-//            intent.putExtra("UserID", userId);
-//            startActivity(intent);
-        });
-
-        btnLeaveRequestForm.setOnClickListener(v -> {
-//            Intent intent = new Intent(requireActivity(), LeaveRequestForm.class);
-//            intent.putExtra("UserID", userId);
-//            startActivity(intent);
+        
+        btnEmployeeLeaveRequest.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), LeaveRequestForm.class);
+            intent.putExtra("UserID", userId);
+            startActivity(intent);
         });
 
         return view;
@@ -122,7 +116,7 @@ public class HomeFragment extends Fragment {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
         btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
-        btnUserLeaveRequest = view.findViewById(R.id.btn_leave_request);
-        btnLeaveRequestForm = view.findViewById(R.id.btn_history);
+        btnEmployeeLeaveRequest = view.findViewById(R.id.btn_asked_leave_request);
+        btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
     }
 }

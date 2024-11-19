@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.login_register;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -17,10 +17,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.dao.EmployeeDAO;
 import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.login_register.GiaoDienLogin;
 
 import java.util.Calendar;
 
