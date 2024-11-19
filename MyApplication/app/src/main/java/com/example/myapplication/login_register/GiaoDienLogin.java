@@ -15,14 +15,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Configuration;
-import com.example.myapplication.InformationRegister;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
 import com.example.myapplication.main_app.GiaoDienChinh;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 
@@ -113,7 +110,4 @@ public class GiaoDienLogin extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
     }
-
-
-
 }

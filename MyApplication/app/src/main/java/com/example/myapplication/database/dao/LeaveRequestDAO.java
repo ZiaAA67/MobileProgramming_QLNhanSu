@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.LeaveRequest;
 
 import java.util.List;
@@ -35,4 +36,7 @@ public interface LeaveRequestDAO {
 
     @Query("SELECT * FROM LeaveRequest WHERE SendDate BETWEEN :startDate AND :endDate")
     List<LeaveRequest> getBySendDateRange(String startDate, String endDate);
+
+    @Query("SELECT * FROM LeaveRequest WHERE Status = 0")
+    List<LeaveRequest> getInactiveStatus();
 }
