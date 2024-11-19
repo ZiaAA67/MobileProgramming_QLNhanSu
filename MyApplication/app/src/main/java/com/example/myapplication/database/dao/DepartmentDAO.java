@@ -29,6 +29,6 @@ public interface DepartmentDAO {
     @Query("SELECT * FROM Department WHERE DepartmentID = :departmentId")
     Department getById(int departmentId);
 
-    @Query("SELECT * FROM Department WHERE DepartmentName = :departmentName")
+    @Query("SELECT * FROM Department WHERE DepartmentName = :departmentName LIMIT 1")
     Department getByName(String departmentName);
 }

@@ -20,4 +20,7 @@ public interface WorkplaceDAO {
 
         @Delete
         void delete(Workplace workplace);
+
+        @Query("SELECT * FROM Workplace")
+        List<Workplace> getAll();
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication.main_app;
+package com.example.myapplication.MainApp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
+import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestForm;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Role;
-import com.example.myapplication.database.entities.User;
 
 public class HomeFragment extends Fragment {
 

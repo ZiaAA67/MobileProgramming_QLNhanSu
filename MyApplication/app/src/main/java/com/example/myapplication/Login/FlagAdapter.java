@@ -1,4 +1,4 @@
-package com.example.myapplication.login_register;
+package com.example.myapplication.Login;
 
 import android.content.Context;
 import android.view.LayoutInflater;

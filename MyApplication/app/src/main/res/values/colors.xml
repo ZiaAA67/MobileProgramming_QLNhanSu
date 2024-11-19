@@ -9,4 +9,6 @@
     <color name="light_light_grey">#E9EAF0</color>
     <color name="light_black">#4E4E4E</color>
     <color name="grey">#808080</color>
+    <color name="approve">#4CAF50</color>
+    <color name="dis_approve">#C31212</color>
 </resources>

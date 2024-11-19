@@ -1,4 +1,4 @@
-package com.example.myapplication.login_register;
+package com.example.myapplication.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +15,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Configuration;
-import com.example.myapplication.login_register.InformationRegister;
 import com.example.myapplication.R;
+import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
-import com.example.myapplication.main_app.GiaoDienChinh;
+import com.example.myapplication.MainApp.GiaoDienChinh;
 
 import java.util.Objects;
 

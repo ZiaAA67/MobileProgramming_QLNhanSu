@@ -7,6 +7,8 @@ import androidx.room.Update;
 
 import com.example.myapplication.database.entities.Position;
 
+import java.util.List;
+
 @Dao
 public interface PositionDAO {
 
@@ -21,4 +23,7 @@ public interface PositionDAO {
 
     @Query("SELECT * FROM Position WHERE PositionID = :positionId")
     Position getPositionById(int positionId);
+
+    @Query("SELECT * FROM Position")
+    List<Position> getAll();
 }

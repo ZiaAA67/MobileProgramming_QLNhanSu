@@ -1,4 +1,4 @@
-package com.example.myapplication.login_register;
+package com.example.myapplication.Register;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Login.GiaoDienLogin;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.dao.EmployeeDAO;
@@ -37,9 +38,7 @@ import com.example.myapplication.database.entities.EducationLevel;
 import com.example.myapplication.database.entities.Employee;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
