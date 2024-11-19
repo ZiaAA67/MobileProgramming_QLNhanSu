@@ -1,146 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_app.ChangePassword">
+    android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_sea_green"
-        android:orientation="vertical" />
-
+    <!-- Topbar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp"
-        tools:ignore="MissingConstraints">
+        android:background="@color/light_sea_green">
 
         <Button
             android:id="@+id/btn_back"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:backgroundTint="@color/light_sea_green"
-            android:drawableLeft="@drawable/arrow_left"
-            android:contentDescription="Back"
-            android:onClick="goBack"/>
+            android:drawableLeft="@drawable/arrow_left" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/topbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="75dp"
-            android:text="Đổi Mật Khẩu"
+            android:layout_marginLeft="40dp"
+            android:text="Xin nghỉ phép"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/lavender"
         android:gravity="center|top"
         android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background"
-            app:cornerRadius="17dp"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/grey">
+            android:background="@drawable/rounded_pass_background">
 
             <EditText
-                android:id="@+id/edt_current_pass"
+                android:id="@+id/edt_leave_reason"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_border"
-                android:drawableStart="@drawable/current_pass"
-                android:drawablePadding="10dp"
                 android:textColor="@color/black"
-                android:hint="Mật Khẩu Hiện Tại"
-                android:inputType="textPassword"
+                android:hint="Lý do xin nghỉ"
                 android:padding="8dp"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_pass_background"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/grey">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_pass_background">
 
             <EditText
-                android:id="@+id/edt_new_pass"
+                android:id="@+id/edt_send_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
-                android:drawableStart="@drawable/pass_change"
-                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/calendar"
                 android:textColor="@color/black"
-                android:hint="Mật Khẩu Mới"
-                android:inputType="textPassword"
+                android:hint="Ngày gửi"
+                android:focusable="false"
+                android:clickable="true"
                 android:padding="8dp"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_pass_background"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/grey">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_pass_background">
 
             <EditText
-                android:id="@+id/edt_confirm_pass"
+                android:id="@+id/edt_leave_from_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
-                android:drawableStart="@drawable/pass_change"
-                android:drawablePadding="10dp"
+                android:drawableEnd="@drawable/calendar"
                 android:textColor="@color/black"
-                android:hint="Xác Nhận Mật Khẩu Mới"
-                android:inputType="textPassword"
+                android:hint="Ngày nghỉ từ"
+                android:focusable="false"
+                android:clickable="true"
                 android:padding="8dp"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_pass_background">
+
+            <EditText
+                android:id="@+id/edt_leave_to_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_border"
+                android:drawableEnd="@drawable/calendar"
+                android:textColor="@color/black"
+                android:hint="Ngày nghỉ đến"
+                android:focusable="false"
+                android:clickable="true"
+                android:padding="8dp"
+                android:textSize="15sp"
+                app:hintTextColor="@color/light_grey" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_apply"
+            android:id="@+id/btn_submit_leave_request"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/light_sea_green"
-            android:text="Đổi Mật Khẩu"
+            android:text="Gửi yêu cầu nghỉ"
+            android:textColor="@android:color/white"
             android:textSize="17dp"
             app:cornerRadius="17dp" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@drawable/lightlightgrey_background_lightgrey_border"
+    android:backgroundTint="#E9E9E9"
+    android:orientation="vertical">
+
+    <!-- Tên nhân viên -->
+    <TextView
+        android:id="@+id/tv_employee_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="Tên nhân viên: Nguyễn Văn A" />
+
+    <TextView
+        android:id="@+id/tv_leave_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_employee_name"
+        android:textColor="@color/black"
+        android:text="Lý do: Ốm đau" />
+
+    <TextView
+        android:id="@+id/tv_date_submitted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_leave_reason"
+        android:textColor="@color/black"
+        android:text="Ngày gửi: 12/11/2024" />
+
+    <TextView
+        android:id="@+id/tv_leave_from_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_date_submitted"
+        android:textColor="@color/black"
+        android:text="Ngày nghỉ từ: 15/11/2024" />
+
+    <TextView
+        android:id="@+id/tv_leave_to_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_leave_from_date"
+        android:textColor="@color/black"
+        android:text="Ngày nghỉ đến: 17/11/2024" />
+
+    <TextView
+        android:id="@+id/tv_total_leave_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_leave_to_date"
+        android:textColor="@color/black"
+        android:text="Số ngày nghỉ: 3 ngày" />
+
+    <Button
+        android:id="@+id/btn_approve"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="#4CAF50"
+        android:drawableTint="@color/white"
+        android:drawableRight="@drawable/check" />
+
+    <Button
+        android:id="@+id/btn_disapprove"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/btn_approve"
+        android:backgroundTint="#C31212"
+        android:drawableTint="@color/white"
+        android:drawableRight="@drawable/close" />
+
+</RelativeLayout>
