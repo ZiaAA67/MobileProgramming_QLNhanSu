@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,36 +48,46 @@ public class HomeFragment extends Fragment {
         });
 
         btnUserLeaveRequest.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), UserLeaveRequest.class);
-            intent.putExtra("UserID", userId);
-            startActivity(intent);
+//            Intent intent = new Intent(requireActivity(), UserLeaveRequest.class);
+//            intent.putExtra("UserID", userId);
+//            startActivity(intent);
         });
 
         btnLeaveRequestForm.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), LeaveRequestForm.class);
-            intent.putExtra("UserID", userId);
-            startActivity(intent);
+//            Intent intent = new Intent(requireActivity(), LeaveRequestForm.class);
+//            intent.putExtra("UserID", userId);
+//            startActivity(intent);
         });
 
         return view;
     }
 
     private void showEmployeeInfo() {
-        if (userId != -1) {
-            AppDatabase db = AppDatabase.getInstance(getContext());
-            Employee employee = db.employeeDao().getEmployeeByUserId(userId);
-            if (employee != null) {
-                Position position = db.positionDao().getPositionById(employee.getPositionId());
-                employeeNameTextView = employeeNameTextView.findViewById(R.id.tv_emloyeename);
-                positionTextView = positionTextView.findViewById(R.id.tv_position);
-                employeeNameTextView.setText(employee.getFullName());
-                positionTextView.setText(position != null ? position.getPositionName() : "Không chức vụ");
-            } else {
-                employeeNameTextView = employeeNameTextView.findViewById(R.id.tv_emloyeename);
-                positionTextView = positionTextView.findViewById(R.id.tv_position);
-                employeeNameTextView.setText("Không tìm thấy nhân viên");
-                positionTextView.setText("");
+        try {
+            if (userId != -1) {
+                AppDatabase db = AppDatabase.getInstance(getContext());
+                Employee employee = db.employeeDao().getEmployeeByUserId(userId);
+                if (employee != null) {
+                    employeeNameTextView.setText(employee.getFullName());
+
+                    Integer posId = employee.getPositionId();
+                    if(posId != null) {
+                        Position position = db.positionDao().getPositionById(employee.getPositionId());
+                        positionTextView.setText(position.getPositionName());
+                    } else {
+                        positionTextView.setText("Không chức vụ");
+                    }
+
+                } else {
+                    employeeNameTextView = employeeNameTextView.findViewById(R.id.tv_emloyeename);
+                    positionTextView = positionTextView.findViewById(R.id.tv_position);
+                    employeeNameTextView.setText("Không tìm thấy nhân viên");
+                    positionTextView.setText("");
+                }
             }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

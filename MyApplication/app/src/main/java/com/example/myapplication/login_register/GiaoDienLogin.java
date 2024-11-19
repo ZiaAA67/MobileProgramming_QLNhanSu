@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Configuration;
+import com.example.myapplication.InformationRegister;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
@@ -76,7 +77,7 @@ public class GiaoDienLogin extends AppCompatActivity {
 
                 Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
-                intent.putExtra("UserID", user.getUsersId());
+                intent.putExtra("UserID", user.getUserId());
                 startActivity(intent);
             }
         });

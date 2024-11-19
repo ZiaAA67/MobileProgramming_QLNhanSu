@@ -15,6 +15,9 @@ public interface RoleDAO {
     @Insert
     void insert(Role role);
 
+    @Insert
+    long insertReturnId(Role role);
+
     @Update
     void update(Role role);
 
@@ -26,4 +29,7 @@ public interface RoleDAO {
 
     @Query("SELECT * FROM Role WHERE RoleID = :roleId")
     Role getRoleById(int roleId);
+
+    @Query("SELECT * FROM Role WHERE RoleName = :roleName")
+    Role getRoleByName(String roleName);
 }
