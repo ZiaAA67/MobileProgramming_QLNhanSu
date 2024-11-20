@@ -102,7 +102,7 @@ public class LeaveRequestForm extends AppCompatActivity {
             return false;
         }
 
-        if (!isValidDateRange(toDate, Configuration.STRING_TODAY)) {
+        if (!isValidDateRange(Configuration.STRING_TODAY, fromDate)) {
             editFromDate.setError("Ngày nghỉ từ phải lớn hơn hoặc bằng ngày hiện tại!");
             editFromDate.requestFocus();
             return false;
@@ -131,10 +131,16 @@ public class LeaveRequestForm extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        calendar.set(year, month, day);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        long minDate = calendar.getTimeInMillis();
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
             String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
             editText.setText(selectedDate);
         }, year, month, day);
+
+        datePickerDialog.getDatePicker().setMinDate(minDate);
 
         datePickerDialog.show();
     }
