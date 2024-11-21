@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,23 +39,31 @@ public class LeaveRequestHistory extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("UserID", -1);
 
+        Toast.makeText(this, "User id" + userId, Toast.LENGTH_SHORT).show();
         initUI();
 
-        leaveRequestAdapter = new LeaveRequestAdapter();
-        leaveRequestAdapter.setData(getLeaveRequests(userId));
+        try {
+            leaveRequestAdapter = new LeaveRequestAdapter();
+            leaveRequestAdapter.setData(getLeaveRequests(userId));
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rcvItem.setLayoutManager(linearLayoutManager);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            rcvItem.setLayoutManager(linearLayoutManager);
 
-        rcvItem.setAdapter(leaveRequestAdapter);
+            rcvItem.setAdapter(leaveRequestAdapter);
 
-        btnBack.setOnClickListener(view ->{finish();});
+            btnBack.setOnClickListener(view -> {
+                finish();
+            });
 
-        btnAddLeaveRequest.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LeaveRequestForm.class);
-            intent.putExtra("UserID", userId);
-            startActivity(intent);
-        });
+            btnAddLeaveRequest.setOnClickListener(v -> {
+                Intent intent = new Intent(this, LeaveRequestForm.class);
+                intent.putExtra("UserID", userId);
+                startActivity(intent);
+            });
+        }
+        catch (Exception e){
+            finish();
+        }
     }
 
     private List<LeaveRequest> getLeaveRequests(int userId) {

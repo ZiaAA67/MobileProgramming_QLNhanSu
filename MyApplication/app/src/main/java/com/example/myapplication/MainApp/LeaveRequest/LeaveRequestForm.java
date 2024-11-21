@@ -17,6 +17,7 @@ import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity
 import com.example.myapplication.MainApp.HomeFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.LeaveRequest;
 
 import java.text.ParseException;
@@ -32,12 +33,15 @@ public class LeaveRequestForm extends AppCompatActivity {
     private Button btnSubmitLeaveRequest;
     private Button btnBack;
 
+    Employee employee;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_request_form);
 
         userId = getIntent().getIntExtra("UserID", -1);
+        employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+        Toast.makeText(this, "User id =" + this.userId, Toast.LENGTH_SHORT).show();
 
         initUI();
 
@@ -59,12 +63,13 @@ public class LeaveRequestForm extends AppCompatActivity {
         String toDate = edtLeaveToDate.getText().toString();
         String sendDate = Configuration.STRING_TODAY;
 
+        int employeeid = employee.getEmployeeId();
         if (!checkValidData(reason, fromDate, toDate, edtLeaveReason, edtLeaveFromDate, edtLeaveToDate)) {
             return;
         }
 
         try {
-            LeaveRequest leaveRequest = new LeaveRequest(reason, sendDate, fromDate, toDate, 0, userId);
+            LeaveRequest leaveRequest = new LeaveRequest(reason, sendDate, fromDate, toDate, 0, employeeid);
             AppDatabase.getInstance(this).leaveRequestDao().insert(leaveRequest);
             Toast.makeText(this, "Yêu cầu nghỉ đã được gửi!", Toast.LENGTH_SHORT).show();
         }
