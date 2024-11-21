@@ -85,4 +85,9 @@ dependencies {
 
     implementation(libs.javamail.mail)
     implementation(libs.javamail.activation)
+
+    implementation(libs.cloudinary.android)
+
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.annotation.processor)
 }

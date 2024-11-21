@@ -44,8 +44,7 @@ public class ChangePassword extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Quay lại activity trước đó
-                onBackPressed();
+                finish();
             }
         });
     }

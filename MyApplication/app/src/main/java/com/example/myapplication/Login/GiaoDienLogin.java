@@ -58,6 +58,16 @@ public class GiaoDienLogin extends AppCompatActivity {
                 username = edtUsername.getText().toString().trim();
                 password = edtPassword.getText().toString().trim();
 
+                if(username.isEmpty()) {
+                    edtUsername.setError("Vui lòng nhập tài khoản!");
+                    return;
+                }
+
+                if(password.isEmpty()) {
+                    edtPassword.setError("Vui lòng nhập mật khẩu!");
+                    return;
+                }
+
                 User user = AppDatabase.getInstance(GiaoDienLogin.this).userDao().getUserByUsername(username);
 
                 if(user == null) {
@@ -75,10 +85,23 @@ public class GiaoDienLogin extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
-                intent.putExtra("UserID", user.getUserId());
-                startActivity(intent);
+                // Check đăng nhập lần đầu
+                if(user.isFirstLogin()) {
+                    // update lại trạng thái
+                    user.setFirstLogin(false);
+                    AppDatabase.getInstance(GiaoDienLogin.this).userDao().update(user);
+
+                    Intent intent = new Intent(GiaoDienLogin.this, ChangePassword.class);
+                    intent.putExtra("UserID", user.getUserId());
+                    startActivity(intent);
+
+
+                } else {
+//                Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
+                    intent.putExtra("UserID", user.getUserId());
+                    startActivity(intent);
+                }
             }
         });
 

@@ -9,36 +9,25 @@ public class SampleDatabase {
 
     public static void populate(AppDatabase db, Context context) {
 
-        Role role1 = new Role("admin", "sysAdmin");
-        Role role2 = new Role("manager", "deleted Employee");
-        Role role3 = new Role("public", "No permission");
+        Role role1 = new Role("Admin", "System admin with full permission");
+        Role role2 = new Role("Manager", "CRUD users, employees, department, ....");
+        Role role3 = new Role("Public", "View only");
         AppDatabase.getInstance(context).roleDao().insert(role1);
         AppDatabase.getInstance(context).roleDao().insert(role2);
         AppDatabase.getInstance(context).roleDao().insert(role3);
 
-        User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, 1);
-        User user2 = new User("user1", Configuration.md5("123"), Configuration.STRING_TODAY, 2);
-        User user3 = new User("user2", Configuration.md5("123"), Configuration.STRING_TODAY, 3);
+        User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, false, 1);
         AppDatabase.getInstance(context).userDao().insert(user1);
-        AppDatabase.getInstance(context).userDao().insert(user2);
-        AppDatabase.getInstance(context).userDao().insert(user3);
 
-        Department dept1 = new Department("Administration", "ADMIN");
-        Department dept2 = new Department("Accounting", "Rich kid");
-        Department dept3 = new Department("IT", "Colder and coder like IT");
+        Department dept1 = new Department("Nhân sự", "Quản lý nhân sự trong công ty");
+        Department dept2 = new Department("Marketing", "Tiếp thị v quảng cáo");
+        Department dept3 = new Department("IT", "Bảo trì và nâng cấp hệ thống");
         AppDatabase.getInstance(context).departmentDao().insert(dept1);
         AppDatabase.getInstance(context).departmentDao().insert(dept2);
         AppDatabase.getInstance(context).departmentDao().insert(dept3);
 
-        EducationLevel edu1 = new EducationLevel("Doctor of Philosophy", "HRM", "HUST");
-        EducationLevel edu2 = new EducationLevel("Grand Master", "Computer Science", "OU");
-        EducationLevel edu3 = new EducationLevel("No School", "Computer Science", "OU");
-        AppDatabase.getInstance(context).educationLevelDao().insert(edu1);
-        AppDatabase.getInstance(context).educationLevelDao().insert(edu2);
-        AppDatabase.getInstance(context).educationLevelDao().insert(edu3);
-
-        Position pos1 = new Position("Manager", "A BIG DREAM");
-        Position pos2 = new Position("Employee", "NO DREAM");
+        Position pos1 = new Position("Quản lý", "Điều hành và quản lý nhân sự, công việc trong phòng ban");
+        Position pos2 = new Position("Nhân viên", "Thực hiện công việc hàng ngày theo chỉ dẫn");
         AppDatabase.getInstance(context).positionDao().insert(pos1);
         AppDatabase.getInstance(context).positionDao().insert(pos2);
 
@@ -47,7 +36,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward1);
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward2);
 
-        Workplace workplace1 = new Workplace("Circle K", 10.761506, 106.707841);
+        Workplace workplace1 = new Workplace("Cơ sở 1 - Nguyễn Kiệm", 10.761506, 106.707841);
         AppDatabase.getInstance(context).workplaceDao().insert(workplace1);
 
         Salary salary1 = new Salary((float) 50000000, (float) 2000000, (float) 1.5);
