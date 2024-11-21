@@ -1,16 +1,20 @@
 package com.example.myapplication.MainApp.LeaveRequest;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
+import com.example.myapplication.MainApp.HomeFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.LeaveRequest;
@@ -22,7 +26,9 @@ import java.util.Date;
 
 public class LeaveRequestForm extends AppCompatActivity {
     private int userId;
-    private EditText edtLeaveReason, edtSendDate, edtLeaveFromDate, edtLeaveToDate;
+
+    private EditText edtLeaveReason, edtLeaveFromDate, edtLeaveToDate;
+    private TextView tvSendDate;
     private Button btnSubmitLeaveRequest;
     private Button btnBack;
 
@@ -35,23 +41,16 @@ public class LeaveRequestForm extends AppCompatActivity {
 
         initUI();
 
-        String sendDate = Configuration.STRING_TODAY;
-        edtSendDate.setText(sendDate);
-
+        tvSendDate.setText(Configuration.STRING_TODAY);
         edtLeaveFromDate.setOnClickListener(view -> showDatePickerDialog(edtLeaveFromDate));
         edtLeaveToDate.setOnClickListener(view -> showDatePickerDialog(edtLeaveToDate));
 
         btnSubmitLeaveRequest.setOnClickListener(view -> {
             sendLeaveRequest();
+            finish();
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Quay lại activity trước đó
-                onBackPressed();
-            }
-        });
+        btnBack.setOnClickListener(view ->{finish();});
     }
 
     private void sendLeaveRequest() {
@@ -147,7 +146,7 @@ public class LeaveRequestForm extends AppCompatActivity {
 
     private void initUI() {
         edtLeaveReason = findViewById(R.id.edt_leave_reason);
-        edtSendDate = findViewById(R.id.edt_send_date);
+        tvSendDate = findViewById(R.id.tv_send_date);
         edtLeaveFromDate = findViewById(R.id.edt_leave_from_date);
         edtLeaveToDate = findViewById(R.id.edt_leave_to_date);
         btnSubmitLeaveRequest = findViewById(R.id.btn_submit_leave_request);

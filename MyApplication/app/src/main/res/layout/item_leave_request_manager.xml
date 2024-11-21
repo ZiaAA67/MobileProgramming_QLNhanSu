@@ -7,20 +7,28 @@
 
     <TextView
         android:id="@+id/tv_status"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:text="Từ chối"
-        android:background="@color/light_sea_green"
-        android:textAlignment="center"/>
+        android:text="Tên nhân viên: Nguyễn Văn A" />
+
+    <TextView
+        android:id="@+id/tv_employee_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_status"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="Tên nhân viên: Nguyễn Văn A" />
 
     <TextView
         android:id="@+id/tv_leave_reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_status"
+        android:layout_below="@id/tv_employee_name"
         android:textColor="@color/black"
         android:text="Lý do: Ốm đau" />
 
@@ -55,5 +63,24 @@
         android:layout_below="@id/tv_leave_to_date"
         android:textColor="@color/black"
         android:text="Số ngày nghỉ: 3 ngày" />
+
+    <Button
+        android:id="@+id/btn_approve"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="#4CAF50"
+        android:drawableTint="@color/white"
+        android:drawableRight="@drawable/check" />
+
+    <Button
+        android:id="@+id/btn_disapprove"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/btn_approve"
+        android:backgroundTint="#C31212"
+        android:drawableTint="@color/white"
+        android:drawableRight="@drawable/close" />
 
 </RelativeLayout>
