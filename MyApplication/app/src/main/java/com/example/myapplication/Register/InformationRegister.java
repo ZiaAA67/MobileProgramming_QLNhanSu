@@ -201,8 +201,6 @@ public class InformationRegister extends AppCompatActivity {
                             // lấy về đường dẫn online
                             String imageUrl = resultData.get("secure_url").toString();
                             callback.onSuccess(imageUrl);
-//                            Glide.with(InformationRegister.this).load(imageUrl).into(imageUpload);
-//                            Toast.makeText(InformationRegister.this, imageUrl, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

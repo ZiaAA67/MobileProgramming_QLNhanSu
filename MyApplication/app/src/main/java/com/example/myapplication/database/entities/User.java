@@ -33,16 +33,22 @@ public class User {
     @ColumnInfo(name = "CreateDate")
     private String createDate;
 
+    @ColumnInfo(name = "IsFirstLogin")
+    private boolean isFirstLogin;
+
     @ColumnInfo(name = "RoleID")
     private Integer roleId;
 
     // Constructor
-    public User(String username, String password, String createDate, Integer roleId) {
+
+    public User(String username, String password, String createDate, boolean isFirstLogin, Integer roleId) {
         this.username = username;
         this.password = password;
         this.createDate = createDate;
+        this.isFirstLogin = isFirstLogin;
         this.roleId = roleId;
     }
+
 
     // Getters and Setters
 
@@ -77,6 +83,14 @@ public class User {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public boolean isFirstLogin() {
+        return isFirstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        isFirstLogin = firstLogin;
     }
 
     public Integer getRoleId() {

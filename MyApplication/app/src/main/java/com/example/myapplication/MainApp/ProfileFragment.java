@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Login.ChangePassword;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
@@ -30,6 +33,7 @@ public class ProfileFragment extends Fragment {
     private Button btnSetting;
     private Button btnLogout;
     private Button btnClose;
+    private ImageView imageAvatar;
 
     @Nullable
     @Override
@@ -68,6 +72,7 @@ public class ProfileFragment extends Fragment {
         btnSetting = view.findViewById(R.id.btn_setting);
         btnLogout = view.findViewById(R.id.btn_logout);
         btnClose = view.findViewById(R.id.btn_closeapp);
+        imageAvatar = view.findViewById(R.id.image_avatar);
     }
 
     private void showEmployeeInfo() {
@@ -88,6 +93,12 @@ public class ProfileFragment extends Fragment {
                         tvPosition.setText(position.getPositionName());
                     } else {
                         tvPosition.setText("Không chức vụ");
+                    }
+
+                    String imagePath = employee.getImagePath();
+                    if(!imagePath.isEmpty()) {
+                        RequestOptions options = new RequestOptions().circleCrop();
+                        Glide.with(requireActivity()).load(imagePath).apply(options).into(imageAvatar);
                     }
 
 
