@@ -114,7 +114,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
             String sub = "Đăng ký thông tin thành công!!!";
 
             String username = Configuration.makeUsername(employee.getFullName(), employee.getPhoneNumber());
-            String password = Configuration.randomString(10);
+            String password = Configuration.randomString(16);
 
             String content =
                     "Chúc mừng bạn đã đăng ký thông tin thành công, đây là tài khoản và mật khẩu của bạn. \n" +
@@ -137,7 +137,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
                 }
 
                 // Thêm user vào db
-                User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY, EmployeeRole.getRoleId());
+                User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY,true, EmployeeRole.getRoleId());
                 AppDatabase.getInstance(this).userDao().insert(user);
                 user = AppDatabase.getInstance(this).userDao().getUserByUsername(username);
 

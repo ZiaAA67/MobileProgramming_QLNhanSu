@@ -70,13 +70,14 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_pass_background">
 
-            <EditText
-                android:id="@+id/edt_send_date"
+            <TextView
+                android:id="@+id/tv_send_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
                 android:drawableEnd="@drawable/calendar"
                 android:textColor="@color/black"
+                android:text="Ngày gửi"
                 android:hint="Ngày gửi"
                 android:focusable="false"
                 android:clickable="true"
@@ -139,6 +140,7 @@
             android:textColor="@android:color/white"
             android:textSize="17dp"
             app:cornerRadius="17dp" />
+
     </LinearLayout>
 
 </LinearLayout>

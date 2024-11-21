@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestForm;
+import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestHistory;
+import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -27,7 +29,7 @@ public class HomeFragment extends Fragment {
     private TextView employeeNameTextView;
     private TextView positionTextView;
     private Button btnEmployeeRequest;
-    private Button btnEmployeeLeaveRequest;
+    private Button btnLeaveRequestHistory;
     private Button btnLeaveRequestManager;
 
     @Nullable
@@ -40,15 +42,21 @@ public class HomeFragment extends Fragment {
 
         showEmployeeInfo();
 
-        adminButton(userId, "admin", btnEmployeeRequest, btnLeaveRequestManager);
+        adminButton(userId, "Admin", btnEmployeeRequest, btnLeaveRequestManager);
 
         btnEmployeeRequest.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
             startActivity(intent);
         });
 
-        btnEmployeeLeaveRequest.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), LeaveRequestForm.class);
+        btnLeaveRequestHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), LeaveRequestHistory.class);
+            intent.putExtra("UserID", userId);
+            startActivity(intent);
+        });
+
+        btnLeaveRequestManager.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), LeaveRequestManager.class);
             intent.putExtra("UserID", userId);
             startActivity(intent);
         });
@@ -116,7 +124,7 @@ public class HomeFragment extends Fragment {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
         btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
-        btnEmployeeLeaveRequest = view.findViewById(R.id.btn_asked_leave_request);
+        btnLeaveRequestHistory = view.findViewById(R.id.btn_asked_leave_request);
         btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
     }
 }

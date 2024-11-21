@@ -11,4 +11,8 @@
     <color name="grey">#808080</color>
     <color name="approve">#4CAF50</color>
     <color name="dis_approve">#C31212</color>
+    <color name="yellow">#FFF59D</color>
+    <color name="green">#A5D6A7</color>
+    <color name="red">#EF9A9A</color>
+    <color name="gray">#BDBDBD</color>
 </resources>
