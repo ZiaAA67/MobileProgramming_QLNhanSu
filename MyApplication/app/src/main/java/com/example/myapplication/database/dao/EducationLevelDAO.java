@@ -16,6 +16,9 @@ public interface EducationLevelDAO {
     @Insert
     void insert(EducationLevel... educationLevels);
 
+    @Insert
+    long insertReturnId(EducationLevel educationLevel);
+
     @Update
     void update(EducationLevel educationLevel);
 

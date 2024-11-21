@@ -18,6 +18,8 @@ gms-maps = "18.0.2"
 gms-location = "21.0.1"
 viewpager2 = "1.1.0"
 javamail = "1.6.2"
+cloudinary-android = "3.0.2"
+glide = "4.15.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -46,6 +48,9 @@ gms-location = { module = "com.google.android.gms:play-services-location", versi
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 javamail-mail = { module = "com.sun.mail:android-mail", version.ref = "javamail" }
 javamail-activation = { module = "com.sun.mail:android-activation", version.ref = "javamail" }
+cloudinary-android = { group = "com.cloudinary", name = "cloudinary-android", version.ref = "cloudinary-android" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-annotation-processor = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
