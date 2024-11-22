@@ -15,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.cloudinary.android.MediaManager;
 import com.example.myapplication.Configuration;
+import com.example.myapplication.Login.ChangePassword;
+import com.example.myapplication.Login.FlagAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.Register.Register;
@@ -72,7 +74,7 @@ public class GiaoDienLogin extends AppCompatActivity {
 
                 User user = AppDatabase.getInstance(GiaoDienLogin.this).userDao().getUserByUsername(username);
 
-                if(user == null || !user.isActive()) {
+                if(user == null) {
                     edtUsername.setError("Tài khoản không tồn tại!");
                     edtUsername.setText("");
                     edtPassword.setText("");
