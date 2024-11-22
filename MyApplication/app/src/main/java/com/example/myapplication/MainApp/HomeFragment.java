@@ -22,10 +22,12 @@ import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Role;
+import com.example.myapplication.database.entities.User;
 
 public class HomeFragment extends Fragment {
 
-    private int userId;
+//    private int userId;
+    private User user;
     private TextView employeeNameTextView;
     private TextView positionTextView;
     private Button btnEmployeeRequest;
@@ -38,11 +40,16 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initUI(view);
 
-        getUserID();
+//        userId = intent.getIntExtra("UserID", -1);
+//        user = (User) requireActivity().getIntent().getSerializableExtra("User");
+
+        if (getArguments() != null) {
+            user = (User) getArguments().getSerializable("User");
+        }
 
         showEmployeeInfo();
 
-        adminButton(userId, "Admin", btnEmployeeRequest, btnLeaveRequestManager);
+        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager);
 
         btnEmployeeRequest.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
@@ -51,13 +58,13 @@ public class HomeFragment extends Fragment {
 
         btnLeaveRequestHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestHistory.class);
-            intent.putExtra("UserID", userId);
+            intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
 
         btnLeaveRequestManager.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestManager.class);
-            intent.putExtra("UserID", userId);
+            intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
 
@@ -66,9 +73,9 @@ public class HomeFragment extends Fragment {
 
     private void showEmployeeInfo() {
         try {
-            if (userId != -1) {
+            if (user != null) {
                 AppDatabase db = AppDatabase.getInstance(getContext());
-                Employee employee = db.employeeDao().getEmployeeByUserId(userId);
+                Employee employee = db.employeeDao().getEmployeeByUserId(user.getUserId());
                 if (employee != null) {
                     employeeNameTextView.setText(employee.getFullName());
 
@@ -76,16 +83,18 @@ public class HomeFragment extends Fragment {
                     if(posId != null) {
                         Position position = db.positionDao().getPositionById(employee.getPositionId());
                         positionTextView.setText(position.getPositionName());
-                    } else {
-                        positionTextView.setText("Không chức vụ");
                     }
+//                    else {
+//                        positionTextView.setText("Không chức vụ");
+//                    }
 
-                } else {
-                    employeeNameTextView = employeeNameTextView.findViewById(R.id.tv_emloyeename);
-                    positionTextView = positionTextView.findViewById(R.id.tv_position);
-                    employeeNameTextView.setText("Không tìm thấy nhân viên");
-                    positionTextView.setText("");
                 }
+//                else {
+//                    employeeNameTextView = employeeNameTextView.findViewById(R.id.tv_emloyeename);
+//                    positionTextView = positionTextView.findViewById(R.id.tv_position);
+//                    employeeNameTextView.setText("Không tìm thấy nhân viên");
+//                    positionTextView.setText("");
+//                }
             }
         }
         catch (Exception e) {
@@ -116,8 +125,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getUserID(){
-        Intent intent = requireActivity().getIntent();
-        userId = intent.getIntExtra("UserID", -1);
+
     }
 
     private void initUI(View view) {

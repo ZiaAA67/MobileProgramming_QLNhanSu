@@ -4,13 +4,11 @@
     <!-- Location permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!-- Image permission -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Image permission -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
 
     <application
         android:allowBackup="true"
@@ -21,38 +19,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
+        android:name=".InitMediaManager"
         tools:targetApi="31">
 
+        <activity
+            android:name=".Register.Register"
+            android:exported="false" />
         <!-- Google map API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
+
         <activity
             android:name=".Register.InformationRegister"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainApp.GiaoDienChinh"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainApp.LeaveRequest.LeaveRequestHistory"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainApp.LeaveRequest.LeaveRequestForm"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainApp.LeaveRequest.LeaveRequestManager"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Login.ChangePassword"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Login.GiaoDienLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

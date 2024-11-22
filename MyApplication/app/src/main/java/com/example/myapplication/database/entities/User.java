@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity(tableName = "User",
@@ -17,7 +18,7 @@ import java.time.LocalDate;
                 )
         }
 )
-public class User {
+public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
 
@@ -33,26 +34,28 @@ public class User {
     @ColumnInfo(name = "CreateDate")
     private String createDate;
 
+    @ColumnInfo(name = "Active")
+    private boolean active;
+
     @ColumnInfo(name = "IsFirstLogin")
     private boolean isFirstLogin;
 
     @ColumnInfo(name = "RoleID")
     private Integer roleId;
 
-    // Constructor
 
-    public User(String username, String password, String createDate, boolean isFirstLogin, Integer roleId) {
+    // Constructor
+    public User(String username, String password, String createDate, boolean active, boolean isFirstLogin, Integer roleId) {
         this.username = username;
         this.password = password;
         this.createDate = createDate;
+        this.active = active;
         this.isFirstLogin = isFirstLogin;
         this.roleId = roleId;
     }
 
 
     // Getters and Setters
-
-
     public int getUserId() {
         return userId;
     }
@@ -83,6 +86,14 @@ public class User {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public boolean isFirstLogin() {

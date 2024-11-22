@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.CheckInput;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
@@ -21,7 +22,8 @@ import java.util.regex.Pattern;
 
 public class ChangePassword extends AppCompatActivity {
 
-    private int userID;
+//    private int userID;
+    private User user;
     private EditText edtCurrentPass;
     private EditText edtNewPass;
     private EditText edtConfirmPass;
@@ -33,8 +35,8 @@ public class ChangePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        userID = getIntent().getIntExtra("UserID", -1);
-
+//        userID = getIntent().getIntExtra("UserID", -1);
+        user = (User) getIntent().getSerializableExtra("user_key");
         initUI();
 
         btnApply.setOnClickListener(view -> {
@@ -50,14 +52,17 @@ public class ChangePassword extends AppCompatActivity {
     }
 
     public void changePassword() {
-        if (userID == -1) {
+//        if (userID == -1) {
+//            showToast("User không tồn tại");
+//            return;
+//        }
+        if(user == null) {
             showToast("User không tồn tại");
-            return;
         }
 
         String currentPassword = edtCurrentPass.getText().toString().trim();
         AppDatabase db = AppDatabase.getInstance(this);
-        User user = db.userDao().getUserById(userID);
+//        User user = db.userDao().getUserById(userID);
 
         if (!(user.getPassword()).equals(Configuration.md5(currentPassword))) {
             edtCurrentPass.setError("Mật khẩu hiện tại không đúng!");
@@ -108,19 +113,13 @@ public class ChangePassword extends AppCompatActivity {
             return false;
         }
 
-        if (!isValidPassword(newPassword)) {
-            edtNewPass.setError("Mật khẩu mới không hợp lệ. Mật khẩu cần ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!");
+        if (!CheckInput.isValidPassword(newPassword)) {
+            edtNewPass.setError("Mật khẩu cần ít nhất 8 ký tự, bao gồm chữ số, chữ thường, và chữ hoa!");
             edtNewPass.requestFocus();
             return false;
         }
 
         return true;
-    }
-
-    private boolean isValidPassword(String password) {
-        // Passwrod ít nhất 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt
-        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$";
-        return Pattern.matches(regex, password);
     }
 
     private void showToast(String message) {
@@ -134,6 +133,7 @@ public class ChangePassword extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+//                        finish();
                         backToLogin();
                     }
                 })

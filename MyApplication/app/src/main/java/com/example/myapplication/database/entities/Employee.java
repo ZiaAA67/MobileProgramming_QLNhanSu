@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
@@ -18,7 +19,7 @@ import java.time.LocalDate;
                 @ForeignKey(entity = Workplace.class, parentColumns = "WorkplaceID", childColumns = "WorkplaceID", onDelete = ForeignKey.SET_NULL)
         }
 )
-public class Employee {
+public class Employee implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "EmployeeID")
@@ -46,7 +47,10 @@ public class Employee {
     private String email;
 
     @ColumnInfo(name = "Active")
-    private Integer active;
+    private boolean active;
+
+    @ColumnInfo(name = "IsApprove")
+    private boolean isApprove;
 
     @ColumnInfo(name = "ImagePath")
     private String imagePath;
@@ -72,7 +76,7 @@ public class Employee {
     // Constructor
 
 
-    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, Integer active, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId, Integer workplaceId) {
+    public Employee(String fullName, int gender, String birth, String identityNumber, String address, String phoneNumber, String email, boolean active, boolean isApprove, String imagePath, Integer salaryId, Integer departmentId, Integer positionId, Integer educationId, Integer userId, Integer workplaceId) {
         this.fullName = fullName;
         this.gender = gender;
         this.birth = birth;
@@ -81,6 +85,7 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.active = active;
+        this.isApprove = isApprove;
         this.imagePath = imagePath;
         this.salaryId = salaryId;
         this.departmentId = departmentId;
@@ -155,12 +160,20 @@ public class Employee {
         this.email = email;
     }
 
-    public Integer getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Integer active) {
+    public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isApprove() {
+        return isApprove;
+    }
+
+    public void setApprove(boolean approve) {
+        isApprove = approve;
     }
 
     public String getImagePath() {

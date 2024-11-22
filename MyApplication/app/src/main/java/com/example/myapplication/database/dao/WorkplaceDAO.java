@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Workplace;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface WorkplaceDAO {
         @Delete
         void delete(Workplace workplace);
 
-        @Query("SELECT * FROM Workplace")
-        List<Workplace> getAll();
+        @Query("SELECT * FROM Workplace WHERE Active = 1")
+        List<Workplace> getActiveWorkplace();
 }

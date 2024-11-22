@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +13,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.cloudinary.android.MediaManager;
 import com.example.myapplication.Configuration;
 import com.example.myapplication.R;
 import com.example.myapplication.Register.InformationRegister;
+import com.example.myapplication.Register.Register;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
 import com.example.myapplication.MainApp.GiaoDienChinh;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 
@@ -70,7 +72,7 @@ public class GiaoDienLogin extends AppCompatActivity {
 
                 User user = AppDatabase.getInstance(GiaoDienLogin.this).userDao().getUserByUsername(username);
 
-                if(user == null) {
+                if(user == null || !user.isActive()) {
                     edtUsername.setError("Tài khoản không tồn tại!");
                     edtUsername.setText("");
                     edtPassword.setText("");
@@ -92,14 +94,14 @@ public class GiaoDienLogin extends AppCompatActivity {
                     AppDatabase.getInstance(GiaoDienLogin.this).userDao().update(user);
 
                     Intent intent = new Intent(GiaoDienLogin.this, ChangePassword.class);
-                    intent.putExtra("UserID", user.getUserId());
+                    intent.putExtra("user_key", user);
                     startActivity(intent);
 
 
                 } else {
 //                Toast.makeText(GiaoDienLogin.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(GiaoDienLogin.this, GiaoDienChinh.class);
-                    intent.putExtra("UserID", user.getUserId());
+                    intent.putExtra("user_key", user);
                     startActivity(intent);
                 }
             }
@@ -110,12 +112,11 @@ public class GiaoDienLogin extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GiaoDienLogin.this, InformationRegister.class);
+                Intent intent = new Intent(GiaoDienLogin.this, Register.class);
                 startActivity(intent);
             }
         });
     }
-
 
     private void bindingView() {
         edtUsername = findViewById(R.id.edt_username);

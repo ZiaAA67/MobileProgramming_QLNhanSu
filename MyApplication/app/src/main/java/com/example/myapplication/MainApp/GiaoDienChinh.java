@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myapplication.R;
+import com.example.myapplication.database.entities.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -38,10 +39,11 @@ public class GiaoDienChinh extends AppCompatActivity {
         bindingView();
 
         // Get USER
-        int userId = getIntent().getIntExtra("UserID", -1);
+//        int userId = getIntent().getIntExtra("UserID", -1);
+        User user = (User) getIntent().getSerializableExtra("user_key");
 
         // Khởi tạo Adapter và gán cho Viewpager2
-        Viewpager2Adapter adapter = new Viewpager2Adapter(this, userId);
+        Viewpager2Adapter adapter = new Viewpager2Adapter(this, user);
         viewPager2.setAdapter(adapter);
 
         // Bắt sự kiện vuốt màn hình
@@ -81,9 +83,6 @@ public class GiaoDienChinh extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
     }
 
     private void bindingView() {
