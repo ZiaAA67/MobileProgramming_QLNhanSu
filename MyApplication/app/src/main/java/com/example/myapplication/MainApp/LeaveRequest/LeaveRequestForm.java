@@ -39,9 +39,16 @@ public class LeaveRequestForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_request_form);
 
-        userId = getIntent().getIntExtra("UserID", -1);
-        employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
-        Toast.makeText(this, "User id =" + this.userId, Toast.LENGTH_SHORT).show();
+        try {
+            userId = getIntent().getIntExtra("UserID", -1);
+            employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, "Nhân viên không tồn tại!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         initUI();
 
@@ -51,7 +58,6 @@ public class LeaveRequestForm extends AppCompatActivity {
 
         btnSubmitLeaveRequest.setOnClickListener(view -> {
             sendLeaveRequest();
-            finish();
         });
 
         btnBack.setOnClickListener(view ->{finish();});
@@ -72,6 +78,7 @@ public class LeaveRequestForm extends AppCompatActivity {
             LeaveRequest leaveRequest = new LeaveRequest(reason, sendDate, fromDate, toDate, 0, employeeid);
             AppDatabase.getInstance(this).leaveRequestDao().insert(leaveRequest);
             Toast.makeText(this, "Yêu cầu nghỉ đã được gửi!", Toast.LENGTH_SHORT).show();
+            finish();
         }
         catch (Exception e) {
             e.printStackTrace();
