@@ -23,6 +23,7 @@ public interface WorkplaceDAO {
 
         @Query("SELECT * FROM Workplace WHERE Active = 1")
         List<Workplace> getActiveWorkplace();
+
         @Query("SELECT * FROM Workplace")
         List<Workplace> getAll();
 

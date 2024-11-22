@@ -83,7 +83,6 @@ public class EmployeeProfile extends AppCompatActivity {
             tvAddress.setText("Địa chỉ: " + (employee.getAddress() != null ? employee.getAddress() : "Không rõ"));
             tvPhoneNumber.setText("Số điện thoại: " + (employee.getPhoneNumber() != null ? employee.getPhoneNumber() : "Không rõ"));
             tvEmail.setText("Email: " + (employee.getEmail() != null ? employee.getEmail() : "Không rõ"));
-            tvStatus.setText("Trạng thái: " + (employee.getActive() != null ? strStatus(employee.getActive()) : "Không rõ"));
             tvSalary.setText("Lương cứng: " + (employee.getSalaryId() != null ? employee.getSalaryId() : "N/A"));
             tvDepartment.setText("Phòng ban: " + (employee.getDepartmentId() != null ? strDepartment(employee.getDepartmentId()) : "Không rõ"));
             tvPosition.setText("Chức vụ: " + (employee.getPositionId() != null ? strPosition(employee.getPositionId()) : "Không rõ"));

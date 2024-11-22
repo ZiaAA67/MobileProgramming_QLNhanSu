@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         btnEmployeeProfile.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeProfile.class);
-            intent.putExtra("UserID", userId);
+            intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
 
