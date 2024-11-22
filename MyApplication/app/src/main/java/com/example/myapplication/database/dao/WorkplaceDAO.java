@@ -23,4 +23,10 @@ public interface WorkplaceDAO {
 
         @Query("SELECT * FROM Workplace")
         List<Workplace> getAll();
+
+        @Query("SELECT * FROM Workplace WHERE WorkplaceID = :workplaceId")
+        Workplace getWorkplaceById(int workplaceId);
+
+        @Query("SELECT * FROM Workplace WHERE WorkplaceName LIKE :name")
+        List<Workplace> findWorkplacesByName(String name);
 }

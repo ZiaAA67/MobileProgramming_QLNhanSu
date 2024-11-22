@@ -46,6 +46,9 @@
             android:name=".MainApp.LeaveRequest.LeaveRequestManager"
             android:exported="false"/>
         <activity
+            android:name=".MainApp.EmployeeProfile.EmployeeProfile"
+            android:exported="false"/>
+        <activity
             android:name=".Login.ChangePassword"
             android:exported="false"/>
         <activity

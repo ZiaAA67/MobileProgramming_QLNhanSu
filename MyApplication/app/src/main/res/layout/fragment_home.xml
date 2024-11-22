@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/fragment_home"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/lavender"
+    android:id="@+id/fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lavender"
     android:orientation="vertical">
 
     <!-- Top bar -->
@@ -55,10 +54,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="#4dc1bb"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#4dc1bb"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="16dp"
@@ -70,13 +69,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="2.5dp"
             android:drawableLeft="@drawable/baseline_access_time_24"
             android:padding="16dp"
             android:text="Chấm Công"
             android:textColor="@color/light_sea_green"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="2.5dp" />
 
         <Button
             android:id="@+id/btn_history"
@@ -84,14 +83,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="2.5dp"
             android:backgroundTint="@color/light_sea_green"
             android:drawableLeft="@drawable/history"
             android:padding="16dp"
             android:text="Lịch Sử"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="2.5dp" />
 
     </LinearLayout>
 
@@ -99,75 +98,75 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="26dp"
         android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="26dp"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout3">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/employeeProfile"
+            android:id="@+id/btn_employee_profile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
             android:layout_weight="1"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp"
             android:backgroundTint="@color/light_light_grey"
             android:drawableLeft="@drawable/profile"
             android:padding="16dp"
-            android:layout_marginEnd="13dp"
             android:text="Hồ Sơ Nhân Viên"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
 
         <Button
-            android:id="@+id/salarySlip"
+            android:id="@+id/btn_salary_slip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp"
             android:backgroundTint="@color/light_light_grey"
             android:drawableLeft="@drawable/assignment"
             android:padding="16dp"
             android:text="Phiếu Lương"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="26dp"
         android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="26dp"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout3">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/btn_asked_leave_request"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
             android:layout_weight="1"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp"
             android:backgroundTint="@color/light_light_grey"
             android:drawableLeft="@drawable/profile"
             android:padding="16dp"
-            android:layout_marginEnd="13dp"
             android:text="Xin nghỉ phép"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -178,39 +177,39 @@
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
         <Button
             android:id="@+id/btn_leave_request_manager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp"
             android:backgroundTint="@color/light_light_grey"
             android:drawableLeft="@drawable/request"
             android:padding="16dp"
             android:text="Quản Lý Nghỉ Phép"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
 
         <Button
             android:id="@+id/btn_employee_request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp"
             android:backgroundTint="@color/light_light_grey"
             android:drawableLeft="@drawable/request"
             android:padding="16dp"
             android:text="Quản Lý Yêu Cầu"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
     </LinearLayout>
 
 
