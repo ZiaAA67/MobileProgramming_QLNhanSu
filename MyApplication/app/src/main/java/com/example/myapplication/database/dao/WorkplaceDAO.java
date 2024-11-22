@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Workplace;
 
 import java.util.List;
@@ -24,4 +23,12 @@ public interface WorkplaceDAO {
 
         @Query("SELECT * FROM Workplace WHERE Active = 1")
         List<Workplace> getActiveWorkplace();
+        @Query("SELECT * FROM Workplace")
+        List<Workplace> getAll();
+
+        @Query("SELECT * FROM Workplace WHERE WorkplaceID = :workplaceId")
+        Workplace getWorkplaceById(int workplaceId);
+
+        @Query("SELECT * FROM Workplace WHERE WorkplaceName LIKE :name")
+        List<Workplace> findWorkplacesByName(String name);
 }

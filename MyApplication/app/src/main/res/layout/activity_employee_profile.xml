@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EmployeeProfile"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,29 +16,28 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnBack"
+                android:id="@+id/btn_back"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/light_sea_green"
-                android:drawableLeft="@drawable/arrow_left"
                 android:contentDescription="Back"
-                android:onClick="goBack"
-                />
+                android:drawableLeft="@drawable/arrow_left"
+                android:onClick="goBack" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="3dp"
                 android:text="Hồ Sơ Nhân Viên"
                 android:textColor="@color/white"
-                android:layout_marginLeft="60dp"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginTop="3dp"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -60,14 +57,14 @@
                 app:layout_constraintTop_toBottomOf="@id/topBar">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/img_image_employee"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:src="@drawable/logo" />
 
                 <TextView
-                    android:id="@+id/tv_fullName"
+                    android:id="@+id/tv_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -121,8 +118,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Nam"
-                        android:textSize="16sp"
                         android:textColor="@color/black"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -166,7 +163,7 @@
                         android:src="@drawable/identity" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_identityNumber"
+                        android:id="@+id/tv_identity_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -216,7 +213,7 @@
                         android:src="@drawable/phonenumber" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/phoneNumber"
+                        android:id="@+id/tv_phone_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -250,6 +247,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -274,6 +272,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -289,7 +288,7 @@
                         android:src="@drawable/money" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_salaryId"
+                        android:id="@+id/tv_salary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -298,9 +297,10 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -313,7 +313,7 @@
                         android:src="@drawable/departmentid" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_departmentId"
+                        android:id="@+id/tv_department"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -322,6 +322,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -337,7 +338,7 @@
                         android:src="@drawable/position" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_positionId"
+                        android:id="@+id/tv_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -346,6 +347,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -361,7 +363,7 @@
                         android:src="@drawable/education" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_educationId"
+                        android:id="@+id/tv_education"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -370,6 +372,32 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/circle_background"
+                        android:padding="8dp"
+                        android:src="@drawable/workplace" /> <!-- Căn chỉnh icon trong nền tròn -->
+
+                    <TextView
+                        android:id="@+id/tv_workplace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="7 District"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -394,30 +422,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/circle_background"
-                        android:padding="8dp"
-                        android:src="@drawable/workplace" /> <!-- Căn chỉnh icon trong nền tròn -->
-
-                    <TextView
-                        android:id="@+id/tv_workplaceId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="7 District"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
