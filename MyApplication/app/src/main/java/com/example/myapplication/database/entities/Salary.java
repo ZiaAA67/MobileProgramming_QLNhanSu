@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Salary")
+@Entity(tableName = "SalarySlip")
 public class Salary {
 
     @PrimaryKey(autoGenerate = true)
