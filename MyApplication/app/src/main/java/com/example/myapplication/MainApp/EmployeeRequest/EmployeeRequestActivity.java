@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -39,6 +40,8 @@ public class EmployeeRequestActivity extends AppCompatActivity {
     Button btnBack;
     Button btnAssignmentApprove;
     Button btnAssignmentDisapprove;
+    Button btnApproveAll;
+    Button btnDisapproveAll;
     List<Employee> mlist;
     RequestEmployeeAdapter profileAdapter;
 
@@ -56,8 +59,8 @@ public class EmployeeRequestActivity extends AppCompatActivity {
         // Ánh xạ view
         bindingView();
 
-        // Lấy list ds đơn cần duyệt
-        mlist = AppDatabase.getInstance(this).employeeDao().getInactiveEmployees();
+        // Lấy list ds đơn cần duyệt ( chưa được duyệt )
+        mlist = AppDatabase.getInstance(this).employeeDao().getDisapproveEmployees();
         if(mlist.isEmpty()) {
             Toast.makeText(this, "Không có đơn yêu cầu nào cần được duyệt!", Toast.LENGTH_SHORT).show();
         }
@@ -76,6 +79,44 @@ public class EmployeeRequestActivity extends AppCompatActivity {
         });
 
         mListView.setAdapter(profileAdapter);
+
+        btnApproveAll.setOnClickListener(view -> {
+            mlist.forEach(employee -> {
+                employee.setApprove(true);
+                AppDatabase.getInstance(EmployeeRequestActivity.this).employeeDao().update(employee);
+            });
+            Toast.makeText(this, "Duyệt tất cả thành công!", Toast.LENGTH_SHORT).show();
+            mlist.clear();
+            profileAdapter.notifyDataSetChanged();
+        });
+
+        btnDisapproveAll.setOnClickListener(view -> {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("Cảnh báo!");
+            dialog.setMessage("Bạn có chắc chắn muốn từ chối tất cả?");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mlist.forEach(employee -> {
+                        employee.setActive(false);
+                        AppDatabase.getInstance(EmployeeRequestActivity.this).employeeDao().update(employee);
+
+                        User user = AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().getUserById(employee.getUserId());
+                        user.setActive(false);
+                        AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().update(user);
+                    });
+                    mlist.clear();
+                    profileAdapter.notifyDataSetChanged();
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            dialog.create().show();
+        });
 
         btnBack.setOnClickListener(v -> {
             finish();
@@ -113,40 +154,43 @@ public class EmployeeRequestActivity extends AppCompatActivity {
             String to = employee.getEmail();
             String sub = "Đăng ký thông tin thành công!!!";
 
-            String username = Configuration.makeUsername(employee.getFullName(), employee.getPhoneNumber());
-            String password = Configuration.randomString(16);
+//            String username = Configuration.makeUsername(employee.getFullName(), employee.getPhoneNumber());
+//            String password = Configuration.randomString(16);
 
-            String content =
-                    "Chúc mừng bạn đã đăng ký thông tin thành công, đây là tài khoản và mật khẩu của bạn. \n" +
-                            "Vui lòng đổi mật khẩu trong lần đăng nhập đầu tiên! \n\n" +
-                            "Tên tài khoản: " + username + "\n" +
-                            "Mật khẩu: " + password + "\n";
+            String content = "Chúc mừng bạn đã đăng ký thông tin thành công. \nVui lòng chờ ban quản trị duyệt đơn yêu cầu của bạn!";
+//                    "Chúc mừng bạn đã đăng ký thông tin thành công, đây là tài khoản và mật khẩu của bạn. \n" +
+//                            "Vui lòng đổi mật khẩu trong lần đăng nhập đầu tiên! \n\n" +
+//                            "Tên tài khoản: " + username + "\n" +
+//                            "Mật khẩu: " + password + "\n";
 
             // Gửi mail chứa tài khoản và mật khẩu
             Configuration.sendMail(this, to, sub, content);
 
             try {
-                // Lưu user xuống db
-                Role EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("Employee");
+//                // Lưu user xuống db
+//                Role EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("Employee");
+//
+//                // check có role là Employee hay chưa, nếu chưa có thì tạo role
+//                if(EmployeeRole == null) {
+//                    EmployeeRole = new Role("Employee", "Nhân viên quèn");
+//                    AppDatabase.getInstance(this).roleDao().insert(EmployeeRole);
+//                    EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("Employee");
+//                }
+//
+//                // Thêm user vào db
+//                User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY,true, EmployeeRole.getRoleId());
+//                AppDatabase.getInstance(this).userDao().insert(user);
+//                user = AppDatabase.getInstance(this).userDao().getUserByUsername(username);
+//
+//                // Set active và gán thông tin cho employee
+//                employee.setActive(1);
 
-                // check có role là Employee hay chưa, nếu chưa có thì tạo role
-                if(EmployeeRole == null) {
-                    EmployeeRole = new Role("Employee", "Nhân viên quèn");
-                    AppDatabase.getInstance(this).roleDao().insert(EmployeeRole);
-                    EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("Employee");
-                }
-
-                // Thêm user vào db
-                User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY,true, EmployeeRole.getRoleId());
-                AppDatabase.getInstance(this).userDao().insert(user);
-                user = AppDatabase.getInstance(this).userDao().getUserByUsername(username);
-
-                // Set active và gán thông tin cho employee
-                employee.setActive(1);
-                employee.setUserId(user.getUserId());
+                employee.setApprove(true);
+//                employee.setUserId(user.getUserId());
                 employee.setDepartmentId( departmentId == 0 ? null : departmentId );
                 employee.setPositionId( positionId == 0 ? null : positionId );
                 employee.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
+
 
                 AppDatabase.getInstance(this).employeeDao().update(employee);
 
@@ -175,8 +219,14 @@ public class EmployeeRequestActivity extends AppCompatActivity {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                employee.setActive(false);
+                AppDatabase.getInstance(EmployeeRequestActivity.this).employeeDao().update(employee);
+
+                User user = AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().getUserById(employee.getUserId());
+                user.setActive(false);
+                AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().update(user);
+
                 mlist.remove(employee);
-                AppDatabase.getInstance(EmployeeRequestActivity.this).employeeDao().delete(employee);
                 profileAdapter.notifyDataSetChanged();
             }
         });
@@ -192,7 +242,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
 
     private void setupSpinnerDepartment(Spinner spinner) {
         List<String> data = new ArrayList<>();
-        List<Department> listDepartment = AppDatabase.getInstance(EmployeeRequestActivity.this).departmentDao().getAll();
+        List<Department> listDepartment = AppDatabase.getInstance(EmployeeRequestActivity.this).departmentDao().getActiveDepartment();
         if(listDepartment != null) {
             data.add("Chọn phòng ban");
             listDepartment.forEach(d -> data.add(d.getDepartmentName()));
@@ -220,7 +270,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
 
     private void setupSpinnerWorkplace(Spinner spinner) {
         List<String> data = new ArrayList<>();
-        List<Workplace> listWorkplace = AppDatabase.getInstance(EmployeeRequestActivity.this).workplaceDao().getAll();
+        List<Workplace> listWorkplace = AppDatabase.getInstance(EmployeeRequestActivity.this).workplaceDao().getActiveWorkplace();
         if(listWorkplace != null) {
             data.add("Chọn cơ sở làm việc");
             listWorkplace.forEach(d -> data.add(d.getWorkplaceName()));
@@ -255,5 +305,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
     private void bindingView() {
         mListView = findViewById(R.id.list_view);
         btnBack = findViewById(R.id.btn_back);
+        btnApproveAll = findViewById(R.id.btn_approve_all);
+        btnDisapproveAll = findViewById(R.id.btn_disapprove_all);
     }
 }

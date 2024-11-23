@@ -21,6 +21,15 @@ public interface WorkplaceDAO {
         @Delete
         void delete(Workplace workplace);
 
+        @Query("SELECT * FROM Workplace WHERE Active = 1")
+        List<Workplace> getActiveWorkplace();
+
         @Query("SELECT * FROM Workplace")
         List<Workplace> getAll();
+
+        @Query("SELECT * FROM Workplace WHERE WorkplaceID = :workplaceId")
+        Workplace getWorkplaceById(int workplaceId);
+
+        @Query("SELECT * FROM Workplace WHERE WorkplaceName LIKE :name")
+        List<Workplace> findWorkplacesByName(String name);
 }

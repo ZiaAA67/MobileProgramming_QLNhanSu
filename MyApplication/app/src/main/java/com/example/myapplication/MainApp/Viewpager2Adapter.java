@@ -1,18 +1,21 @@
 package com.example.myapplication.MainApp;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class Viewpager2Adapter extends FragmentStateAdapter {
-    private int userId;
+import com.example.myapplication.database.entities.User;
 
-    public Viewpager2Adapter(@NonNull FragmentActivity fragmentActivity, int userId) {
+public class Viewpager2Adapter extends FragmentStateAdapter {
+    private User user;
+
+    public Viewpager2Adapter(@NonNull FragmentActivity fragmentActivity, User user) {
         super(fragmentActivity);
-        this.userId = userId;
+        this.user = user;
     }
 
     @NonNull
@@ -20,11 +23,11 @@ public class Viewpager2Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch(position) {
             case 0:
-                return createFragmentWithUserId(new HomeFragment(), userId);
+                return createFragmentWithUserId(new HomeFragment(), user);
             case 1:
-                return createFragmentWithUserId(new NotifyFragment(), userId);
+                return createFragmentWithUserId(new NotifyFragment(), user);
             case 2:
-                return createFragmentWithUserId(new ProfileFragment(), userId);
+                return createFragmentWithUserId(new ProfileFragment(), user);
             default:
                 return new HomeFragment();
         }
@@ -35,9 +38,9 @@ public class Viewpager2Adapter extends FragmentStateAdapter {
         return 3;
     }
 
-    private Fragment createFragmentWithUserId(Fragment fragment, int userId) {
+    private Fragment createFragmentWithUserId(Fragment fragment, User user) {
         Bundle bundle = new Bundle();
-        bundle.putInt("UserID", userId);
+        bundle.putSerializable("User", user);
         fragment.setArguments(bundle);
         return fragment;
     }

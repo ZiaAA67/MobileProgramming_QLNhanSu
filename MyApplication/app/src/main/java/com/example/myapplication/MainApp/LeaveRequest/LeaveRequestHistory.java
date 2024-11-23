@@ -39,6 +39,7 @@ public class LeaveRequestHistory extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("UserID", -1);
 
+        Toast.makeText(this, "User id" + userId, Toast.LENGTH_SHORT).show();
         initUI();
 
         try {
@@ -61,7 +62,6 @@ public class LeaveRequestHistory extends AppCompatActivity {
             });
         }
         catch (Exception e){
-            Toast.makeText(this, "Không thể xin nghỉ! Nhân viên không tồn tại!", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -85,21 +85,5 @@ public class LeaveRequestHistory extends AppCompatActivity {
         rcvItem = findViewById(R.id.rcv_item);
         btnBack = findViewById(R.id.btn_back);
         btnAddLeaveRequest = findViewById(R.id.btn_request_leave_request);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadData();
-    }
-
-    private void loadData() {
-        try {
-            mListItems = getLeaveRequests(userId);
-            leaveRequestAdapter.setData(mListItems);
-            leaveRequestAdapter.notifyDataSetChanged();
-        } catch (Exception e) {
-            Toast.makeText(this, "Không thể tải lại dữ liệu! Lỗi xảy ra!", Toast.LENGTH_SHORT).show();
-        }
     }
 }

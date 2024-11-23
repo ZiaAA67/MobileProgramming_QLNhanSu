@@ -14,12 +14,16 @@ public class Department {
     @ColumnInfo(name = "DepartmentName")
     private String departmentName;
 
+    @ColumnInfo(name = "Active")
+    private boolean active;
+
     @ColumnInfo(name = "Description")
     private String description;
 
     // Constructor
-    public Department(String departmentName, String description) {
+    public Department(String departmentName, boolean active, String description) {
         this.departmentName = departmentName;
+        this.active = active;
         this.description = description;
     }
 
@@ -38,6 +42,14 @@ public class Department {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getDescription() {

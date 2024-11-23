@@ -16,12 +16,12 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).roleDao().insert(role2);
         AppDatabase.getInstance(context).roleDao().insert(role3);
 
-        User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, false, 1);
+        User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, true, false, 1);
         AppDatabase.getInstance(context).userDao().insert(user1);
 
-        Department dept1 = new Department("Nhân sự", "Quản lý nhân sự trong công ty");
-        Department dept2 = new Department("Marketing", "Tiếp thị v quảng cáo");
-        Department dept3 = new Department("IT", "Bảo trì và nâng cấp hệ thống");
+        Department dept1 = new Department("Nhân sự", true , "Quản lý nhân sự trong công ty");
+        Department dept2 = new Department("Marketing", true , "Tiếp thị v quảng cáo");
+        Department dept3 = new Department("IT", true, "Bảo trì và nâng cấp hệ thống");
         AppDatabase.getInstance(context).departmentDao().insert(dept1);
         AppDatabase.getInstance(context).departmentDao().insert(dept2);
         AppDatabase.getInstance(context).departmentDao().insert(dept3);
@@ -36,7 +36,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward1);
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward2);
 
-        Workplace workplace1 = new Workplace("Cơ sở 1 - Nguyễn Kiệm", 10.761506, 106.707841);
+        Workplace workplace1 = new Workplace("Cơ sở 1 - Nguyễn Kiệm",true, 10.761506, 106.707841);
         AppDatabase.getInstance(context).workplaceDao().insert(workplace1);
 
         Salary salary1 = new Salary((float) 50000000, (float) 2000000, (float) 1.5);
@@ -67,10 +67,8 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).timekeepingDao().insert(time2);
         AppDatabase.getInstance(context).timekeepingDao().insert(time3);
 
-        Employee employee1 = new Employee("Thai Do Dinh", 0, "21/07/2004", "089204014523", "Dinh Everest", "0921343540", "2251010086thinh@ou.edu.vn", 1, null, 1, 1, 1, 1, 1, 1);
-        Employee employee2 = new Employee("Minh Nhat", 0, "21/02/2004", "089204014526", "HCM", "0921343541", "minhnhat@gmail.com", 1, null, 2, 2, 1, 2, 2, 1);
-        Employee employee3 = new Employee("Nghia ga", 0, "11/05/2004", "089204014565", "Vuc Mariana", "0799504271", "nghianofuture@gmail.com", 1, null, 3, 3, 2, 3, 3, 1);
-        AppDatabase.getInstance(context).employeeDao().insert(employee1, employee2, employee3);
+        Employee employee1 = new Employee("Thai Do Dinh", 0, "21/07/2004", "089204014523", "Dinh Everest", "0921343540", "2251010086thinh@ou.edu.vn", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", null, null, null, null, 1, null);
+        AppDatabase.getInstance(context).employeeDao().insert(employee1);
 
         Employee_Session empSession1 = new Employee_Session(1, 1);
         Employee_Session empSession2 = new Employee_Session(2, 2);

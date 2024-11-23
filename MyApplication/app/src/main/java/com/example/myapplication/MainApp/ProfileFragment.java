@@ -25,7 +25,7 @@ import com.example.myapplication.Login.GiaoDienLogin;
 
 public class ProfileFragment extends Fragment {
 
-    private int userId;
+    private User user;
     private TextView tvEmployeeName;
     private TextView tvUserName;
     private TextView tvPosition;
@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (getArguments() != null) {
-            userId = getArguments().getInt("UserID", -1);
+            user = (User) getArguments().getSerializable("User");
         }
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChangePassword.class);
-                intent.putExtra("UserID", userId);
+                intent.putExtra("user_key", user);
                 startActivity(intent);
             }
         });
@@ -76,46 +76,43 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showEmployeeInfo() {
-        if (userId != -1) {
+        if (user != null && user.isActive()) {
             AppDatabase db = AppDatabase.getInstance(getActivity());
 
-            User user = db.userDao().getUserById(userId);
-            if (user != null) {
-                tvUserName.setText(user.getUsername());
+            tvUserName.setText("");
 
-                Employee employee = db.employeeDao().getEmployeeByUserId(userId);
-                if (employee != null) {
-                    tvEmployeeName.setText(employee.getFullName());
+            Employee employee = db.employeeDao().getEmployeeByUserId(user.getUserId());
+            if (employee != null) {
+                tvEmployeeName.setText(employee.getFullName());
 
-                    Integer posId = employee.getPositionId();
-                    if(posId != null) {
-                        Position position = db.positionDao().getPositionById(employee.getPositionId());
-                        tvPosition.setText(position.getPositionName());
-                    } else {
-                        tvPosition.setText("Không chức vụ");
-                    }
-
-                    String imagePath = employee.getImagePath();
-                    if(!imagePath.isEmpty()) {
-                        RequestOptions options = new RequestOptions().circleCrop();
-                        Glide.with(requireActivity()).load(imagePath).apply(options).into(imageAvatar);
-                    }
-
-
-                } else {
-                    tvEmployeeName.setText("Không tìm thấy nhân viên");
-                    tvPosition.setText("");
+                Integer posId = employee.getPositionId();
+                if(posId != null) {
+                    Position position = db.positionDao().getPositionById(employee.getPositionId());
+                    tvPosition.setText(position.getPositionName());
                 }
-            } else {
-                tvUserName.setText("Không tìm thấy người dùng");
-                tvEmployeeName.setText("");
-                tvPosition.setText("");
+//                else {
+//                    tvPosition.setText("Không chức vụ");
+//                }
+
+                String imagePath = employee.getImagePath();
+                if(!imagePath.isEmpty()) {
+                    RequestOptions options = new RequestOptions().circleCrop();
+                    Glide.with(requireActivity()).load(imagePath).apply(options).into(imageAvatar);
+                }
+
+
             }
-        } else {
-            tvUserName.setText("Không tìm thấy người dùng");
-            tvEmployeeName.setText("");
-            tvPosition.setText("");
+//            else {
+//                tvEmployeeName.setText("Không tìm thấy nhân viên");
+//                tvPosition.setText("");
+//            }
+
         }
+//        else {
+//            tvUserName.setText("Không tìm thấy người dùng");
+//            tvEmployeeName.setText("");
+//            tvPosition.setText("");
+//        }
     }
 
     private void logout() {

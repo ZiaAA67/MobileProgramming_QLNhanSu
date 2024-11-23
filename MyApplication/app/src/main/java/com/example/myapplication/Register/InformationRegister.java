@@ -78,6 +78,8 @@ public class InformationRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_register);
 
+
+
         initUI();
 
         setupSpinnerGender();
@@ -96,7 +98,8 @@ public class InformationRegister extends AppCompatActivity {
         });
 
         btnBack.setOnClickListener(view -> {
-            backToLogin();
+//            backToLogin();
+            finish();
         });
 
         // Btn check permission
@@ -176,13 +179,6 @@ public class InformationRegister extends AppCompatActivity {
             // Tạo stream
             InputStream inputStream = getContentResolver().openInputStream(imageUri);
             byte[] imageData = IOUtils.toByteArray(inputStream);
-
-            // Setup api key Cloudinary
-            MediaManager.init(this, new HashMap<String, String>() {{
-                put("cloud_name", "dbmwgavqz");
-                put("api_key", "747824214758252");
-                put("api_secret", "IjgCUhqhoxQhoiG1dcq-vWJk5wA");
-            }});
 
             // upload ảnh
             MediaManager.get().upload(imageData)
@@ -287,9 +283,17 @@ public class InformationRegister extends AppCompatActivity {
 
                     // Add employee
                     Employee employee = new Employee(strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail,
-                            0, imgPath, null, null, null, education.getEducationId(), null, null);
+                            true, false, imgPath, null, null, null, education.getEducationId(), null, null);
 
-                    AppDatabase.getInstance(InformationRegister.this).employeeDao().insert(employee);
+                    // Lưu vào db
+                    int employeeId = (int)AppDatabase.getInstance(InformationRegister.this).employeeDao().insertReturnId(employee);
+                    employee.setEmployeeId(employeeId);
+
+                    // Trả về form Register đối tượng employee
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("employee_key", employee);
+                    setResult(RESULT_OK, resultIntent);
+
                     showRegistrationSuccessDialog();
 
                 } catch (Exception e) {
@@ -383,7 +387,8 @@ public class InformationRegister extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        backToLogin();
+                        finish();
+//                        backToLogin();
                     }
                 })
                 .setCancelable(false); // Không cho phép người dùng nhấn ngoài để đóng dialog

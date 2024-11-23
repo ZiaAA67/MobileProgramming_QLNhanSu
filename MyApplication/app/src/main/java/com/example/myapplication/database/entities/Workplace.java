@@ -13,15 +13,19 @@ public class Workplace {
     @ColumnInfo(name = "WorkplaceName")
     private String workplaceName;
 
+    @ColumnInfo(name = "Active")
+    private boolean active;
+
     @ColumnInfo(name = "Latitude")
-    private double latitude;
+    private Double latitude;
 
     @ColumnInfo(name = "Longitude")
-    private double longitude;
+    private Double longitude;
 
 
-    public Workplace(String workplaceName, double latitude, double longitude) {
+    public Workplace(String workplaceName, boolean active, Double latitude, Double longitude) {
         this.workplaceName = workplaceName;
+        this.active = active;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -42,19 +46,27 @@ public class Workplace {
         this.workplaceName = workplaceName;
     }
 
-    public double getLatitude() {
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }

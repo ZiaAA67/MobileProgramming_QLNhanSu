@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.User;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public interface UserDAO {
     @Delete
     void delete(User user);
 
-    @Query("SELECT * FROM User")
-    List<User> getAllUsers();
+    @Query("SELECT * FROM User WHERE Active = 1")
+    List<User> getActiveUsers();
 
     @Query("SELECT * FROM User WHERE UserID = :userId")
     User getUserById(int userId);
