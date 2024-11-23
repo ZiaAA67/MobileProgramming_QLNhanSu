@@ -33,7 +33,7 @@ public class LeaveRequestAdapter extends RecyclerView.Adapter<LeaveRequestAdapte
     public void onBindViewHolder(@NonNull LeaveRequestViewHolder holder, int position) {
         LeaveRequest leaveRequest = leaveRequests.get(position);
 
-        if (leaveRequest == null){
+        if (leaveRequest == null) {
             return;
         }
 
@@ -55,7 +55,7 @@ public class LeaveRequestAdapter extends RecyclerView.Adapter<LeaveRequestAdapte
         }
 
         holder.tvStatus.setText(strStatus);
-        holder.tvReason.setText("Lí do: "+ leaveRequest.getReason());
+        holder.tvReason.setText("Lí do: " + leaveRequest.getReason());
         holder.tvSendDay.setText("Ngày gửi: " + leaveRequest.getSendDate());
         holder.tvFromDate.setText("Ngày bắt đầu: " + leaveRequest.getOffDateFrom());
         holder.tvToDate.setText("Ngày kết thúc: " + leaveRequest.getOffDateTo());
@@ -69,7 +69,7 @@ public class LeaveRequestAdapter extends RecyclerView.Adapter<LeaveRequestAdapte
         return 0;
     }
 
-    public class LeaveRequestViewHolder extends RecyclerView.ViewHolder{
+    public class LeaveRequestViewHolder extends RecyclerView.ViewHolder {
         private TextView tvStatus;
         private TextView tvReason;
         private TextView tvSendDay;

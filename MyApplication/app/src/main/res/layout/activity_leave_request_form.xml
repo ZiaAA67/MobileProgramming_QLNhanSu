@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,9 +11,9 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/light_sea_green"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:background="@color/light_sea_green">
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btn_back"
@@ -49,16 +48,16 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background">
+            app:hintTextColor="@color/light_sea_green">
 
             <EditText
                 android:id="@+id/edt_leave_reason"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
-                android:textColor="@color/black"
                 android:hint="Lý do xin nghỉ"
                 android:padding="8dp"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,22 +67,23 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background">
+            android:background="@drawable/rounded_pass_background"
+            app:hintTextColor="@color/light_sea_green">
 
             <TextView
                 android:id="@+id/tv_send_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
-                android:drawableEnd="@drawable/calendar"
-                android:textColor="@color/black"
-                android:text="Ngày gửi"
-                android:hint="Ngày gửi"
-                android:focusable="false"
                 android:clickable="true"
+                android:drawableEnd="@drawable/calendar"
+                android:focusable="false"
+                android:hint="Ngày gửi"
                 android:padding="8dp"
+                android:text="Ngày gửi"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                app:hintTextColor="@color/light_grey" />
+                app:hintTextColor="@color/light_sea_green" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -91,21 +91,21 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background">
+            app:hintTextColor="@color/light_sea_green">
 
             <EditText
                 android:id="@+id/edt_leave_from_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
-                android:drawableEnd="@drawable/calendar"
-                android:textColor="@color/black"
-                android:hint="Ngày nghỉ từ"
-                android:focusable="false"
                 android:clickable="true"
+                android:drawableEnd="@drawable/calendar"
+                android:focusable="false"
+                android:hint="Ngày nghỉ từ"
                 android:padding="8dp"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                app:hintTextColor="@color/light_grey" />
+                app:hintTextColor="@color/light_sea_green" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,21 +113,21 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background">
+            app:hintTextColor="@color/light_sea_green">
 
             <EditText
                 android:id="@+id/edt_leave_to_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_border"
-                android:drawableEnd="@drawable/calendar"
-                android:textColor="@color/black"
-                android:hint="Ngày nghỉ đến"
-                android:focusable="false"
                 android:clickable="true"
+                android:drawableEnd="@drawable/calendar"
+                android:focusable="false"
+                android:hint="Ngày nghỉ đến"
                 android:padding="8dp"
+                android:textColor="@color/black"
                 android:textSize="15sp"
-                app:hintTextColor="@color/light_grey" />
+                app:hintTextColor="@color/light_sea_green" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

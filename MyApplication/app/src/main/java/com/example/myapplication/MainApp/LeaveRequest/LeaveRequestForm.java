@@ -1,10 +1,8 @@
 package com.example.myapplication.MainApp.LeaveRequest;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Configuration;
-import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
-import com.example.myapplication.MainApp.HomeFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -27,92 +23,86 @@ import java.util.Date;
 
 public class LeaveRequestForm extends AppCompatActivity {
     private int userId;
+    private Employee employee;
 
     private EditText edtLeaveReason, edtLeaveFromDate, edtLeaveToDate;
     private TextView tvSendDate;
-    private Button btnSubmitLeaveRequest;
-    private Button btnBack;
+    private Button btnSubmitLeaveRequest, btnBack;
 
-    Employee employee;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_request_form);
 
-        userId = getIntent().getIntExtra("UserID", -1);
-        employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
-        Toast.makeText(this, "User id =" + this.userId, Toast.LENGTH_SHORT).show();
-
         initUI();
+        loadEmployeeData();
 
         tvSendDate.setText(Configuration.STRING_TODAY);
+
         edtLeaveFromDate.setOnClickListener(view -> showDatePickerDialog(edtLeaveFromDate));
         edtLeaveToDate.setOnClickListener(view -> showDatePickerDialog(edtLeaveToDate));
 
-        btnSubmitLeaveRequest.setOnClickListener(view -> {
-            sendLeaveRequest();
-            finish();
-        });
+        btnSubmitLeaveRequest.setOnClickListener(view -> sendLeaveRequest());
+        btnBack.setOnClickListener(view -> finish());
+    }
 
-        btnBack.setOnClickListener(view ->{finish();});
+    private void loadEmployeeData() {
+        userId = getIntent().getIntExtra("UserID", -1);
+        try {
+            employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+            if (employee == null) {
+                throw new RuntimeException("Nhân viên không tồn tại!");
+            }
+        } catch (Exception e) {
+            showToastAndExit("Lỗi: " + e.getMessage());
+        }
     }
 
     private void sendLeaveRequest() {
         String reason = edtLeaveReason.getText().toString();
         String fromDate = edtLeaveFromDate.getText().toString();
         String toDate = edtLeaveToDate.getText().toString();
-        String sendDate = Configuration.STRING_TODAY;
 
-        int employeeid = employee.getEmployeeId();
-        if (!checkValidData(reason, fromDate, toDate, edtLeaveReason, edtLeaveFromDate, edtLeaveToDate)) {
-            return;
-        }
+        if (!validateInput(reason, fromDate, toDate)) return;
 
         try {
-            LeaveRequest leaveRequest = new LeaveRequest(reason, sendDate, fromDate, toDate, 0, employeeid);
+            LeaveRequest leaveRequest = new LeaveRequest(
+                    reason, Configuration.STRING_TODAY, fromDate, toDate, 0, employee.getEmployeeId()
+            );
             AppDatabase.getInstance(this).leaveRequestDao().insert(leaveRequest);
-            Toast.makeText(this, "Yêu cầu nghỉ đã được gửi!", Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Lỗi khi lưu dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            showToastAndExit("Yêu cầu nghỉ đã được gửi!");
+        } catch (Exception e) {
+            showToast("Lỗi khi lưu dữ liệu: " + e.getMessage());
         }
     }
 
-    private boolean checkValidData(String reason, String fromDate, String toDate,
-                                   EditText editReason, EditText editFromDate, EditText editToDate) {
-
-        if (TextUtils.isEmpty(reason)) {
-            editReason.setError("Vui lòng nhập lý do nghỉ!");
-            editReason.requestFocus();
-            return false;
-        }
-
-        if (TextUtils.isEmpty(fromDate)) {
-            editFromDate.setError("Vui lòng nhập ngày nghỉ từ!");
-            editFromDate.requestFocus();
-            return false;
-        }
-
-        if (TextUtils.isEmpty(toDate)) {
-            editToDate.setError("Vui lòng nhập ngày nghỉ đến!");
-            editToDate.requestFocus();
-            return false;
-        }
+    private boolean validateInput(String reason, String fromDate, String toDate) {
+        if (isEmpty(edtLeaveReason, reason, "Vui lòng nhập lý do nghỉ!")) return false;
+        if (isEmpty(edtLeaveFromDate, fromDate, "Vui lòng nhập ngày nghỉ từ!")) return false;
+        if (isEmpty(edtLeaveToDate, toDate, "Vui lòng nhập ngày nghỉ đến!")) return false;
 
         if (!isValidDateRange(fromDate, toDate)) {
-            editToDate.setError("Ngày nghỉ từ phải nhỏ hơn hoặc bằng ngày nghỉ đến!");
-            editToDate.requestFocus();
+            edtLeaveToDate.setError("Ngày nghỉ từ phải nhỏ hơn hoặc bằng ngày nghỉ đến!");
+            edtLeaveToDate.requestFocus();
             return false;
         }
 
         if (!isValidDateRange(Configuration.STRING_TODAY, fromDate)) {
-            editFromDate.setError("Ngày nghỉ từ phải lớn hơn hoặc bằng ngày hiện tại!");
-            editFromDate.requestFocus();
+            edtLeaveFromDate.setError("Ngày nghỉ từ phải lớn hơn hoặc bằng ngày hiện tại!");
+            edtLeaveFromDate.requestFocus();
             return false;
         }
 
         return true;
+    }
+
+    private boolean isEmpty(EditText editText, String value, String errorMessage) {
+        if (TextUtils.isEmpty(value)) {
+            editText.setError(errorMessage);
+            editText.requestFocus();
+            return true;
+        }
+        return false;
     }
 
     private boolean isValidDateRange(String fromDate, String toDate) {
@@ -120,9 +110,7 @@ public class LeaveRequestForm extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date dateFrom = sdf.parse(fromDate);
             Date dateTo = sdf.parse(toDate);
-
-            // Kiểm tra ngày nghỉ từ và ngày nghỉ đến
-            return   dateFrom != null && dateTo != null && !dateTo.before(dateFrom);
+            return dateFrom != null && dateTo != null && !dateTo.before(dateFrom);
         } catch (ParseException e) {
             e.printStackTrace();
             return false;
@@ -135,17 +123,15 @@ public class LeaveRequestForm extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        calendar.set(year, month, day);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         long minDate = calendar.getTimeInMillis();
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
-            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+            String selectedDate = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear);
             editText.setText(selectedDate);
         }, year, month, day);
 
         datePickerDialog.getDatePicker().setMinDate(minDate);
-
         datePickerDialog.show();
     }
 
@@ -156,5 +142,14 @@ public class LeaveRequestForm extends AppCompatActivity {
         edtLeaveToDate = findViewById(R.id.edt_leave_to_date);
         btnSubmitLeaveRequest = findViewById(R.id.btn_submit_leave_request);
         btnBack = findViewById(R.id.btn_back);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showToastAndExit(String message) {
+        showToast(message);
+        finish();
     }
 }

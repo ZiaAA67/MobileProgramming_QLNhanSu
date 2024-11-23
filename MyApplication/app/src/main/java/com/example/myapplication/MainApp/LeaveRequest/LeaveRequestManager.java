@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
-import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.LeaveRequest;
 
 import java.util.Collections;
@@ -35,75 +34,59 @@ public class LeaveRequestManager extends AppCompatActivity {
         userId = getIntent().getIntExtra("UserID", -1);
 
         initUI();
+        setupRecyclerView();
 
+        btnBack.setOnClickListener(view -> finish());
+    }
+
+    private void initUI() {
+        rcvItem = findViewById(R.id.rcv_item);
+        btnBack = findViewById(R.id.btn_back);
+    }
+
+    private void setupRecyclerView() {
         leaveRequestManagerAdapter = new LeaveRequestManagerAdapter(new LeaveRequestManagerAdapter.IClickItem() {
             @Override
             public void approvedLeaveRequest(LeaveRequest leaveRequest) {
-                clickApprovedLeaveRequest(leaveRequest);
+                showConfirmationDialog("Chấp nhận", "Bạn chắc chắn muốn chấp nhận yêu cầu nghỉ?", 1, leaveRequest);
             }
 
             @Override
             public void dissapprovedLeaveRequest(LeaveRequest leaveRequest) {
-                clickDissapprovedLeaveRequest(leaveRequest);
+                showConfirmationDialog("Từ chối", "Bạn chắc chắn muốn từ chối yêu cầu nghỉ?", 2, leaveRequest);
             }
         });
-        leaveRequestManagerAdapter.setData(getLeaveRequests());
+
+        mListItems = getLeaveRequests();
+        leaveRequestManagerAdapter.setData(mListItems);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvItem.setLayoutManager(linearLayoutManager);
-
         rcvItem.setAdapter(leaveRequestManagerAdapter);
-
-        btnBack.setOnClickListener(view ->{finish();});
     }
 
     private List<LeaveRequest> getLeaveRequests() {
         List<LeaveRequest> list = AppDatabase.getInstance(this)
                 .leaveRequestDao()
                 .getByStatus(0);
-        // Reverse the list
         Collections.reverse(list);
         return list;
     }
 
-    private void initUI(){
-        rcvItem = findViewById(R.id.rcv_item);
-        btnBack = findViewById(R.id.btn_back);
-    }
-
-    private void clickDissapprovedLeaveRequest(LeaveRequest leaveRequest){
+    private void showConfirmationDialog(String title, String message, int status, LeaveRequest leaveRequest) {
         new AlertDialog.Builder(this)
-                .setTitle("Từ chối")
-                .setMessage("Bạn chắc ko?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        leaveRequest.setStatus(2);
-                        AppDatabase.getInstance(LeaveRequestManager.this).leaveRequestDao().update(leaveRequest);
-                        loadData();
-                    }
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    leaveRequest.setStatus(status);
+                    AppDatabase.getInstance(LeaveRequestManager.this).leaveRequestDao().update(leaveRequest);
+                    loadData();
                 })
                 .setNegativeButton("No", null)
                 .show();
     }
 
-    private  void clickApprovedLeaveRequest(LeaveRequest leaveRequest){
-        new AlertDialog.Builder(this)
-                .setTitle("Chấp nhận")
-                .setMessage("Bạn chắc ko?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        leaveRequest.setStatus(1);
-                        AppDatabase.getInstance(LeaveRequestManager.this).leaveRequestDao().update(leaveRequest);
-                        loadData();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
-
-    private void loadData(){
+    private void loadData() {
         mListItems = getLeaveRequests();
         leaveRequestManagerAdapter.setData(mListItems);
     }
