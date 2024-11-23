@@ -11,6 +11,7 @@
         android:maxSdkVersion="32" />
 
     <application
+        android:name=".InitMediaManager"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,18 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-        <activity
-            android:name=".SalarySlip"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
-            android:name=".Department"
-            android:exported="false" /> <!-- Google map API key -->
+            android:name=".Register.Register"
+            android:exported="false" />
+        <!-- Google map API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
@@ -55,8 +49,26 @@
             android:name=".MainApp.LeaveRequest.LeaveRequestManager"
             android:exported="false" />
         <activity
+            android:name=".MainApp.EmployeeProfile.EmployeeProfile"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.RewardsDiscipline.RewardsDiscipline"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.RewardsDiscipline.AddRewardsDiscipline"
+            android:exported="false" />
+        <activity
             android:name=".Login.ChangePassword"
             android:exported="false" />
+        <activity
+            android:name=".Login.GiaoDienLogin"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

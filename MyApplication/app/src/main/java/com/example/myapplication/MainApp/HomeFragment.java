@@ -17,6 +17,7 @@ import com.example.myapplication.MainApp.EmployeeProfile.EmployeeProfile;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestHistory;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
+import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -34,6 +35,7 @@ public class HomeFragment extends Fragment {
     private Button btnLeaveRequestHistory;
     private Button btnLeaveRequestManager;
     private Button btnEmployeeProfile;
+    private Button btnRewardDiscipline;
     private Button btnSalarySlip;
 
     @Nullable
@@ -72,6 +74,12 @@ public class HomeFragment extends Fragment {
 
         btnLeaveRequestManager.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestManager.class);
+            intent.putExtra("UserID", user.getUserId());
+            startActivity(intent);
+        });
+
+        btnRewardDiscipline.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), RewardsDiscipline.class);
             intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
@@ -143,6 +151,7 @@ public class HomeFragment extends Fragment {
         btnLeaveRequestHistory = view.findViewById(R.id.btn_asked_leave_request);
         btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
         btnEmployeeProfile = view.findViewById(R.id.btn_employee_profile);
+        btnRewardDiscipline = view.findViewById(R.id.btn_reward_discipline);
         btnSalarySlip = view.findViewById(R.id.btn_employee_profile);
     }
 }
