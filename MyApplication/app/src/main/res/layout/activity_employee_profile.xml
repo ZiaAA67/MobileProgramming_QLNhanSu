@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,29 +15,28 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnBack"
+                android:id="@+id/btn_back"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/light_sea_green"
-                android:drawableLeft="@drawable/arrow_left"
                 android:contentDescription="Back"
-                android:onClick="goBack"
-                />
+                android:drawableLeft="@drawable/arrow_left"
+                android:onClick="goBack" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="3dp"
                 android:text="Hồ Sơ Nhân Viên"
                 android:textColor="@color/white"
-                android:layout_marginLeft="60dp"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginTop="3dp"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -87,7 +84,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/id" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/id" />
 
                     <TextView
                         android:id="@+id/tv_employeeID"
@@ -112,7 +109,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/gender" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/gender" />
 
                     <TextView
                         android:id="@+id/tv_gender"
@@ -120,8 +117,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Nam"
-                        android:textSize="16sp"
                         android:textColor="@color/black"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -137,7 +134,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/birth" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/birth" />
 
                     <TextView
                         android:id="@+id/tv_birth"
@@ -162,7 +159,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/identity" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/identity" />
 
                     <TextView
                         android:id="@+id/tv_identity_number"
@@ -187,7 +184,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/local" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/local" />
 
                     <TextView
                         android:id="@+id/tv_address"
@@ -212,7 +209,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/phonenumber" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/phonenumber" />
 
                     <TextView
                         android:id="@+id/tv_phone_number"
@@ -237,7 +234,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/email" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/email" />
 
                     <TextView
                         android:id="@+id/tv_email"
@@ -249,6 +246,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -261,31 +259,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/active" /> <!-- Căn chỉnh icon trong nền tròn -->
-
-                    <TextView
-                        android:id="@+id/tv_active"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Đấng"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/circle_background"
-                        android:padding="8dp"
-                        android:src="@drawable/money" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/money" />
 
                     <TextView
                         android:id="@+id/tv_salary"
@@ -297,9 +271,10 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -309,7 +284,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/departmentid" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/departmentid" />
 
                     <TextView
                         android:id="@+id/tv_department"
@@ -321,6 +296,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -333,10 +309,10 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/position" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/position" />
 
                     <TextView
-                        android:id="@+id/tv_positionId"
+                        android:id="@+id/tv_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -345,6 +321,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -357,7 +334,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/education" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/education" />
 
                     <TextView
                         android:id="@+id/tv_education"
@@ -369,6 +346,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -381,31 +359,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/circle_background"
                         android:padding="8dp"
-                        android:src="@drawable/userid" /> <!-- Căn chỉnh icon trong nền tròn -->
-
-                    <TextView
-                        android:id="@+id/tv_userId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="nghialevippro"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/circle_background"
-                        android:padding="8dp"
-                        android:src="@drawable/workplace" /> <!-- Căn chỉnh icon trong nền tròn -->
+                        android:src="@drawable/workplace" />
 
                     <TextView
                         android:id="@+id/tv_workplace"
@@ -417,6 +371,32 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/circle_background"
+                        android:padding="8dp"
+                        android:src="@drawable/userid" />
+
+                    <TextView
+                        android:id="@+id/tv_userId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="nghialevippro"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 

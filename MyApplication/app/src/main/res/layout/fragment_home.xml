@@ -181,6 +181,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+        <Button
+            android:id="@+id/btn_reward_discipline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_light_grey"
+            android:drawableLeft="@drawable/request"
+            android:padding="16dp"
+            android:text="Khen thưởng và kỷ luật"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:cornerRadius="7dp"
+            app:strokeColor="@color/light_black"
+            app:strokeWidth="1dp" />
 
         <Button
             android:id="@+id/btn_leave_request_manager"
