@@ -27,7 +27,7 @@
                 android:layout_height="70dp"
                 android:backgroundTint="@color/light_sea_green"
                 android:contentDescription="Back"
-                android:drawableLeft="@drawable/arrow_left"
+                android:drawableLeft="@drawable/arrow_back"
                 android:onClick="goBack" />
 
             <TextView

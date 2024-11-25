@@ -22,7 +22,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:backgroundTint="@color/light_sea_green"
-            android:drawableLeft="@drawable/arrow_left" />
+            android:drawableLeft="@drawable/arrow_back" />
 
         <TextView
             android:id="@+id/textView2"

@@ -21,11 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-
         <activity
             android:name=".Register.Register"
-            android:exported="false" />
-        <!-- Google map API key -->
+            android:exported="false" /> <!-- Google map API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
@@ -61,7 +59,7 @@
             android:name=".Login.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".Login.GiaoDienLogin"
+            android:name=".Schedule.WorkSchedule"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
