@@ -59,14 +59,14 @@
                 app:layout_constraintTop_toBottomOf="@id/topBar">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/img_image_employee"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:src="@drawable/logo" />
 
                 <TextView
-                    android:id="@+id/tv_fullName"
+                    android:id="@+id/tv_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -165,7 +165,7 @@
                         android:src="@drawable/identity" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_identityNumber"
+                        android:id="@+id/tv_identity_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -215,7 +215,7 @@
                         android:src="@drawable/phonenumber" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/phoneNumber"
+                        android:id="@+id/tv_phone_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -288,7 +288,7 @@
                         android:src="@drawable/money" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_salaryId"
+                        android:id="@+id/tv_salary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -312,7 +312,7 @@
                         android:src="@drawable/departmentid" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_departmentId"
+                        android:id="@+id/tv_department"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -360,7 +360,7 @@
                         android:src="@drawable/education" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_educationId"
+                        android:id="@+id/tv_education"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -408,7 +408,7 @@
                         android:src="@drawable/workplace" /> <!-- Căn chỉnh icon trong nền tròn -->
 
                     <TextView
-                        android:id="@+id/tv_workplaceId"
+                        android:id="@+id/tv_workplace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
