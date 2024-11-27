@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_pass_background"
+                    android:background="@drawable/edittext_border"
                     app:cornerRadius="17dp">
 
                     <ImageView
@@ -91,7 +91,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_pass_background"
                     app:cornerRadius="17dp">
 
                     <EditText
@@ -132,7 +131,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_pass_background"
                     app:cornerRadius="17dp">
 
                     <EditText
@@ -158,32 +156,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_pass_background"
                     app:cornerRadius="17dp">
 
                     <EditText
                         android:id="@+id/edt_education_level"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:cursorVisible="false"
-                        android:focusable="false"
                         android:background="@drawable/edittext_border"
+                        android:cursorVisible="false"
                         android:drawablePadding="10dp"
+                        android:focusable="false"
                         android:hint="Trình độ học vấn"
                         android:padding="8dp"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         app:hintTextColor="@color/light_grey" />
 
-<!--                    <Spinner-->
-<!--                        android:id="@+id/spinner_education_level"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:background="@drawable/edittext_border"-->
-<!--                        android:drawablePadding="10dp"-->
-<!--                        android:drawableTint="@color/black"-->
-<!--                        android:padding="8dp"-->
-<!--                        android:textSize="15sp" />-->
+                    <!--                    <Spinner-->
+                    <!--                        android:id="@+id/spinner_education_level"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="50dp"-->
+                    <!--                        android:background="@drawable/edittext_border"-->
+                    <!--                        android:drawablePadding="10dp"-->
+                    <!--                        android:drawableTint="@color/black"-->
+                    <!--                        android:padding="8dp"-->
+                    <!--                        android:textSize="15sp" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -213,7 +210,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/rounded_pass_background"
                     app:endIconTint="@color/grey">
 
                     <EditText
@@ -288,12 +284,13 @@
                     app:cornerRadius="17dp" />
             </LinearLayout>
         </LinearLayout>
+
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
 

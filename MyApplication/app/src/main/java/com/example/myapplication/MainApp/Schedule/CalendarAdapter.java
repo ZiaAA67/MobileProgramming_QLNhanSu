@@ -1,4 +1,4 @@
-package com.example.myapplication.Schedule;
+package com.example.myapplication.MainApp.Schedule;
 
 import android.content.Context;
 import android.view.LayoutInflater;

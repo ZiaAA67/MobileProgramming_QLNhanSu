@@ -1,4 +1,4 @@
-package com.example.myapplication.Schedule;
+package com.example.myapplication.MainApp.Schedule;
 
 import android.os.Bundle;
 import android.widget.GridView;

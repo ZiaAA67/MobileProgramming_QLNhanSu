@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<!--    tools:context=".Register"-->
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--    tools:context=".Register"-->
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -45,15 +45,14 @@
         android:backgroundTint="@color/lavender"
 
         android:orientation="vertical"
-        android:paddingVertical="100dp"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="100dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background"
             app:cornerRadius="17dp">
 
             <EditText
@@ -61,14 +60,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/edittext_border"
                 android:drawableStart="@drawable/account"
-                android:drawableTint="@color/grey"
                 android:drawablePadding="10dp"
+                android:drawableTint="@color/grey"
                 android:hint="Tên Tài Khoản"
+                android:nextFocusDown="@id/edt_password"
                 android:padding="8dp"
                 android:textSize="15sp"
-                android:nextFocusDown="@id/edt_password"
                 app:hintTextColor="@color/light_grey" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_pass_background"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/grey">
 
@@ -86,14 +84,14 @@
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/edittext_border"
                 android:drawableStart="@drawable/current_pass"
                 android:drawablePadding="10dp"
                 android:hint="Mật Khẩu"
-                android:padding="8dp"
                 android:inputType="textPassword"
-                android:textSize="15sp"
                 android:nextFocusDown="@id/edt_password_confirm"
+                android:padding="8dp"
+                android:textSize="15sp"
                 app:hintTextColor="@color/light_grey" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +101,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_pass_background"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/grey">
 
@@ -111,14 +108,14 @@
                 android:id="@+id/edt_password_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/edittext_border"
                 android:drawableStart="@drawable/current_pass"
                 android:drawablePadding="10dp"
                 android:hint="Xác Nhận Mật Khẩu"
                 android:inputType="textPassword"
+                android:nextFocusDown="@id/btn_continue"
                 android:padding="8dp"
                 android:textSize="15sp"
-                android:nextFocusDown="@id/btn_continue"
                 app:hintTextColor="@color/light_grey" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -127,8 +124,8 @@
             android:id="@+id/btn_continue"
             android:layout_width="250dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/light_sea_green"
             android:drawableRight="@drawable/arrow_right"
             android:drawableTint="@color/white"

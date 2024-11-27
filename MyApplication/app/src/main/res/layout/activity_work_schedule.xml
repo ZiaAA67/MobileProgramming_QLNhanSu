@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Schedule.WorkSchedule">
+    tools:context=".MainApp.Schedule.WorkSchedule">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -179,9 +179,9 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rounded_pass_background"
                 android:gravity="center"
-                android:padding="10dp"
                 android:horizontalSpacing="5dp"
                 android:numColumns="7"
+                android:padding="10dp"
                 android:verticalSpacing="5dp" />
 
         </LinearLayout>

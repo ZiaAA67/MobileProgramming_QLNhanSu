@@ -1,7 +1,6 @@
-package com.example.myapplication.MainApp;
+package com.example.myapplication.MainApp.Fragment;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,7 @@ public class Viewpager2Adapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch(position) {
+        switch (position) {
             case 0:
                 return createFragmentWithUserId(new HomeFragment(), user);
             case 1:

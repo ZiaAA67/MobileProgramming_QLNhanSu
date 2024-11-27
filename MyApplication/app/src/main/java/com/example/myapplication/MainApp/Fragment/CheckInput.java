@@ -1,7 +1,4 @@
-package com.example.myapplication.MainApp;
-
-import com.example.myapplication.Configuration;
-import com.example.myapplication.database.entities.User;
+package com.example.myapplication.MainApp.Fragment;
 
 import java.util.regex.Pattern;
 

@@ -32,10 +32,19 @@
             android:name=".Register.InformationRegister"
             android:exported="false" />
         <activity
-            android:name=".MainApp.GiaoDienChinh"
+            android:name=".MainApp.Fragment.GiaoDienChinh"
             android:exported="false" />
         <activity
-            android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"
+            android:name=".MainApp.EmployeeProfile.EmployeeProfile"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Schedule.WorkSchedule"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Salary.SalarySlip"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Salary.SalarySlipInformation"
             android:exported="false" />
         <activity
             android:name=".MainApp.LeaveRequest.LeaveRequestHistory"
@@ -47,19 +56,19 @@
             android:name=".MainApp.LeaveRequest.LeaveRequestManager"
             android:exported="false" />
         <activity
-            android:name=".MainApp.EmployeeProfile.EmployeeProfile"
-            android:exported="false" />
-        <activity
             android:name=".MainApp.RewardsDiscipline.RewardsDiscipline"
             android:exported="false" />
         <activity
             android:name=".MainApp.RewardsDiscipline.AddRewardsDiscipline"
             android:exported="false" />
         <activity
+            android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".Login.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".Schedule.WorkSchedule"
+            android:name=".Login.GiaoDienLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

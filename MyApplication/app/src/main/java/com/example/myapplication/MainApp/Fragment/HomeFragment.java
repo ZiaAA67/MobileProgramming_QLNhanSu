@@ -1,4 +1,4 @@
-package com.example.myapplication.MainApp;
+package com.example.myapplication.MainApp.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestHistory;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
+import com.example.myapplication.MainApp.Salary.SalarySlip;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -27,7 +28,7 @@ import com.example.myapplication.database.entities.User;
 
 public class HomeFragment extends Fragment {
 
-//    private int userId;
+    //    private int userId;
     private User user;
     private TextView employeeNameTextView;
     private TextView positionTextView;
@@ -84,6 +85,12 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        btnSalarySlip.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), SalarySlip.class);
+            intent.putExtra("UserID", user.getUserId());
+            startActivity(intent);
+        });
+
         return view;
     }
 
@@ -96,7 +103,7 @@ public class HomeFragment extends Fragment {
                     employeeNameTextView.setText(employee.getFullName());
 
                     Integer posId = employee.getPositionId();
-                    if(posId != null) {
+                    if (posId != null) {
                         Position position = db.positionDao().getPositionById(employee.getPositionId());
                         positionTextView.setText(position.getPositionName());
                     }
@@ -112,13 +119,12 @@ public class HomeFragment extends Fragment {
 //                    positionTextView.setText("");
 //                }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void adminButton(int userId, String rolename, Button ... buttons) {
+    private void adminButton(int userId, String rolename, Button... buttons) {
         if (getContext() == null) {
             Log.e("Fragment", "Context is null.");
             return;
@@ -140,7 +146,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void getUserID(){
+    private void getUserID() {
 
     }
 
@@ -152,6 +158,6 @@ public class HomeFragment extends Fragment {
         btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
         btnEmployeeProfile = view.findViewById(R.id.btn_employee_profile);
         btnRewardDiscipline = view.findViewById(R.id.btn_reward_discipline);
-        btnSalarySlip = view.findViewById(R.id.btn_employee_profile);
+        btnSalarySlip = view.findViewById(R.id.btn_salary_slip);
     }
 }

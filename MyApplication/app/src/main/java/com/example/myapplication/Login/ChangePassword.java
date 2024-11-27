@@ -13,12 +13,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Configuration;
-import com.example.myapplication.MainApp.CheckInput;
+import com.example.myapplication.MainApp.Fragment.CheckInput;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
-
-import java.util.regex.Pattern;
 
 public class ChangePassword extends AppCompatActivity {
 

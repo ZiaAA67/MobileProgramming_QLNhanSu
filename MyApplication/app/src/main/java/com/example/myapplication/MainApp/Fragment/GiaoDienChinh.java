@@ -1,4 +1,4 @@
-package com.example.myapplication.MainApp;
+package com.example.myapplication.MainApp.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,7 +23,7 @@ public class GiaoDienChinh extends AppCompatActivity {
     BottomNavigationView navigationView;
 
 
-//    @SuppressLint("MissingInflatedId")
+    //    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

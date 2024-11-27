@@ -1,4 +1,4 @@
-package com.example.myapplication.MainApp;
+package com.example.myapplication.MainApp.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +16,12 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Login.ChangePassword;
+import com.example.myapplication.Login.GiaoDienLogin;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.User;
-import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.Login.GiaoDienLogin;
 
 public class ProfileFragment extends Fragment {
 
@@ -86,7 +86,7 @@ public class ProfileFragment extends Fragment {
                 tvEmployeeName.setText(employee.getFullName());
 
                 Integer posId = employee.getPositionId();
-                if(posId != null) {
+                if (posId != null) {
                     Position position = db.positionDao().getPositionById(employee.getPositionId());
                     tvPosition.setText(position.getPositionName());
                 }
@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment {
 //                }
 
                 String imagePath = employee.getImagePath();
-                if(!imagePath.isEmpty()) {
+                if (!imagePath.isEmpty()) {
                     RequestOptions options = new RequestOptions().circleCrop();
                     Glide.with(requireActivity()).load(imagePath).apply(options).into(imageAvatar);
                 }
