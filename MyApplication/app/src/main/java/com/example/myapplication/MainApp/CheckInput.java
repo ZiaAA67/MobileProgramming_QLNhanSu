@@ -1,10 +1,8 @@
-package com.example.myapplication.MainApp.Fragment;
 package com.example.myapplication.MainApp;
 
 import android.content.Context;
 import android.widget.EditText;
 
-import com.example.myapplication.Configuration;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
 

@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Configuration;
-import com.example.myapplication.MainApp.Fragment.CheckInput;
+import com.example.myapplication.MainApp.CheckInput;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;

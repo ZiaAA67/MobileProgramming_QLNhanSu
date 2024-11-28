@@ -17,6 +17,7 @@ import com.example.myapplication.MainApp.EmployeeProfile.EmployeeProfile;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestHistory;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
+import com.example.myapplication.MainApp.Manager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
 import com.example.myapplication.R;

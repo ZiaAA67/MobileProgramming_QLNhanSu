@@ -51,6 +51,7 @@ public class AccountManagement extends AppCompatActivity {
     EditText edtSearch;
     SearchView searchView;
     ExtendedFloatingActionButton fabAdd;
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +172,10 @@ public class AccountManagement extends AppCompatActivity {
             dialog.dismiss();
 
             loadData();
+        });
+
+        btnBack.setOnClickListener(v -> {
+            finish();
         });
 
     }
@@ -317,5 +322,6 @@ public class AccountManagement extends AppCompatActivity {
         edtSearch = findViewById(R.id.edt_search);
         searchView = findViewById(R.id.search_view);
         fabAdd = findViewById(R.id.fab_add);
+        btnBack = findViewById(R.id.btn_back);
     }
 }
