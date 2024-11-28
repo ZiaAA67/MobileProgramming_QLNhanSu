@@ -21,18 +21,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-       <!-- <activity
+        <activity
             android:name=".MainApp.Department.Departmment"
-            android:exported="false" />-->
+            android:exported="false" />
         <activity
             android:name=".MainApp.AccountManagement.AccountManagement"
             android:exported="false" />
         <activity
             android:name=".MainApp.Manager"
             android:exported="false" />
-        <!--<activity
+        <activity
             android:name=".Register.Register"
-            android:exported="false" /> &lt;!&ndash; Google map API key &ndash;&gt;-->
+            android:exported="false" /> <!-- Google map API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
@@ -43,9 +43,9 @@
         <activity
             android:name=".MainApp.Fragment.GiaoDienChinh"
             android:exported="false" />
-        <activity
+        <!--<activity
             android:name=".MainApp.EmployeeProfile.EmployeeProfile"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
             android:name=".MainApp.Schedule.WorkSchedule"
             android:exported="false" />
@@ -74,10 +74,10 @@
             android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"
             android:exported="false" />
         <!--<activity
-            android:name=".Login.ChangePassword"
-            android:exported="false" />-->
+           &lt;!&ndash; android:name=".Login.ChangePassword"
+            android:exported="false" />&ndash;&gt;-->
         <activity
-            android:name=".Register.Register"
+            android:name=".Login.ChangePassword"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
