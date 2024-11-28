@@ -1,7 +1,9 @@
 package com.example.myapplication.MainApp.Salary;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
@@ -18,6 +22,7 @@ import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Employee_RewardDiscipline;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Salary;
+import com.example.myapplication.database.entities.User;
 
 import java.util.List;
 
@@ -26,8 +31,10 @@ public class SalarySlipInformation extends AppCompatActivity {
     private int userId;
     private int month;
     private int year;
+    private ImageView imgEmployee;
     private Button btnBack;
     private TextView tvEmployeeName;
+    private TextView tvMonthYear;
     private TextView tvPosition;
     private TextView tvPosition2;
     private TextView tvDepartment;
@@ -77,6 +84,40 @@ public class SalarySlipInformation extends AppCompatActivity {
             return;
         }
 
+        // Lấy ngày gia nhập công ty, không xem trước khi gia nhập công ty
+        User user = AppDatabase.getInstance(this).userDao().getUserById(userId);
+        String joinDate = user.getCreateDate();
+
+        if (joinDate != null) {
+            String[] joinDateParts = joinDate.split("/");
+            int joinDay = Integer.parseInt(joinDateParts[0]);
+            int joinMonth = Integer.parseInt(joinDateParts[1]);
+            int joinYear = Integer.parseInt(joinDateParts[2]);
+
+            if ((year < joinYear) || (year == joinYear && month < joinMonth)) {
+                Toast.makeText(this, "Lương chưa được cấp cho tháng này", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+        }
+
+        // Không xem lương tháng sau
+        int currentMonth = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1; // Tháng bắt đầu từ 0
+        int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+
+        if ((year > currentYear) || (year == currentYear && month > currentMonth)) {
+            Toast.makeText(this, "Không thể xem lương của tháng sau", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        if (!TextUtils.isEmpty(employee.getImagePath())) {
+            Glide.with(this)
+                    .load(employee.getImagePath())
+                    .apply(new RequestOptions().circleCrop())
+                    .into(imgEmployee);
+        }
+
         String fullName = (employee.getFullName() != null) ? employee.getFullName() : "Không có tên";
         String positionName = (employee.getPositionId() != null) ? getPositionName(employee.getPositionId()) : "Không có chức vụ";
         String departmentName = (employee.getDepartmentId() != null) ? getDepartmentName(employee.getDepartmentId()) : "Không có phòng ban";
@@ -88,16 +129,17 @@ public class SalarySlipInformation extends AppCompatActivity {
         Float receiveMoney = totalSalary - tax;
 
         tvEmployeeName.setText(fullName);
+        tvMonthYear.setText(String.format("%02d/%d", month, year));
         tvPosition.setText(positionName);
         tvPosition2.setText(positionName);
         tvDepartment.setText(departmentName);
-        tvBaseSalary.setText(String.format("%,.2f VND", baseSalary));
-        tvAllowance.setText(String.format("%,.2f VND", allowanceSalary));
-        tvRewardDiscipline.setText(String.format("%,.2f VND", rewardDisciplineMoney));
-        tvTotalSalary.setText(String.format("%,.2f VND", totalSalary));
-        tvTax.setText(String.format("%,.2f VND", tax));
-        tvReceiveSalary.setText(String.format("%,.2f VND", receiveMoney));
-        tvReceiveSalary2.setText(String.format("%,.2f VND", receiveMoney));
+        tvBaseSalary.setText(String.format("%,.0f VND", baseSalary));
+        tvAllowance.setText(String.format("%,.0f VND", allowanceSalary));
+        tvRewardDiscipline.setText(String.format("%,.0f VND", rewardDisciplineMoney));
+        tvTotalSalary.setText(String.format("%,.0f VND", totalSalary));
+        tvTax.setText(String.format("%,.0f VND", tax));
+        tvReceiveSalary.setText(String.format("%,.0f VND", receiveMoney));
+        tvReceiveSalary2.setText(String.format("%,.0f VND", receiveMoney));
     }
 
     private Employee getEmployee(int userId) {
@@ -124,6 +166,10 @@ public class SalarySlipInformation extends AppCompatActivity {
         return salary.getAllowance();
     }
 
+    private int getHours(int employeeId) {
+        return 0;
+    }
+
 //    private float getRewardDisciplineMoney(int employeeId, int month, int year) {
 //        List<Employee_RewardDiscipline> employeeRewardDisciplines = AppDatabase
 //                .getInstance(this)
@@ -144,30 +190,33 @@ public class SalarySlipInformation extends AppCompatActivity {
 //        return totalReward;
 //    }
 
+    // Tính thuế thu nhập
     public static double calculateTax(double tntt) {
         double tax = 0;
 
-        if (tntt <= 5) {
+        if (tntt <= 5_000_000) {
             tax = tntt * 0.05;
-        } else if (tntt <= 10) {
-            tax = tntt * 0.10 - 250000;
-        } else if (tntt <= 18) {
-            tax = tntt * 0.15 - 750000;
-        } else if (tntt <= 32) {
-            tax = tntt * 0.20 - 1650000;
-        } else if (tntt <= 52) {
-            tax = tntt * 0.25 - 3250000;
-        } else if (tntt <= 80) {
-            tax = tntt * 0.30 - 5850000;
+        } else if (tntt <= 10_000_000) {
+            tax = tntt * 0.10 - 250_000;
+        } else if (tntt <= 18_000_000) {
+            tax = tntt * 0.15 - 750_000;
+        } else if (tntt <= 32_000_000) {
+            tax = tntt * 0.20 - 1_650_000;
+        } else if (tntt <= 52_000_000) {
+            tax = tntt * 0.25 - 3_250_000;
+        } else if (tntt <= 80_000_000) {
+            tax = tntt * 0.30 - 5_850_000;
         } else {
-            tax = tntt * 0.35 - 9850000;
+            tax = tntt * 0.35 - 9_850_000;
         }
 
         return tax;
     }
 
     private void initUI() {
+        imgEmployee = findViewById(R.id.img_image_employee);
         tvEmployeeName = findViewById(R.id.tv_employeename);
+        tvMonthYear = findViewById(R.id.tv_month_and_year);
         tvPosition = findViewById(R.id.tv_position);
         tvPosition2 = findViewById(R.id.tv_position2);
         tvDepartment = findViewById(R.id.tv_department);

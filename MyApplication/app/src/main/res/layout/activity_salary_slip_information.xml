@@ -79,7 +79,7 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <ImageView
-                                android:id="@+id/imageView2"
+                                android:id="@+id/img_image_employee"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 app:srcCompat="@drawable/circle_background" />
@@ -156,6 +156,7 @@
                             android:textColor="@color/grey" />
 
                         <TextView
+                            android:id="@+id/tv_month_and_year"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

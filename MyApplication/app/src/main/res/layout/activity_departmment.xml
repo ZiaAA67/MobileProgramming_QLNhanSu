@@ -63,23 +63,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+                    app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="18dp"
-                    app:boxCornerRadiusTopEnd="18dp"
-                    app:boxCornerRadiusBottomStart="18dp"
                     app:boxCornerRadiusBottomEnd="18dp"
-                    app:boxStrokeWidth="2dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusTopStart="18dp"
                     app:boxStrokeColor="@color/light_sea_green"
-                    app:hintTextColor="@color/light_sea_green"
-                    app:boxBackgroundColor="@color/white">
+                    app:boxStrokeWidth="2dp"
+                    app:hintTextColor="@color/light_sea_green">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/edt_department_id"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="ID Phòng Ban"
                         android:inputType="text"
                         android:padding="5dp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -87,59 +88,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+                    app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="18dp"
-                    app:boxCornerRadiusTopEnd="18dp"
-                    app:boxCornerRadiusBottomStart="18dp"
                     app:boxCornerRadiusBottomEnd="18dp"
-                    app:boxStrokeWidth="2dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusTopStart="18dp"
                     app:boxStrokeColor="@color/light_sea_green"
-                    app:hintTextColor="@color/light_sea_green"
-                    app:boxBackgroundColor="@color/white">
+                    app:boxStrokeWidth="2dp"
+                    app:hintTextColor="@color/light_sea_green">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/edt_department_name"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="Tên Phòng Ban"
                         android:inputType="text"
-                        android:textColorHint="@color/light_sea_green"
                         android:padding="5dp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Switch
                     android:id="@+id/switch_ative"
                     android:layout_width="120dp"
                     android:layout_height="50dp"
+                    android:text="Trạng thái"
                     android:textColor="@color/black"
                     android:thumbTint="@color/light_black"
-                    android:trackTint="@color/light_sea_green"
-                    android:text="Trạng thái" />
+                    android:trackTint="@color/light_sea_green" />
 
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/light_sea_green"
-                    android:textColor="@color/white"
                     android:text="Thêm"
-                    />
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnCancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/light_sea_green"
-                    android:textColor="@color/white"
-                    android:text="Khôi Phục" />
+                    android:text="Khôi Phục"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:elevation="4dp"
                 android:backgroundTint="@color/white"
+                android:elevation="4dp"
                 app:cardCornerRadius="20dp">
 
                 <LinearLayout
@@ -152,16 +152,16 @@
                         android:id="@+id/tv_department_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="ID Phòng Ban " />
+                        android:text="ID Phòng Ban "
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tv_department_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/black"
-                        android:text="Tên Phòng Ban " />
+                        android:text="Tên Phòng Ban "
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tv_active"
@@ -169,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Trạng thái"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -181,11 +181,11 @@
                             android:id="@+id/btnEdit"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginRight="10dp"
+                            android:layout_weight="1"
                             android:backgroundTint="@color/light_sea_green"
-                            android:textColor="@color/white"
-                            android:text="Sửa" />
+                            android:text="Sửa"
+                            android:textColor="@color/white" />
 
                         <Button
                             android:id="@+id/btnDelete"
@@ -193,8 +193,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:backgroundTint="@color/light_sea_green"
-                            android:textColor="@color/white"
-                            android:text="Xóa" />
+                            android:text="Xóa"
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

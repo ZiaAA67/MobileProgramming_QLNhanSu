@@ -14,7 +14,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
-import com.example.myapplication.database.entities.*;
+import com.example.myapplication.database.entities.Department;
+import com.example.myapplication.database.entities.EducationLevel;
+import com.example.myapplication.database.entities.Employee;
+import com.example.myapplication.database.entities.Position;
+import com.example.myapplication.database.entities.Salary;
+import com.example.myapplication.database.entities.User;
+import com.example.myapplication.database.entities.Workplace;
+
+import java.text.DecimalFormat;
 
 public class EmployeeProfile extends AppCompatActivity {
     private int userId;
@@ -66,7 +74,7 @@ public class EmployeeProfile extends AppCompatActivity {
             safeTextViewSetText(tvAddress, "Địa chỉ: " + optionalValue(employee.getAddress(), "Không rõ"));
             safeTextViewSetText(tvPhoneNumber, "Số điện thoại: " + optionalValue(employee.getPhoneNumber(), "Không rõ"));
             safeTextViewSetText(tvEmail, "Email: " + optionalValue(employee.getEmail(), "Không rõ"));
-            safeTextViewSetText(tvSalary, "Lương cứng: " + optionalValue(employee.getSalaryId(), "N/A"));
+            safeTextViewSetText(tvSalary, "Lương cứng: " + getSalary(employee.getSalaryId()));
             safeTextViewSetText(tvDepartment, "Phòng ban: " + fetchDepartmentName(employee.getDepartmentId()));
             safeTextViewSetText(tvPosition, "Chức vụ: " + fetchPositionName(employee.getPositionId()));
             safeTextViewSetText(tvEducationLevel, "Học vấn: " + fetchEducationName(employee.getEducationId()));
@@ -78,9 +86,21 @@ public class EmployeeProfile extends AppCompatActivity {
         }
     }
 
+    private String getSalary(Integer salaryId) {
+        Salary salary = AppDatabase.getInstance(this).salaryDao().getSalaryById(salaryId);
+        if (salary != null && salary.getBasicSalary() != null) {
+            float basicSalary = salary.getBasicSalary();
+            DecimalFormat formatter = new DecimalFormat("#,###.###");
+            return formatter.format(basicSalary);
+        } else {
+            return "N/A";
+        }
+    }
+
     private int fetchEmployeeId(int userId) {
         Employee employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
-        if (employee == null) throw new RuntimeException("Không tìm thấy nhân viên với UserID: " + userId);
+        if (employee == null)
+            throw new RuntimeException("Không tìm thấy nhân viên với UserID: " + userId);
         return employee.getEmployeeId();
     }
 
@@ -126,9 +146,12 @@ public class EmployeeProfile extends AppCompatActivity {
 
     private String parseGender(int genderId) {
         switch (genderId) {
-            case 0: return "Nam";
-            case 1: return "Nữ";
-            default: return "Khác";
+            case 0:
+                return "Nam";
+            case 1:
+                return "Nữ";
+            default:
+                return "Khác";
         }
     }
 
