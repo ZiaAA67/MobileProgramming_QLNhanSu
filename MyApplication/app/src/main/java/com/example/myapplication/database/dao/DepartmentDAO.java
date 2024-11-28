@@ -23,12 +23,12 @@ public interface DepartmentDAO {
     @Delete
     void delete(Department department);
 
-    @Query("SELECT * FROM Department")
-    List<Department> getAll();
+    @Query("SELECT * FROM Department WHERE Active = 1")
+    List<Department> getActiveDepartment();
 
     @Query("SELECT * FROM Department WHERE DepartmentID = :departmentId")
     Department getById(int departmentId);
 
-    @Query("SELECT * FROM Department WHERE DepartmentName = :departmentName")
+    @Query("SELECT * FROM Department WHERE DepartmentName = :departmentName LIMIT 1")
     Department getByName(String departmentName);
 }

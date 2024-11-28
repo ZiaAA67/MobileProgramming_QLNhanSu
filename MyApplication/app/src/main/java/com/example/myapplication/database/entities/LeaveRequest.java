@@ -6,6 +6,8 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 @Entity(tableName = "LeaveRequest",
         foreignKeys = @ForeignKey(
@@ -106,4 +108,24 @@ public class LeaveRequest {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
+
+    public long calculateLeaveDays() {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate startDate = LocalDate.parse(offDateFrom, formatter);
+            LocalDate endDate = LocalDate.parse(offDateTo, formatter);
+
+            // Nếu startDate bằng endDate, trả về 1 ngày
+            if (startDate.isEqual(endDate)) {
+                return 1;
+            }
+
+            // Tính số ngày nghỉ, bao gồm cả ngày bắt đầu và ngày kết thúc
+            return ChronoUnit.DAYS.between(startDate, endDate) + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0; // Trả về 0 nếu có lỗi
+        }
+    }
+
 }

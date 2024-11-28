@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_bg_radius_16"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_green_bg_top_left_top_right_radius_16"
+        android:text="Trình Độ Học Vấn"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/spinner_education_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/lightlightgrey_background_lightgrey_border"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:padding="8dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:id="@+id/edt_education_major"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/lightlightgrey_background_lightgrey_border"
+            android:hint="Chuyên ngành"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:id="@+id/edt_education_institute"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/lightlightgrey_background_lightgrey_border"
+            android:hint="Trường đại học ( hoặc nơi cấp bằng )"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:padding="8dp"
+            android:layout_marginTop="16dp"
+            android:textSize="15sp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/btn_education_cancel"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dis_approve"
+                android:text="Huỷ"/>
+
+            <Button
+                android:id="@+id/btn_education_confirm"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/approve"
+                android:layout_marginLeft="20dp"
+                android:text="Xác nhận"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

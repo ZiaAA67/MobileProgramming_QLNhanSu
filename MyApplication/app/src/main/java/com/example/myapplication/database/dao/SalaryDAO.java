@@ -21,9 +21,9 @@ public interface SalaryDAO {
     @Delete
     void delete(Salary salary);
 
-    @Query("SELECT * FROM Salary")
+    @Query("SELECT * FROM SalarySlip")
     List<Salary> getAllSalaries();
 
-    @Query("SELECT * FROM Salary WHERE SalaryID = :salaryId")
+    @Query("SELECT * FROM SalarySlip WHERE SalaryID = :salaryId")
     Salary getSalaryById(int salaryId);
 }

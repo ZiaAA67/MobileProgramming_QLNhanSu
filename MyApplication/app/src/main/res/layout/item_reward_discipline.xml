@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/lightlightgrey_background_lightgrey_border"
+    android:backgroundTint="#E9E9E9"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_reward_discipline_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhân viên xuất sắc nhất năm"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_reward_discipline_name"
+        android:text="Loại: khen thưởng" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type"
+        android:text="Nội dung: Nhân viên này đã có doanh số cao nhất trong năm" />
+
+
+</RelativeLayout>

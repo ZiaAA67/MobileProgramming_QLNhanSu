@@ -36,7 +36,4 @@ public interface LeaveRequestDAO {
 
     @Query("SELECT * FROM LeaveRequest WHERE SendDate BETWEEN :startDate AND :endDate")
     List<LeaveRequest> getBySendDateRange(String startDate, String endDate);
-
-    @Query("SELECT * FROM LeaveRequest WHERE Status = 0")
-    List<LeaveRequest> getInactiveStatus();
 }

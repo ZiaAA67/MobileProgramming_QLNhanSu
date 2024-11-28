@@ -1,7 +1,13 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.security.MessageDigest;
@@ -120,6 +126,27 @@ public class Configuration {
                 }
             }
         });
+    }
+
+
+    public static void showDialog(Dialog dialog, int layout) {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layout);
+        dialog.setCancelable(true); // có thể bấm ra ngoài để đóng dialog
+
+        Window window = dialog.getWindow();
+        if(window == null) return;
+
+        // Set kích thước và màu nền
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Set gravity center
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.CENTER;
+        window.setAttributes(windowAttributes);
+
+        dialog.show();
     }
 }
 

@@ -15,14 +15,14 @@ public interface EmployeeDAO {
     @Insert
     void insert(Employee... employees);
 
+    @Insert
+    long insertReturnId(Employee employees);
+
     @Update
     void update(Employee employee);
 
     @Delete
     void delete(Employee employee);
-
-    @Query("SELECT * FROM Employee")
-    List<Employee> getAll();
 
     @Query("SELECT * FROM Employee WHERE EmployeeID = :employeeId")
     Employee getById(int employeeId);
@@ -46,6 +46,12 @@ public interface EmployeeDAO {
 
     @Query("SELECT * FROM Employee WHERE Active = 0")
     List<Employee> getInactiveEmployees();
+
+    @Query("SELECT * FROM Employee WHERE IsApprove = 1 AND Active = 1")
+    List<Employee> getApproveEmployees();
+
+    @Query("SELECT * FROM Employee WHERE IsApprove = 0 AND Active = 1")
+    List<Employee> getDisapproveEmployees();
 
     @Query("SELECT * FROM Employee WHERE PositionID = :positionId")
     List<Employee> getByPositionId(int positionId);
