@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
+import java.time.YearMonth;
 import java.util.List;
 
 public class SalarySlipAdapter extends BaseAdapter {
@@ -17,11 +18,13 @@ public class SalarySlipAdapter extends BaseAdapter {
     private Context context;
     private List<SalarySlipItem> salarySlipItems;
     private LayoutInflater inflater;
+    private int userId;
 
-    public SalarySlipAdapter(Context context, List<SalarySlipItem> salarySlipItems) {
+    public SalarySlipAdapter(Context context, List<SalarySlipItem> salarySlipItems, int userId) {
         this.context = context;
         this.salarySlipItems = salarySlipItems;
         this.inflater = LayoutInflater.from(context);
+        this.userId = userId;
     }
 
     @Override
@@ -49,16 +52,29 @@ public class SalarySlipAdapter extends BaseAdapter {
         TextView tvDateRange = convertView.findViewById(R.id.tv_date_range);
 
         SalarySlipItem item = salarySlipItems.get(position);
+
+        DateUtils dateUtils = new DateUtils();
+        int days = dateUtils.getDaysInMonth(item.getMonth(), item.getYear());
+
         tvMonthYear.setText("Phiếu lương tháng " + item.getMonth() + "." + item.getYear());
-        tvDateRange.setText("01/" + item.getMonth() + "/" + item.getYear() + " - 31/" + item.getMonth() + "/" + item.getYear());
+        tvDateRange.setText("01/" + item.getMonth() + "/" + item.getYear() +
+                " - " + days + "/" + item.getMonth() + "/" + item.getYear());
 
         convertView.setOnClickListener(v -> {
             Intent intent = new Intent(context, SalarySlipInformation.class);
-            intent.putExtra("month", item.getMonth());
-            intent.putExtra("year", item.getYear());
+            intent.putExtra("UserID", userId);
+            intent.putExtra("Month", item.getMonth());
+            intent.putExtra("Year", item.getYear());
             context.startActivity(intent);
         });
 
         return convertView;
+    }
+
+    public class DateUtils {
+        public int getDaysInMonth(int month, int year) {
+            YearMonth yearMonth = YearMonth.of(year, month);
+            return yearMonth.lengthOfMonth();
+        }
     }
 }

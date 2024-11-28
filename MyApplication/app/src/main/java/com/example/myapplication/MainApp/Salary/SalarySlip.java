@@ -33,6 +33,7 @@ public class SalarySlip extends AppCompatActivity {
         initUI();
 
         userId = getIntent().getIntExtra("UserID", -1);
+
         if (userId == -1) {
             Toast.makeText(this, "Không tìm thấy thông tin người dùng.", Toast.LENGTH_SHORT).show();
             finish();
@@ -47,7 +48,7 @@ public class SalarySlip extends AppCompatActivity {
             salarySlipItems.add(new SalarySlipItem(i, YEAR));
         }
 
-        salarySlipAdapter = new SalarySlipAdapter(this, salarySlipItems);
+        salarySlipAdapter = new SalarySlipAdapter(this, salarySlipItems, userId);
         lvSalarySlips.setAdapter(salarySlipAdapter);
 
         lvSalarySlips.setOnItemClickListener((parent, view, position, id) -> {
