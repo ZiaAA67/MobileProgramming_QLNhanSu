@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SalarySlip">
+    tools:context=".MainApp.Salary.SalarySlip">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp"
-            >
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btn_back"
@@ -27,7 +26,7 @@
                 android:layout_height="70dp"
                 android:backgroundTint="@color/light_sea_green"
                 android:contentDescription="Back"
-                android:drawableLeft="@drawable/arrow_left"
+                android:drawableLeft="@drawable/arrow_back"
                 android:onClick="goBack" />
 
             <TextView
@@ -104,9 +103,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_item_reward"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

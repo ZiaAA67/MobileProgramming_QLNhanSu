@@ -13,18 +13,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.cloudinary.android.MediaManager;
 import com.example.myapplication.Configuration;
-import com.example.myapplication.Login.ChangePassword;
-import com.example.myapplication.Login.FlagAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.Register.Register;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
-import com.example.myapplication.MainApp.GiaoDienChinh;
+import com.example.myapplication.MainApp.Fragment.GiaoDienChinh;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 
