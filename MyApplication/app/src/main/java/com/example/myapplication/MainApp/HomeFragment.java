@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private Button btnEmployeeProfile;
     private Button btnRewardDiscipline;
     private Button btnSalarySlip;
+    private Button btnManager;
 
     @Nullable
     @Override
@@ -81,6 +82,11 @@ public class HomeFragment extends Fragment {
         btnRewardDiscipline.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), RewardsDiscipline.class);
             intent.putExtra("UserID", user.getUserId());
+            startActivity(intent);
+        });
+
+        btnManager.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), Manager.class);
             startActivity(intent);
         });
 
@@ -153,5 +159,6 @@ public class HomeFragment extends Fragment {
         btnEmployeeProfile = view.findViewById(R.id.btn_employee_profile);
         btnRewardDiscipline = view.findViewById(R.id.btn_reward_discipline);
         btnSalarySlip = view.findViewById(R.id.btn_employee_profile);
+        btnManager = view.findViewById(R.id.btn_manager);
     }
 }

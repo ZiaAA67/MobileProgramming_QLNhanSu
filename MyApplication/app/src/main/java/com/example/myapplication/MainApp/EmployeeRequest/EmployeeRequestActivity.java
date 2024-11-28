@@ -127,7 +127,8 @@ public class EmployeeRequestActivity extends AppCompatActivity {
     private void handleApproveClick(Employee employee) {
         // Setup dialong phân công công việc cho nhân viên mới
         Dialog dialog = new Dialog(EmployeeRequestActivity.this);
-        showDialogAssignment(dialog);
+        int layout = R.layout.dialog_assignment_layout;
+        Configuration.showDialog(dialog, layout);
 
         // Department spinner
         Spinner spinnerDepartment = dialog.findViewById(R.id.spinner_department);
@@ -282,25 +283,25 @@ public class EmployeeRequestActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private void showDialogAssignment(Dialog dialog) {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_assignment_layout);
-        dialog.setCancelable(true); // có thể bấm ra ngoài để đóng dialog
-
-        Window window = dialog.getWindow();
-        if(window == null) return;
-
-        // Set kích thước và màu nền
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // Set gravity center
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = Gravity.CENTER;
-        window.setAttributes(windowAttributes);
-
-        dialog.show();
-    }
+//    private void showDialogAssignment(Dialog dialog) {
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.dialog_assignment_layout);
+//        dialog.setCancelable(true); // có thể bấm ra ngoài để đóng dialog
+//
+//        Window window = dialog.getWindow();
+//        if(window == null) return;
+//
+//        // Set kích thước và màu nền
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//        // Set gravity center
+//        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+//        windowAttributes.gravity = Gravity.CENTER;
+//        window.setAttributes(windowAttributes);
+//
+//        dialog.show();
+//    }
 
     private void bindingView() {
         mListView = findViewById(R.id.list_view);

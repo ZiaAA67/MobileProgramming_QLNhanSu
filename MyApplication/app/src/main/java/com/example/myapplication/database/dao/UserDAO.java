@@ -39,4 +39,7 @@ public interface UserDAO {
 
     @Query("SELECT RoleID FROM User WHERE UserID = :userId")
     int getUserByRoleId(int userId);
+
+    @Query("SELECT * FROM User")
+    List<User> getListUsers();
 }

@@ -98,9 +98,7 @@ public class Register extends AppCompatActivity {
     }
 
     private boolean checkInput() {
-        if (username.isEmpty()) {
-            edtUsername.setError("Vui lòng nhập tên tài khoản!");
-            edtUsername.requestFocus();
+        if(!CheckInput.checkUsername(this, edtUsername, username)) {
             return false;
         }
 
@@ -125,13 +123,6 @@ public class Register extends AppCompatActivity {
         if(!password.equals(passwordConfirm)) {
             edtPasswordConfirm.setError("Mật khẩu xác nhận không khớp!");
             edtPasswordConfirm.requestFocus();
-            return false;
-        }
-
-        User user = AppDatabase.getInstance(this).userDao().getUserByUsername(username);
-        if(user != null) {
-            edtUsername.setError("Tài khoản đã tồn tại!");
-            edtUsername.requestFocus();
             return false;
         }
 
