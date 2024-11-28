@@ -30,9 +30,9 @@
         <activity
             android:name=".MainApp.Manager"
             android:exported="false" />
-        <activity
+        <!--<activity
             android:name=".Register.Register"
-            android:exported="false" /> <!-- Google map API key -->
+            android:exported="false" /> &lt;!&ndash; Google map API key &ndash;&gt;-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
@@ -73,11 +73,11 @@
         <activity
             android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"
             android:exported="false" />
-        <activity
+        <!--<activity
             android:name=".Login.ChangePassword"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
-            android:name=".MainApp.Department.Departmment"
+            android:name=".Register.Register"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
