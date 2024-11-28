@@ -91,7 +91,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/tv_emloyeename"
+                                    android:id="@+id/tv_employeename"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Thái Đỗ Thịnh"
@@ -128,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Trọng Đỉnh"
+                            android:text="@string/app_name"
                             android:textColor="@color/black" />
 
                     </TableRow>
@@ -174,7 +174,6 @@
                         android:background="@color/gray" />
 
                     <TableRow
-                        android:id="@+id/tv_positionId2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -188,6 +187,7 @@
                             android:textColor="@color/grey" />
 
                         <TextView
+                            android:id="@+id/tv_position2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -218,7 +218,7 @@
                             android:textColor="@color/grey" />
 
                         <TextView
-                            android:id="@+id/tv_departmentId2"
+                            android:id="@+id/tv_department"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -318,6 +318,7 @@
                             android:textColor="@color/grey" />
 
                         <TextView
+                            android:id="@+id/tv_base_salary"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -348,7 +349,7 @@
                             android:textColor="@color/grey" />
 
                         <TextView
-                            android:id="@+id/tv_employeeRewardDiscipline2"
+                            android:id="@+id/tv_employee_reward_discipline"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -389,42 +390,15 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_total_salary"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0.5"
                             android:gravity="center"
                             android:text="70.000.000 VND"
+                            android:textColor="@color/black"
                             android:textSize="17dp" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/gray" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView20"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
-                            android:gravity="left"
-                            android:text="Lương Làm Thêm Giờ" />
-
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="5.000 VND" />
                     </TableRow>
 
                     <View
@@ -445,15 +419,17 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.7"
                             android:gravity="left"
-                            android:text="Phụ Cấp " />
+                            android:text="Phụ Cấp "
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/textView21"
+                            android:id="@+id/tv_allowance"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="5.000.000 VND" />
+                            android:text="5.000.000 VND"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <View
@@ -489,13 +465,14 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textView23"
+                            android:id="@+id/tv_receive_money2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0.5"
                             android:gravity="center"
                             android:text="80.000.000 VND"
+                            android:textColor="@color/black"
                             android:textSize="17dp" />
                     </TableRow>
 
@@ -513,20 +490,46 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textView269"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:gravity="left"
+                            android:text="Thuế thu nhập"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tv_tax"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="80.000.000 VND"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
                             android:id="@+id/textView26"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.7"
                             android:gravity="left"
-                            android:text="Thực Nhận" />
+                            android:text="Thực Nhận"
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/textView25"
+                            android:id="@+id/tv_receive_money"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="80.000.000 VND" />
+                            android:text="80.000.000 VND"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <View
