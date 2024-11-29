@@ -1,4 +1,5 @@
 package com.example.myapplication.database.dao;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -27,9 +28,6 @@ public interface Employee_RewardDisciplineDAO {
     @Query("SELECT * FROM Employee_RewardDiscipline WHERE EmployeeID = :employeeId")
     List<Employee_RewardDiscipline> getByEmployeeId(int employeeId);
 
-    @Query("SELECT * FROM Employee_RewardDiscipline WHERE RewardDisciplineID = :rewardDisciplineId AND Date = :date")
-    List<Employee_RewardDiscipline> getByRewardDisciplineAndDate(int rewardDisciplineId, String date);
-
-    @Query("SELECT * FROM Employee_RewardDiscipline WHERE EmployeeID = :employeeId AND RewardDisciplineID = :rewardDisciplineId AND Date = :date")
-    Employee_RewardDiscipline getByPrimaryKey(int employeeId, int rewardDisciplineId, String date);
+    @Query("SELECT * FROM Employee_RewardDiscipline WHERE EmployeeID = :employeeId AND substr(Date, 4, 7) = :monthYear")
+    List<Employee_RewardDiscipline> getByEmployeeIdAndMonthYear(int employeeId, String monthYear);
 }

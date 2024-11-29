@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity(tableName = "Employee_RewardDiscipline",
         primaryKeys = {"EmployeeID", "RewardDisciplineID", "Date"},
@@ -78,5 +79,18 @@ public class Employee_RewardDiscipline {
 
     public void setBonus(Float bonus) {
         this.bonus = bonus;
+    }
+
+    public LocalDate getLocalDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(date, formatter);
+    }
+
+    public int getMonth() {
+        return getLocalDate().getMonthValue();
+    }
+
+    public int getYear() {
+        return getLocalDate().getYear();
     }
 }
