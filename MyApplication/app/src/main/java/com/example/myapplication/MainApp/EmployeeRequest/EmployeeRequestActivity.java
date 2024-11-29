@@ -169,13 +169,13 @@ public class EmployeeRequestActivity extends AppCompatActivity {
 
             try {
 //                // Lưu user xuống db
-//                Role EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("Employee");
+//                Role EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("EmployeeManagement");
 //
-//                // check có role là Employee hay chưa, nếu chưa có thì tạo role
+//                // check có role là EmployeeManagement hay chưa, nếu chưa có thì tạo role
 //                if(EmployeeRole == null) {
-//                    EmployeeRole = new Role("Employee", "Nhân viên quèn");
+//                    EmployeeRole = new Role("EmployeeManagement", "Nhân viên quèn");
 //                    AppDatabase.getInstance(this).roleDao().insert(EmployeeRole);
-//                    EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("Employee");
+//                    EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("EmployeeManagement");
 //                }
 //
 //                // Thêm user vào db

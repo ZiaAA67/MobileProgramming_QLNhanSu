@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/light_sea_green"
-    tools:context=".MainApp.UserAccount.UserAccountManagement">
+    android:background="@color/light_sea_green">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="35dp"
-            android:text="Quản Lý Tài Khoản"
+            android:text="Quản Lý Nhân Viên"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -71,7 +70,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_user"
+            android:id="@+id/rcv_employee"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/search_bar"/>

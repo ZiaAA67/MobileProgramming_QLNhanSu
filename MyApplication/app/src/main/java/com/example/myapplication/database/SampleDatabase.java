@@ -31,7 +31,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).positionDao().insert(pos1);
         AppDatabase.getInstance(context).positionDao().insert(pos2);
 
-        RewardDiscipline reward1 = new RewardDiscipline("Employee of the Month", 1, "Excellent performence");
+        RewardDiscipline reward1 = new RewardDiscipline("EmployeeManagement of the Month", 1, "Excellent performence");
         RewardDiscipline reward2 = new RewardDiscipline("Warning", 0, "Too lazy");
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward1);
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward2);
