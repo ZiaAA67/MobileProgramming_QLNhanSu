@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_access_time_24"
+            android:drawableLeft="@drawable/time"
             android:padding="16dp"
             android:text="Chấm Công"
             android:textColor="@color/light_sea_green"
