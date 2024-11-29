@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,13 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         holder.tvDepartment.setText(fetchDepartmentName(employee.getDepartmentId()));
         holder.tvPosition.setText(fetchPositionName(employee.getPositionId()));
         holder.tvemployeeid.setText(String.valueOf(employee.getEmployeeId()));
+
+        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddRewardDisciplineDialog(employee);
+            }
+        });
     }
 
     @Override
@@ -72,12 +80,18 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         return "Không rõ!";
     }
 
+    private void showAddRewardDisciplineDialog(Employee employee) {
+        AddRewardDisciplineDialog dialog = new AddRewardDisciplineDialog(context, employee);
+        dialog.show();
+    }
+
     public class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvEmployeename;
         private TextView tvPosition;
         private TextView tvDepartment;
         private TextView tvemployeeid;
+        private Button btnAdd;
 
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +100,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             tvPosition = itemView.findViewById(R.id.tv_position);
             tvDepartment = itemView.findViewById(R.id.tv_department);
             tvemployeeid = itemView.findViewById(R.id.tv_employeeid);
+            btnAdd = itemView.findViewById(R.id.btn_approve);
         }
     }
 }

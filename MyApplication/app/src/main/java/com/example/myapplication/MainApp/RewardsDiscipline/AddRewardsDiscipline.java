@@ -82,7 +82,7 @@ public class AddRewardsDiscipline extends AppCompatActivity {
     }
 
     private void setupSpinnerType() {
-        String[] items = new String[]{"Khen thưởng", "Kỷ luật"};
+        String[] items = new String[]{"Kỷ luật", "Khen thưởng"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spiner, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
