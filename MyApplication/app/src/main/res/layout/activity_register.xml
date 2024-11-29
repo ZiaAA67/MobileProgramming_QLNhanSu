@@ -14,35 +14,31 @@
         android:orientation="vertical"
         android:background="@color/light_sea_green">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            tools:ignore="MissingConstraints">
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_gravity="start|center_vertical"
                 android:backgroundTint="@color/light_sea_green"
                 android:drawableLeft="@drawable/arrow_back"
-                android:contentDescription="Back"
-                android:onClick="goBack" />
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="40dp"
-                android:text="Đăng ký thành viên"
+                android:layout_gravity="center"
+                android:text="Đăng Ký Thành Viên"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
-
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -109,6 +105,7 @@
                     android:drawableStart="@drawable/current_pass"
                     android:drawablePadding="10dp"
                     android:hint="Mật Khẩu"
+                    android:inputType="textPassword"
                     android:nextFocusDown="@id/edt_password_confirm"
                     android:padding="8dp"
                     android:textColor="@color/black" />
@@ -138,6 +135,7 @@
                     android:drawableStart="@drawable/current_pass"
                     android:drawablePadding="10dp"
                     android:hint="Xác Nhận Mật Khẩu"
+                    android:inputType="textPassword"
                     android:nextFocusDown="@id/btn_continue"
                     android:padding="8dp"
                     android:textColor="@color/black"  />
