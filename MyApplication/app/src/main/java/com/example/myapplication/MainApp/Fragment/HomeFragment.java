@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
 
         showEmployeeInfo();
 
-        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager);
+        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline);
 
         btnEmployeeRequest.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);

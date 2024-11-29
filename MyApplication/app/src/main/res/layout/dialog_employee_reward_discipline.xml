@@ -58,7 +58,8 @@
         android:hint="Số tiền"
         android:inputType="number|numberDecimal"
         android:paddingHorizontal="20dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"

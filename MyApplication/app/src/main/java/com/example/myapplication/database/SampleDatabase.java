@@ -30,7 +30,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).roleDao().insert(role3);
 
         User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, true, false, 1);
-        User user2 = new User("user", Configuration.md5("123"), Configuration.STRING_TODAY, true, false, 3);
+        User user2 = new User("user", Configuration.md5("123"), "10/9/2024", true, false, 3);
         AppDatabase.getInstance(context).userDao().insert(user1);
         AppDatabase.getInstance(context).userDao().insert(user2);
 
@@ -90,9 +90,18 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).employeeSessionDao().insert(empSession2);
 
         Employee_RewardDiscipline empReward1 = new Employee_RewardDiscipline(1, 1, "16/11/2024", 500F);
-        Employee_RewardDiscipline empReward2 = new Employee_RewardDiscipline(2, 1, "16/11/2024", 300.0F);
+        Employee_RewardDiscipline empReward2 = new Employee_RewardDiscipline(2, 1, "16/9/2024", -300.0F);
+        Employee_RewardDiscipline empReward3 = new Employee_RewardDiscipline(2, 1, "16/10/2024", 300.0F);
+        Employee_RewardDiscipline empReward4 = new Employee_RewardDiscipline(2, 1, "16/11/2024", 300.0F);
+        Employee_RewardDiscipline empReward5 = new Employee_RewardDiscipline(2, 1, "17/11/2024", 300.0F);
+        Employee_RewardDiscipline empReward6 = new Employee_RewardDiscipline(2, 1, "26/11/2024", 300.0F);
         AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward1);
         AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward2);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward3);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward4);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward5);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward6);
+
 
         LeaveRequest leave1 = new LeaveRequest("Date with girlfriend", "15/11/2024", "15/11/2024", "16/11/2024", 1, 1);
         LeaveRequest leave2 = new LeaveRequest("A car hit me", "13/11/2024", "12/11/2024", "31/12/2024", 0, 2);
