@@ -1,4 +1,5 @@
 package com.example.myapplication.database.dao;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -26,4 +27,10 @@ public interface RewardDisciplineDAO {
 
     @Query("SELECT * FROM RewardDiscipline WHERE RewardDisciplineID = :rewardDisciplineId")
     RewardDiscipline getRewardDisciplineById(int rewardDisciplineId);
+
+    @Query("SELECT * FROM RewardDiscipline WHERE type = :type")
+    List<RewardDiscipline> getRewardDisciplineByType(int type);
+
+    @Query("SELECT * FROM RewardDiscipline WHERE RewardDisciplineName = :name")
+    List<RewardDiscipline> getRewardDisciplineByName(String name);
 }

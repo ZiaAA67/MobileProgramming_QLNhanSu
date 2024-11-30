@@ -30,4 +30,7 @@ public interface Employee_SessionDAO {
     // Lấy danh sách các SessionID theo EmployeeID
     @Query("SELECT SessionID FROM Employee_Session WHERE EmployeeID = :employeeId")
     List<Integer> getSessionIdsByEmployeeId(int employeeId);
+
+    @Query("SELECT * FROM Employee_Session WHERE EmployeeID = :employeeId")
+    List<Employee_Session> getSessionByEmployeeId(int employeeId);
 }

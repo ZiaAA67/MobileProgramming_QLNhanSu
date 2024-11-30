@@ -58,4 +58,7 @@ public interface EmployeeDAO {
 
     @Query("SELECT * FROM Employee WHERE UserID = :userId LIMIT 1")
     Employee getEmployeeByUserId(int userId);
+
+    @Query("SELECT * FROM Employee WHERE FullName LIKE '%' || :name || '%'")
+    List<Employee> searchEmployeeName(String name);
 }
