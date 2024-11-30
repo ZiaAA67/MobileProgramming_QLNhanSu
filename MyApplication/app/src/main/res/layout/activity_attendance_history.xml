@@ -53,6 +53,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <Button
+                    android:id="@+id/btn_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/light_sea_green"
+                    android:text="Theo Tuần"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btn_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/light_sea_green"
+                    android:text="Theo Tháng"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btn_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_sea_green"
+                    android:text="Theo Năm"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_pass_background"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -95,6 +129,16 @@
                 android:id="@+id/rcv_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/status_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Không có dữ liệu cho tuần này."
+                android:textColor="@color/red"
+                android:visibility="gone" />
 
         </LinearLayout>
 

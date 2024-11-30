@@ -29,7 +29,12 @@ public class AttendanceHistory extends AppCompatActivity {
     private Button btnNextWeek;
     private Button btnPreviousWeek;
     private TextView tvCurrentWeek;
+    private Button btnMonth, btnYear, btnWeek;
+    private String currentMode = "week"; // Default is week mode
+
     private int currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+    private int currentMonth = LocalDate.now().getMonthValue();
+    private int currentYear = LocalDate.now().getYear();
 
     private AttendanceHistoryAdapter attendanceHistoryAdapter;
     private List<Timekeeping> mListItems;
@@ -44,15 +49,27 @@ public class AttendanceHistory extends AppCompatActivity {
         initUI();
         setupRecyclerView();
 
-        btnPreviousWeek.setOnClickListener(view -> {
-            currentWeek--;
+        btnPreviousWeek.setOnClickListener(view -> handlePrevious());
+        btnNextWeek.setOnClickListener(view -> handleNext());
+
+        btnWeek.setOnClickListener(view -> {
+            currentMode = "week";
+            currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
             tvCurrentWeek.setText("Tuần " + currentWeek);
             updateAttendanceData();
         });
 
-        btnNextWeek.setOnClickListener(view -> {
-            currentWeek++;
-            tvCurrentWeek.setText("Tuần " + currentWeek);
+        btnMonth.setOnClickListener(view -> {
+            currentMode = "month";
+            currentMonth = LocalDate.now().getMonthValue();
+            tvCurrentWeek.setText("Tháng " + currentMonth);
+            updateAttendanceData();
+        });
+
+        btnYear.setOnClickListener(view -> {
+            currentMode = "year";
+            currentYear = LocalDate.now().getYear();
+            tvCurrentWeek.setText("Năm " + currentYear);
             updateAttendanceData();
         });
 
@@ -104,13 +121,53 @@ public class AttendanceHistory extends AppCompatActivity {
         return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
+    private void handleNext() {
+        if (currentMode.equals("week")) {
+            currentWeek++;
+            tvCurrentWeek.setText("Tuần " + currentWeek);
+        } else if (currentMode.equals("month")) {
+            if (currentMonth < 12) {
+                currentMonth++;
+            } else {
+                currentMonth = 1;
+                currentYear++;
+            }
+            tvCurrentWeek.setText("Tháng " + currentMonth);
+        } else if (currentMode.equals("year")) {
+            currentYear++;
+            tvCurrentWeek.setText("Năm " + currentYear);
+        }
+        updateAttendanceData();
+    }
+
+    private void handlePrevious() {
+        if (currentMode.equals("week")) {
+            currentWeek--;
+            tvCurrentWeek.setText("Tuần " + currentWeek);
+        } else if (currentMode.equals("month")) {
+            if (currentMonth > 1) {
+                currentMonth--;
+            } else {
+                currentMonth = 12;
+                currentYear--;
+            }
+            tvCurrentWeek.setText("Tháng " + currentMonth);
+        } else if (currentMode.equals("year")) {
+            currentYear--;
+            tvCurrentWeek.setText("Năm " + currentYear);
+        }
+        updateAttendanceData();
+    }
+
     private void initUI() {
         rcvItem = findViewById(R.id.rcv_item);
         tvCurrentWeek = findViewById(R.id.tv_week);
         btnNextWeek = findViewById(R.id.btn_next_week);
         btnPreviousWeek = findViewById(R.id.btn_previous_week);
         btnBack = findViewById(R.id.btn_back);
-
+        btnMonth = findViewById(R.id.btn_month);
+        btnYear = findViewById(R.id.btn_year);
+        btnWeek = findViewById(R.id.btn_week);
         tvCurrentWeek.setText("Tuần " + currentWeek);
     }
 }
