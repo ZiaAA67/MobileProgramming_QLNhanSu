@@ -59,8 +59,8 @@
                 android:paddingHorizontal="11dp"
                 android:paddingVertical="7dp">
 
-                <ImageView
-                    android:id="@+id/btnPreviousWeek"
+                <Button
+                    android:id="@+id/btn_previous_week"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -70,7 +70,7 @@
                     android:src="@drawable/arrow_left" />
 
                 <TextView
-                    android:id="@+id/tvWeek"
+                    android:id="@+id/tv_week"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -80,8 +80,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/btnNextWeek"
+                <Button
+                    android:id="@+id/btn_next_week"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -91,123 +91,10 @@
                     android:src="@drawable/arrow_right" />
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white"
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp">
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tv_workday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/calendar"
-                            android:drawablePadding="10dp"
-                            android:drawableTint="@color/light_sea_green"
-                            android:paddingStart="10dp"
-                            android:text="29/11/2024"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/gray" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tv_check_out"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/time"
-                            android:drawablePadding="10dp"
-                            android:drawableTint="@color/light_sea_green"
-                            android:paddingStart="10dp"
-                            android:text="22:00"
-                            android:textSize="15dp"
-                            tools:ignore="TextSizeCheck" />
-
-                        <TextView
-                            android:id="@+id/tv_department_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/workplace"
-                            android:drawablePadding="10dp"
-                            android:drawableTint="@color/light_sea_green"
-                            android:text="Mã Phòng Ban " />
-
-                        <TextView
-                            android:id="@+id/tv_department_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tên Phòng Ban" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/gray" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp">
-
-                        <TextView
-                            android:id="@+id/tv_check_in"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/time"
-                            android:drawablePadding="10dp"
-                            android:drawableTint="@color/light_sea_green"
-                            android:paddingStart="10dp"
-                            android:text="14:00"
-                            android:textSize="15dp"
-                            tools:ignore="TextSizeCheck" />
-
-                        <TextView
-                            android:id="@+id/tv_department_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/workplace"
-                            android:drawablePadding="10dp"
-                            android:drawableTint="@color/light_sea_green"
-                            android:text="Mã Phòng Ban "
-                            tools:ignore="DuplicateIds" />
-
-                        <TextView
-                            android:id="@+id/tv_department_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tên Phòng Ban"
-                            tools:ignore="DuplicateIds" />
-                    </TableRow>
-
-                </TableLayout>
-            </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
