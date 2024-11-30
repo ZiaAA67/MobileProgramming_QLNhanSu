@@ -92,7 +92,6 @@ public class UserAccountManagement extends AppCompatActivity {
 
                     @Override
                     public boolean onQueryTextChange(String s) {
-                        searchWithName(s);
                         switch (i) {
                             case 0: loadData();
                                 break;
@@ -170,8 +169,6 @@ public class UserAccountManagement extends AppCompatActivity {
         });
 
     }
-
-
 
     private void handleClickUpdateUser(User user) {
         // Show dialog

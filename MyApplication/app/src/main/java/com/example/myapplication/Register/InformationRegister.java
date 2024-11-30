@@ -71,6 +71,7 @@ public class InformationRegister extends AppCompatActivity {
     private ProgressBar progressBar;
     private EditText edtEducationLevel;
     private EducationLevel education = new EducationLevel(null, null, null);
+    private String message;
 
 
     @Override
@@ -78,7 +79,7 @@ public class InformationRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_register);
 
-
+        message = getIntent().getStringExtra("message");
 
         initUI();
 

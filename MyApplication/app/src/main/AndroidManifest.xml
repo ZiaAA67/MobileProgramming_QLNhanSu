@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 <!--        <activity-->
 <!--            android:name=".MainApp.Employee.EmployeeManagement"-->
@@ -82,7 +83,7 @@
             android:name=".Login.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".MainApp.UserAccount.UserAccountManagement"
+            android:name=".MainApp.Employee.EmployeeManagement"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
