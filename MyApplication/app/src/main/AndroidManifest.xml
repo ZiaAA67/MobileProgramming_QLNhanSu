@@ -35,6 +35,9 @@
             android:name=".MainApp.Fragment.GiaoDienChinh"
             android:exported="false" />
         <activity
+            android:name=".MainApp.AttendanceHistory.AttendanceHistory"
+            android:exported="false" />
+        <activity
             android:name=".MainApp.EmployeeProfile.EmployeeProfile"
             android:exported="false" />
         <activity

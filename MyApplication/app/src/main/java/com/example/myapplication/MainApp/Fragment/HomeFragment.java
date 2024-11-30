@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.MainApp.AttendanceHistory.AttendanceHistory;
 import com.example.myapplication.MainApp.EmployeeProfile.EmployeeProfile;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestHistory;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     private Button btnRewardDiscipline;
     private Button btnSalarySlip;
     private Button btnManager;
+    private Button btnHistory;
 
     @Nullable
     @Override
@@ -98,6 +100,12 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        btnHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), AttendanceHistory.class);
+            intent.putExtra("UserID", user.getUserId());
+            startActivity(intent);
+        });
+
         return view;
     }
 
@@ -153,10 +161,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void getUserID() {
-
-    }
-
     private void initUI(View view) {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
@@ -167,5 +171,6 @@ public class HomeFragment extends Fragment {
         btnRewardDiscipline = view.findViewById(R.id.btn_reward_discipline);
         btnSalarySlip = view.findViewById(R.id.btn_salary_slip);
         btnManager = view.findViewById(R.id.btn_manager);
+        btnHistory = view.findViewById(R.id.btn_history);
     }
 }

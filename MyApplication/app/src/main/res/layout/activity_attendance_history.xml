@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AttendanceHistory">
+    tools:context=".MainApp.AttendanceHistory.AttendanceHistory">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/light_sea_green">
+        android:background="@color/light_sea_green"
+        android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/topBar"
@@ -106,35 +106,33 @@
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/tv_workday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/calendar"
-                            android:paddingStart="10dp"
                             android:drawablePadding="10dp"
                             android:drawableTint="@color/light_sea_green"
+                            android:paddingStart="10dp"
+                            android:text="29/11/2024"
                             android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:text="29/11/2024" />
+                            android:textStyle="bold" />
                     </TableRow>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:background="@color/gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/tv_check_out"
@@ -167,29 +165,28 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:background="@color/gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        >
+                        android:layout_marginBottom="10dp">
 
                         <TextView
                             android:id="@+id/tv_check_in"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/time"
-                            android:paddingStart="10dp"
                             android:drawablePadding="10dp"
                             android:drawableTint="@color/light_sea_green"
+                            android:paddingStart="10dp"
                             android:text="14:00"
                             android:textSize="15dp"
-                            tools:ignore="TextSizeCheck"/>
+                            tools:ignore="TextSizeCheck" />
 
                         <TextView
                             android:id="@+id/tv_department_id"
@@ -206,7 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tên Phòng Ban"
-                            tools:ignore="DuplicateIds"/>
+                            tools:ignore="DuplicateIds" />
                     </TableRow>
 
                 </TableLayout>

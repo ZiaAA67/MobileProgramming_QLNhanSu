@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/light_sea_green">
+        android:background="@color/light_sea_green"
+        android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/topBar"
@@ -100,7 +100,8 @@
                     android:focusable="false"
                     android:hint="Ngày gửi"
                     android:nextFocusDown="@id/edt_leave_from_date"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
