@@ -21,12 +21,14 @@ import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.Manager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
+import com.example.myapplication.MainApp.Schedule.WorkSchedule;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Role;
 import com.example.myapplication.database.entities.User;
+import com.example.myapplication.database.entities.Workplace;
 
 public class HomeFragment extends Fragment {
 
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment {
     private Button btnSalarySlip;
     private Button btnManager;
     private Button btnHistory;
+    private Button btnCalender;
 
     @Nullable
     @Override
@@ -102,6 +105,12 @@ public class HomeFragment extends Fragment {
 
         btnHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), AttendanceHistory.class);
+            intent.putExtra("UserID", user.getUserId());
+            startActivity(intent);
+        });
+
+        btnCalender.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), WorkSchedule.class);
             intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
@@ -172,5 +181,6 @@ public class HomeFragment extends Fragment {
         btnSalarySlip = view.findViewById(R.id.btn_salary_slip);
         btnManager = view.findViewById(R.id.btn_manager);
         btnHistory = view.findViewById(R.id.btn_history);
+        btnCalender = view.findViewById(R.id.btn_user_avatar);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.myapplication.MainApp.AttendanceHistory;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,22 +24,21 @@ import java.util.List;
 
 public class AttendanceHistory extends AppCompatActivity {
 
-    private int userId;
-
-    private RecyclerView rcvItem;
-    private Button btnBack;
-    private Button btnNextWeek;
-    private Button btnPreviousWeek;
-    private TextView tvCurrentWeek;
-    private Button btnMonth, btnYear, btnWeek;
-    private String currentMode = "week"; // Default is week mode
-
+    private String currentMode = "week"; // Default
     private int currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     private int currentMonth = LocalDate.now().getMonthValue();
     private int currentYear = LocalDate.now().getYear();
 
+    private RecyclerView recyclerViewWeek;
+    private GridView gridViewMonth;
+    private TextView textViewYear;
+    private TextView tvCurrentWeek;
+    private Button btnNext, btnPrevious, btnBack, btnMonth, btnYear, btnWeek;
+
     private AttendanceHistoryAdapter attendanceHistoryAdapter;
     private List<Timekeeping> mListItems;
+
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,49 +50,138 @@ public class AttendanceHistory extends AppCompatActivity {
         initUI();
         setupRecyclerView();
 
-        btnPreviousWeek.setOnClickListener(view -> handlePrevious());
-        btnNextWeek.setOnClickListener(view -> handleNext());
-
-        btnWeek.setOnClickListener(view -> {
-            currentMode = "week";
-            currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-            tvCurrentWeek.setText("Tuần " + currentWeek);
-            updateAttendanceData();
-        });
-
-        btnMonth.setOnClickListener(view -> {
-            currentMode = "month";
-            currentMonth = LocalDate.now().getMonthValue();
-            tvCurrentWeek.setText("Tháng " + currentMonth);
-            updateAttendanceData();
-        });
-
-        btnYear.setOnClickListener(view -> {
-            currentMode = "year";
-            currentYear = LocalDate.now().getYear();
-            tvCurrentWeek.setText("Năm " + currentYear);
-            updateAttendanceData();
-        });
-
+        btnPrevious.setOnClickListener(view -> handlePrevious());
+        btnNext.setOnClickListener(view -> handleNext());
         btnBack.setOnClickListener(view -> finish());
+
+        btnWeek.setOnClickListener(view -> switchToWeekMode());
+        btnMonth.setOnClickListener(view -> switchToMonthMode());
+        btnYear.setOnClickListener(view -> switchToYearMode());
+    }
+
+    private void initUI() {
+        recyclerViewWeek = findViewById(R.id.recycler_view_week);
+        gridViewMonth = findViewById(R.id.grid_view_month);
+        textViewYear = findViewById(R.id.text_view_year);
+        tvCurrentWeek = findViewById(R.id.tv_week);
+        btnNext = findViewById(R.id.btn_next_week);
+        btnPrevious = findViewById(R.id.btn_previous_week);
+        btnBack = findViewById(R.id.btn_back);
+        btnMonth = findViewById(R.id.btn_month);
+        btnYear = findViewById(R.id.btn_year);
+        btnWeek = findViewById(R.id.btn_week);
+        tvCurrentWeek.setText("Tuần " + currentWeek);
     }
 
     private void setupRecyclerView() {
         attendanceHistoryAdapter = new AttendanceHistoryAdapter();
+        recyclerViewWeek.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewWeek.setAdapter(attendanceHistoryAdapter);
 
-        updateAttendanceData();
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rcvItem.setLayoutManager(linearLayoutManager);
-        rcvItem.setAdapter(attendanceHistoryAdapter);
+        updateWeekView();
     }
 
-    private void updateAttendanceData() {
-        mListItems = getEmployeeSession(userId, currentWeek);
+    private void updateWeekView() {
+        mListItems = getEmployeeTimekeeping(userId, currentWeek);
         attendanceHistoryAdapter.setData(mListItems, this);
+        tvCurrentWeek.setText("Tuần " + currentWeek);
     }
 
-    private List<Timekeeping> getEmployeeSession(int userId, int weekNumber) {
+    private void updateMonthView() {
+        ArrayList<String> days = generateDaysForMonth(currentMonth, currentYear);
+        List<Integer> markedDays = getDaysWithTimekeeping(userId, currentMonth, currentYear);
+
+        CalendarAdapter adapter = new CalendarAdapter(this, days, currentMonth, currentYear, markedDays);
+        gridViewMonth.setAdapter(adapter);
+
+        tvCurrentWeek.setText("Tháng " + currentMonth);
+    }
+
+    private List<Integer> getDaysWithTimekeeping(int userId, int month, int year) {
+        List<Integer> markedDays = new ArrayList<>();
+
+        Employee employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+
+        List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
+                .employeeSessionDao().getSessionByEmployeeId(employee.getEmployeeId());
+
+        for (Employee_Session employeeSession : employeeSessions) {
+            Session session = AppDatabase.getInstance(this).sessionDao()
+                    .getSessionById(employeeSession.getSessionID());
+
+            if (session.getMonth() == month && session.getYear() == year) {
+                markedDays.add(session.getDay());
+            }
+        }
+
+        return markedDays;
+    }
+
+    private void updateYearView() {
+        textViewYear.setText("Chế độ năm: " + currentYear);
+    }
+
+    private void switchToWeekMode() {
+        currentMode = "week";
+        recyclerViewWeek.setVisibility(View.VISIBLE);
+        gridViewMonth.setVisibility(View.GONE);
+        textViewYear.setVisibility(View.GONE);
+        updateWeekView();
+    }
+
+    private void switchToMonthMode() {
+        currentMode = "month";
+        recyclerViewWeek.setVisibility(View.GONE);
+        gridViewMonth.setVisibility(View.VISIBLE);
+        textViewYear.setVisibility(View.GONE);
+        updateMonthView();
+    }
+
+    private void switchToYearMode() {
+        currentMode = "year";
+        recyclerViewWeek.setVisibility(View.GONE);
+        gridViewMonth.setVisibility(View.GONE);
+        textViewYear.setVisibility(View.VISIBLE);
+        updateYearView();
+    }
+
+    private void handleNext() {
+        if (currentMode.equals("week")) {
+            currentWeek++;
+            updateWeekView();
+        } else if (currentMode.equals("month")) {
+            if (currentMonth < 12) {
+                currentMonth++;
+            } else {
+                currentMonth = 1;
+                currentYear++;
+            }
+            updateMonthView();
+        } else if (currentMode.equals("year")) {
+            currentYear++;
+            updateYearView();
+        }
+    }
+
+    private void handlePrevious() {
+        if (currentMode.equals("week")) {
+            currentWeek--;
+            updateWeekView();
+        } else if (currentMode.equals("month")) {
+            if (currentMonth > 1) {
+                currentMonth--;
+            } else {
+                currentMonth = 12;
+                currentYear--;
+            }
+            updateMonthView();
+        } else if (currentMode.equals("year")) {
+            currentYear--;
+            updateYearView();
+        }
+    }
+
+    private List<Timekeeping> getEmployeeTimekeeping(int userId, int weekNumber) {
         Employee employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
 
         List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
@@ -109,65 +199,27 @@ public class AttendanceHistory extends AppCompatActivity {
 
         List<Timekeeping> timekeepingList = new ArrayList<>();
         for (Session session : sessionsForWeek) {
-            List<Timekeeping> timekeepings = AppDatabase.getInstance(this).timekeepingDao()
-                    .getTimekeepingBySessionId(session.getSessionId());
-            timekeepingList.addAll(timekeepings);
+            timekeepingList.addAll(AppDatabase.getInstance(this)
+                    .timekeepingDao().getTimekeepingBySessionId(session.getSessionId()));
         }
         return timekeepingList;
     }
 
+    // Tính tuần của năm từ ngày, tháng, năm
     private int getWeekOfYear(int year, int month, int day) {
         LocalDate date = LocalDate.of(year, month, day);
         return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
-    private void handleNext() {
-        if (currentMode.equals("week")) {
-            currentWeek++;
-            tvCurrentWeek.setText("Tuần " + currentWeek);
-        } else if (currentMode.equals("month")) {
-            if (currentMonth < 12) {
-                currentMonth++;
-            } else {
-                currentMonth = 1;
-                currentYear++;
-            }
-            tvCurrentWeek.setText("Tháng " + currentMonth);
-        } else if (currentMode.equals("year")) {
-            currentYear++;
-            tvCurrentWeek.setText("Năm " + currentYear);
-        }
-        updateAttendanceData();
-    }
+    private ArrayList<String> generateDaysForMonth(int month, int year) {
+        ArrayList<String> days = new ArrayList<>();
+        LocalDate date = LocalDate.of(year, month, 1);
 
-    private void handlePrevious() {
-        if (currentMode.equals("week")) {
-            currentWeek--;
-            tvCurrentWeek.setText("Tuần " + currentWeek);
-        } else if (currentMode.equals("month")) {
-            if (currentMonth > 1) {
-                currentMonth--;
-            } else {
-                currentMonth = 12;
-                currentYear--;
-            }
-            tvCurrentWeek.setText("Tháng " + currentMonth);
-        } else if (currentMode.equals("year")) {
-            currentYear--;
-            tvCurrentWeek.setText("Năm " + currentYear);
+        int daysInMonth = date.lengthOfMonth();
+        for (int i = 1; i <= daysInMonth; i++) {
+            days.add(String.valueOf(i));
         }
-        updateAttendanceData();
-    }
 
-    private void initUI() {
-        rcvItem = findViewById(R.id.rcv_item);
-        tvCurrentWeek = findViewById(R.id.tv_week);
-        btnNextWeek = findViewById(R.id.btn_next_week);
-        btnPreviousWeek = findViewById(R.id.btn_previous_week);
-        btnBack = findViewById(R.id.btn_back);
-        btnMonth = findViewById(R.id.btn_month);
-        btnYear = findViewById(R.id.btn_year);
-        btnWeek = findViewById(R.id.btn_week);
-        tvCurrentWeek.setText("Tuần " + currentWeek);
+        return days;
     }
 }

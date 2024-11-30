@@ -125,20 +125,33 @@
                     android:src="@drawable/arrow_right" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_item"
+            <FrameLayout
+                android:id="@+id/container_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/status_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="Không có dữ liệu cho tuần này."
-                android:textColor="@color/red"
-                android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_week"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
+
+                <GridView
+                    android:id="@+id/grid_view_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="7"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/text_view_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Chế độ năm"
+                    android:visibility="gone" />
+            </FrameLayout>
+
 
         </LinearLayout>
 
