@@ -123,7 +123,7 @@ public class SalarySlipInformation extends AppCompatActivity {
         String departmentName = (employee.getDepartmentId() != null) ? getDepartmentName(employee.getDepartmentId()) : "Không có phòng ban";
         Float baseSalary = (employee.getSalaryId() != null) ? getBaseSalary(employee.getSalaryId()) : 0;
         Float allowanceSalary = (employee.getSalaryId() != null) ? getAllowanceSalary(employee.getSalaryId()) : 0;
-        Float rewardDisciplineMoney = (float) 0;//(getRewardDisciplineMoney(employee.getEmployeeId(), month, year));
+        Float rewardDisciplineMoney = (getRewardDisciplineMoney(employee.getEmployeeId(), month, year));
         Float totalSalary = baseSalary + allowanceSalary + rewardDisciplineMoney;
         Float tax = (float) calculateTax(totalSalary);
         Float receiveMoney = totalSalary - tax;
@@ -166,29 +166,26 @@ public class SalarySlipInformation extends AppCompatActivity {
         return salary.getAllowance();
     }
 
-    private int getHours(int employeeId) {
-        return 0;
-    }
+    private float getRewardDisciplineMoney(int employeeId, int month, int year) {
+        String strMonthAndYear = month + "/" + year;
+        List<Employee_RewardDiscipline> employeeRewardDisciplines = AppDatabase
+                .getInstance(this)
+                .employeeRewardDisciplineDao()
+                .getByEmployeeIdAndMonthYear(employeeId, strMonthAndYear);
 
-//    private float getRewardDisciplineMoney(int employeeId, int month, int year) {
-//        List<Employee_RewardDiscipline> employeeRewardDisciplines = AppDatabase
-//                .getInstance(this)
-//                .employeeRewardDisciplineDao()
-//                .getByEmployeeIdAndMonthYear(employeeId, month, year);
-//
-//        if (employeeRewardDisciplines == null || employeeRewardDisciplines.isEmpty()) {
-//            return 0.0f;
-//        }
-//
-//        float totalReward = 0;
-//        for (Employee_RewardDiscipline rewardDiscipline : employeeRewardDisciplines) {
-//            if (rewardDiscipline.getBonus() != null) {
-//                totalReward += rewardDiscipline.getBonus();
-//            }
-//        }
-//
-//        return totalReward;
-//    }
+        if (employeeRewardDisciplines == null || employeeRewardDisciplines.isEmpty()) {
+            return 0.0f;
+        }
+
+        float totalReward = 0;
+        for (Employee_RewardDiscipline rewardDiscipline : employeeRewardDisciplines) {
+            if (rewardDiscipline.getBonus() != null) {
+                totalReward += rewardDiscipline.getBonus();
+            }
+        }
+
+        return totalReward;
+    }
 
     // Tính thuế thu nhập
     public static double calculateTax(double tntt) {

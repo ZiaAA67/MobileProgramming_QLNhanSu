@@ -32,10 +32,4 @@ public interface TimekeepingDAO {
 
     @Query("SELECT * FROM Timekeeping WHERE IsAbsent = 1")
     List<Timekeeping> getAbsentTimekeeping();
-
-    @Query("SELECT * FROM Timekeeping WHERE TimeIn = :timeIn")
-    List<Timekeeping> getTimekeepingByTimeIn(String timeIn);
-
-    @Query("SELECT * FROM Timekeeping WHERE TimeOut = :timeOut")
-    List<Timekeeping> getTimekeepingByTimeOut(String timeOut);
 }

@@ -3,7 +3,6 @@ package com.example.myapplication.MainApp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.MainApp.AccountManagement.AccountManagement;
+import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.R;
-import com.example.myapplication.database.entities.User;
 
 public class Manager extends AppCompatActivity {
 
@@ -30,7 +28,7 @@ public class Manager extends AppCompatActivity {
 
         LinearLayout user = findViewById(R.id.user_manager);
         user.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AccountManagement.class);
+            Intent intent = new Intent(this, UserAccountManagement.class);
             startActivity(intent);
         });
     }

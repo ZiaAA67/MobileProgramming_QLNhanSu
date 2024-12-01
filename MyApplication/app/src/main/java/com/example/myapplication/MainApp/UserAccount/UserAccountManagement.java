@@ -1,19 +1,15 @@
-package com.example.myapplication.MainApp.AccountManagement;
+package com.example.myapplication.MainApp.UserAccount;
 
 import android.app.Dialog;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -27,23 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Configuration;
 import com.example.myapplication.MainApp.CheckInput;
-import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
-import com.example.myapplication.MainApp.EmployeeRequest.SpinnerAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
-import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Role;
 import com.example.myapplication.database.entities.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AccountManagement extends AppCompatActivity {
+public class UserAccountManagement extends AppCompatActivity {
     List<User> listUser;
     RecyclerView rcvUser;
     UserAdapter userAdapter;
@@ -101,7 +92,6 @@ public class AccountManagement extends AppCompatActivity {
 
                     @Override
                     public boolean onQueryTextChange(String s) {
-                        searchWithName(s);
                         switch (i) {
                             case 0: loadData();
                                 break;
@@ -131,7 +121,7 @@ public class AccountManagement extends AppCompatActivity {
 
     private void handleClickAddUser() {
         // Show dialog
-        Dialog dialog = new Dialog(AccountManagement.this);
+        Dialog dialog = new Dialog(UserAccountManagement.this);
         int layout = R.layout.dialog_add_user_layout;
         Configuration.showDialog(dialog, layout);
 
@@ -155,7 +145,7 @@ public class AccountManagement extends AppCompatActivity {
             String password = edtPassword.getText().toString().trim();
             String role = (String) spinnerRole.getSelectedItem();
 
-            if(!CheckInput.checkUsername(AccountManagement.this, edtUsername, username)) {
+            if(!CheckInput.checkUsername(UserAccountManagement.this, edtUsername, username)) {
                 return;
             }
 
@@ -165,9 +155,9 @@ public class AccountManagement extends AppCompatActivity {
                 return;
             }
 
-            int roleId = AppDatabase.getInstance(AccountManagement.this).roleDao().getRoleByName(role).getRoleId();
+            int roleId = AppDatabase.getInstance(UserAccountManagement.this).roleDao().getRoleByName(role).getRoleId();
             User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY, true, true, roleId);
-            AppDatabase.getInstance(AccountManagement.this).userDao().insert(user);
+            AppDatabase.getInstance(UserAccountManagement.this).userDao().insert(user);
 
             dialog.dismiss();
 
@@ -180,11 +170,9 @@ public class AccountManagement extends AppCompatActivity {
 
     }
 
-
-
     private void handleClickUpdateUser(User user) {
         // Show dialog
-        Dialog dialog = new Dialog(AccountManagement.this);
+        Dialog dialog = new Dialog(UserAccountManagement.this);
         int layout = R.layout.dialog_update_user_layout;
         Configuration.showDialog(dialog, layout);
 
@@ -213,15 +201,15 @@ public class AccountManagement extends AppCompatActivity {
             String roleNameSelected = (String) spinnerRole.getSelectedItem();
 
             if(!user.getUsername().equals(usernameSelected)) {
-                if(!CheckInput.checkUsername(AccountManagement.this, edtUsername, usernameSelected)) {
+                if(!CheckInput.checkUsername(UserAccountManagement.this, edtUsername, usernameSelected)) {
                     return;
                 }
                 user.setUsername(usernameSelected);
             }
 
-            int roleId = AppDatabase.getInstance(AccountManagement.this).roleDao().getRoleByName(roleNameSelected).getRoleId();
+            int roleId = AppDatabase.getInstance(UserAccountManagement.this).roleDao().getRoleByName(roleNameSelected).getRoleId();
             user.setRoleId(roleId);
-            AppDatabase.getInstance(AccountManagement.this).userDao().update(user);
+            AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
 
             dialog.dismiss();
 
@@ -233,7 +221,7 @@ public class AccountManagement extends AppCompatActivity {
     private void setupSpinnerInDialog(List<String> data, Spinner spinner) {
         AppDatabase.getInstance(this).roleDao().getAllRoles().forEach(r -> data.add(r.getRoleName()));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(AccountManagement.this, android.R.layout.simple_spinner_item, data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(UserAccountManagement.this, android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
@@ -255,7 +243,7 @@ public class AccountManagement extends AppCompatActivity {
                 // thực hiện xoá item
                 User user = listUser.get(position);
                 user.setActive(false);
-                AppDatabase.getInstance(AccountManagement.this).userDao().update(user);
+                AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
                 listUser.remove(position);
 
                 // Thông báo vị trí xoá cho adapter -> load lại dữ liệu
@@ -295,7 +283,7 @@ public class AccountManagement extends AppCompatActivity {
     }
 
     private void searchWithRole(String kw) {
-        List<Role> listRole = AppDatabase.getInstance(AccountManagement.this).roleDao().getAllRoles();
+        List<Role> listRole = AppDatabase.getInstance(UserAccountManagement.this).roleDao().getAllRoles();
         listRole = listRole.stream().filter(r -> r.getRoleName().toLowerCase().contains(kw.toLowerCase())).collect(Collectors.toList());
 
         List<User> result = new ArrayList<>();
@@ -311,7 +299,7 @@ public class AccountManagement extends AppCompatActivity {
 
     private void setupSpinnerType() {
         List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Lọc", "Theo tên User", "Theo vai trò"}));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(AccountManagement.this, android.R.layout.simple_spinner_item, data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(UserAccountManagement.this, android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
     }

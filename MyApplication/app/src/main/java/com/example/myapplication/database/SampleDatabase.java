@@ -30,7 +30,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).roleDao().insert(role3);
 
         User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, true, false, 1);
-        User user2 = new User("user", Configuration.md5("123"), Configuration.STRING_TODAY, true, false, 3);
+        User user2 = new User("user", Configuration.md5("123"), "10/9/2024", true, false, 3);
         AppDatabase.getInstance(context).userDao().insert(user1);
         AppDatabase.getInstance(context).userDao().insert(user2);
 
@@ -46,7 +46,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).positionDao().insert(pos1);
         AppDatabase.getInstance(context).positionDao().insert(pos2);
 
-        RewardDiscipline reward1 = new RewardDiscipline("Employee of the Month", 1, "Excellent performence");
+        RewardDiscipline reward1 = new RewardDiscipline("EmployeeManagement of the Month", 1, "Excellent performence");
         RewardDiscipline reward2 = new RewardDiscipline("Warning", 0, "Too lazy");
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward1);
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward2);
@@ -69,16 +69,45 @@ public class SampleDatabase {
         Session session1 = new Session(16, 11, 2024, false, 1);
         Session session2 = new Session(15, 11, 2024, false, 2);
         Session session3 = new Session(14, 11, 2024, true, 3);
+        Session session4 = new Session(13, 11, 2024, false, 3);
+        Session session5 = new Session(12, 11, 2024, false, 3);
+        Session session6 = new Session(11, 11, 2024, false, 3);
+        Session session7 = new Session(10, 11, 2024, false, 3);
+        Session session8 = new Session(9, 11, 2024, false, 3);
+        Session session9 = new Session(8, 11, 2024, false, 3);
+        Session session10 = new Session(7, 11, 2024, false, 3);
         AppDatabase.getInstance(context).sessionDao().insert(session1);
         AppDatabase.getInstance(context).sessionDao().insert(session2);
         AppDatabase.getInstance(context).sessionDao().insert(session3);
+        AppDatabase.getInstance(context).sessionDao().insert(session4);
+        AppDatabase.getInstance(context).sessionDao().insert(session5);
+        AppDatabase.getInstance(context).sessionDao().insert(session6);
+        AppDatabase.getInstance(context).sessionDao().insert(session7);
+        AppDatabase.getInstance(context).sessionDao().insert(session8);
+        AppDatabase.getInstance(context).sessionDao().insert(session9);
+        AppDatabase.getInstance(context).sessionDao().insert(session10);
 
         Timekeeping time1 = new Timekeeping("07:47", "13:05", 1, null, 1);
         Timekeeping time2 = new Timekeeping("12:49", "18:02", 1, null, 2);
-        Timekeeping time3 = new Timekeeping("08:00", "18:00", 0, null, 3);
+        Timekeeping time3 = new Timekeeping("08:00", "18:07", 0, null, 3);
+        Timekeeping time4 = new Timekeeping("07:55", "18:11", 0, null, 4);
+        Timekeeping time5 = new Timekeeping("07:54", "17:50", 0, null, 5);
+        Timekeeping time6 = new Timekeeping("07:36", "17:57", 0, null, 6);
+        Timekeeping time7 = new Timekeeping("07:59", "18:10", 0, null, 7);
+        Timekeeping time8 = new Timekeeping("07:48", "18:15", 0, null, 8);
+        Timekeeping time9 = new Timekeeping("07:51", "18:21", 0, null, 9);
+        Timekeeping time10 = new Timekeeping("07:52", "18:22", 0, null, 10);
+
         AppDatabase.getInstance(context).timekeepingDao().insert(time1);
         AppDatabase.getInstance(context).timekeepingDao().insert(time2);
         AppDatabase.getInstance(context).timekeepingDao().insert(time3);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time4);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time5);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time6);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time7);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time8);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time9);
+        AppDatabase.getInstance(context).timekeepingDao().insert(time10);
 
         Employee employee1 = new Employee("Thái Đỗ Đỉnh", 0, "21/02/2004", "089204014523", "Đỉnh Everest", "0921343540", "2251010086thinh@ou.edu.vn", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", 1, 1, 1, null, 1, 1);
         Employee employee2 = new Employee("Dách 5 tiệu", 0, "22/02/1997", "119204014523", "Mariana", "0921113549", "5trieujack@gmail.com", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", 2, 2, 2, null, 2, 1);
@@ -86,13 +115,37 @@ public class SampleDatabase {
 
         Employee_Session empSession1 = new Employee_Session(1, 1);
         Employee_Session empSession2 = new Employee_Session(2, 2);
+        Employee_Session empSession3 = new Employee_Session(2, 3);
+        Employee_Session empSession4 = new Employee_Session(2, 4);
+        Employee_Session empSession5 = new Employee_Session(2, 5);
+        Employee_Session empSession6 = new Employee_Session(2, 6);
+        Employee_Session empSession7 = new Employee_Session(2, 7);
+        Employee_Session empSession8 = new Employee_Session(2, 8);
+        Employee_Session empSession9 = new Employee_Session(2, 9);
+        Employee_Session empSession10 = new Employee_Session(2, 10);
         AppDatabase.getInstance(context).employeeSessionDao().insert(empSession1);
         AppDatabase.getInstance(context).employeeSessionDao().insert(empSession2);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession3);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession4);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession5);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession6);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession7);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession8);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession9);
+        AppDatabase.getInstance(context).employeeSessionDao().insert(empSession10);
 
-        Employee_RewardDiscipline empReward1 = new Employee_RewardDiscipline(1, 1, "16/11/2024", 500F);
-        Employee_RewardDiscipline empReward2 = new Employee_RewardDiscipline(2, 1, "16/11/2024", 300.0F);
+        Employee_RewardDiscipline empReward1 = new Employee_RewardDiscipline(1, 1, "16/11/2024", 500000F);
+        Employee_RewardDiscipline empReward2 = new Employee_RewardDiscipline(2, 1, "16/9/2024", -3000000.0F);
+        Employee_RewardDiscipline empReward3 = new Employee_RewardDiscipline(2, 1, "16/10/2024", 300000.0F);
+        Employee_RewardDiscipline empReward4 = new Employee_RewardDiscipline(2, 1, "16/11/2024", 300000.0F);
+        Employee_RewardDiscipline empReward5 = new Employee_RewardDiscipline(2, 1, "17/11/2024", 500000.0F);
+        Employee_RewardDiscipline empReward6 = new Employee_RewardDiscipline(2, 1, "26/11/2024", 400000.0F);
         AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward1);
         AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward2);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward3);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward4);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward5);
+        AppDatabase.getInstance(context).employeeRewardDisciplineDao().insert(empReward6);
 
         LeaveRequest leave1 = new LeaveRequest("Date with girlfriend", "15/11/2024", "15/11/2024", "16/11/2024", 1, 1);
         LeaveRequest leave2 = new LeaveRequest("A car hit me", "13/11/2024", "12/11/2024", "31/12/2024", 0, 2);

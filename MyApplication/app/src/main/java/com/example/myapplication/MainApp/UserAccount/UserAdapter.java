@@ -1,16 +1,14 @@
-package com.example.myapplication.MainApp.AccountManagement;
+package com.example.myapplication.MainApp.UserAccount;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.MainApp.EmployeeRequest.RequestEmployeeAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;

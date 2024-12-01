@@ -13,40 +13,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:padding="5dp">
 
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_gravity="start|center_vertical"
                 android:backgroundTint="@color/light_sea_green"
-                android:contentDescription="Back"
                 android:drawableLeft="@drawable/arrow_back"
-                android:onClick="goBack" />
+                android:gravity="center"
+                android:onClick="goBack"/>
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="75dp"
+                android:layout_gravity="center"
                 android:text="Phòng Ban"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutTotal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/lavender"
+            android:background="@drawable/bg_lavender_radius_top_left_top_right"
             android:gravity="center|top"
             android:orientation="vertical"
             android:padding="10dp"

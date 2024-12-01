@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/userAvatar"
+            android:id="@+id/btn_user_avatar"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:backgroundTint="@color/light_sea_green"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:drawableLeft="@drawable/baseline_access_time_24"
+            android:drawableLeft="@drawable/time"
             android:padding="16dp"
             android:text="Chấm Công"
             android:textColor="@color/light_sea_green"
@@ -169,76 +169,81 @@
             app:strokeWidth="1dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
-        <Button
-            android:id="@+id/btn_reward_discipline"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_light_grey"
-            android:drawableLeft="@drawable/request"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:padding="16dp"
-            android:text="Khen thưởng và kỷ luật"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
-        <Button
-            android:id="@+id/btn_leave_request_manager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_light_grey"
-            android:drawableLeft="@drawable/request"
-            android:padding="16dp"
-            android:text="Quản Lý Nghỉ Phép"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp" />
+            <Button
+                android:id="@+id/btn_reward_discipline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_light_grey"
+                android:drawableLeft="@drawable/request"
+                android:padding="16dp"
+                android:text="Khen thưởng và kỷ luật"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:cornerRadius="7dp"
+                app:strokeColor="@color/light_black"
+                app:strokeWidth="1dp" />
 
-        <Button
-            android:id="@+id/btn_employee_request"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/light_light_grey"
-            android:drawableLeft="@drawable/request"
-            android:padding="16dp"
-            android:text="Quản Lý Yêu Cầu"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp" />
+            <Button
+                android:id="@+id/btn_leave_request_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_light_grey"
+                android:drawableLeft="@drawable/request"
+                android:padding="16dp"
+                android:text="Quản Lý Nghỉ Phép"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:cornerRadius="7dp"
+                app:strokeColor="@color/light_black"
+                app:strokeWidth="1dp" />
 
-        <Button
-            android:id="@+id/btn_manager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/light_light_grey"
-            android:drawableLeft="@drawable/request"
-            android:padding="16dp"
-            android:text="Quản Lý Chung"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:cornerRadius="7dp"
-            app:strokeColor="@color/light_black"
-            app:strokeWidth="1dp" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_employee_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_light_grey"
+                android:drawableLeft="@drawable/request"
+                android:padding="16dp"
+                android:text="Quản Lý Yêu Cầu"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:cornerRadius="7dp"
+                app:strokeColor="@color/light_black"
+                app:strokeWidth="1dp" />
 
+            <Button
+                android:id="@+id/btn_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/light_light_grey"
+                android:drawableLeft="@drawable/request"
+                android:padding="16dp"
+                android:text="Quản Lý Chung"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:cornerRadius="7dp"
+                app:strokeColor="@color/light_black"
+                app:strokeWidth="1dp" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
