@@ -55,33 +55,38 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                >
 
                 <Button
                     android:id="@+id/btn_week"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/light_sea_green"
                     android:text="Theo Tuần"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_month"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/light_sea_green"
                     android:text="Theo Tháng"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_year"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/light_sea_green"
                     android:text="Theo Năm"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,17 +96,18 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingHorizontal="11dp"
-                android:paddingVertical="7dp">
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp">
 
                 <Button
                     android:id="@+id/btn_previous_week"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/light_sea_green"
                     android:contentDescription="Previous Week"
-                    android:padding="5dp"
-                    android:src="@drawable/arrow_left" />
+                    android:drawableLeft="@drawable/arrow_left"
+                    android:padding="5dp" />
 
                 <TextView
                     android:id="@+id/tv_week"
@@ -116,19 +122,20 @@
 
                 <Button
                     android:id="@+id/btn_next_week"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/light_sea_green"
                     android:contentDescription="Next Week"
-                    android:padding="5dp"
-                    android:src="@drawable/arrow_right" />
+                    android:drawableLeft="@drawable/arrow_right"
+                    android:padding="5dp" />
             </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/container_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_week"
@@ -148,7 +155,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@color/light_sea_green"
+                        android:background="@drawable/rounded_pass_background"
+                        android:backgroundTint="@color/light_sea_green"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
@@ -229,11 +237,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:background="@drawable/rounded_pass_background"
                         android:gravity="center"
                         android:horizontalSpacing="5dp"
                         android:numColumns="7"
-                        android:padding="10dp"
+                        android:padding="8dp"
                         android:verticalSpacing="5dp" />
 
                 </LinearLayout>

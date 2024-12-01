@@ -55,10 +55,15 @@ public class CalendarAdapter extends BaseAdapter {
 
         // Make green
         int day = Integer.parseInt(days.get(position));
+        // Kiểm tra nếu day có trong danh sách markedDays
         if (markedDays.contains(day)) {
-            dayTextView.setBackgroundResource(R.drawable.item_calendar_border_color_green);
+            dayTextView.setBackgroundColor(context.getResources().getColor(R.color.green)); // Màu xanh
+            // Nếu có, sử dụng drawable với màu nền xanh
+            convertView.setBackgroundResource(R.drawable.marked);
         } else {
-            dayTextView.setBackgroundResource(R.drawable.item_calendar_border_color_gray);
+            dayTextView.setBackgroundColor(context.getResources().getColor(R.color.white)); // Màu trắng mặc định
+            // Nếu không, sử dụng drawable với màu nền trắng
+            convertView.setBackgroundResource(R.drawable.non_marked);
         }
 
         return convertView;
