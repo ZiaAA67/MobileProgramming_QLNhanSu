@@ -118,7 +118,7 @@ public class AttendanceHistory extends AppCompatActivity {
     }
 
     private void updateYearView() {
-        textViewYear.setText("Chế độ năm: " + currentYear);
+        textViewYear.setText("Chế Độ Năm: " + currentYear);
     }
 
     private void switchToWeekMode() {

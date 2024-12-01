@@ -26,7 +26,8 @@
                 android:layout_gravity="start|center_vertical"
                 android:backgroundTint="@color/light_sea_green"
                 android:drawableLeft="@drawable/arrow_back"
-                android:gravity="center" />
+                android:gravity="center"
+                />
 
             <TextView
                 android:id="@+id/textView2"
@@ -40,68 +41,74 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_total"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_background"
             android:backgroundTint="@color/lavender"
-            android:gravity="center|top"
             android:orientation="vertical"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
+                android:id="@+id/time_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_week"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/light_sea_green"
                     android:text="Theo Tuần"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_month"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/light_sea_green"
                     android:text="Theo Tháng"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_year"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/light_sea_green"
                     android:text="Theo Năm"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_pass_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingHorizontal="11dp"
-                android:paddingVertical="7dp">
+                android:paddingVertical="4dp">
 
                 <Button
                     android:id="@+id/btn_previous_week"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/light_sea_green"
                     android:contentDescription="Previous Week"
-                    android:padding="5dp"
-                    android:src="@drawable/arrow_left" />
+                    android:drawableLeft="@drawable/arrow_left"
+                    android:padding="5dp" />
 
                 <TextView
                     android:id="@+id/tv_week"
@@ -116,43 +123,49 @@
 
                 <Button
                     android:id="@+id/btn_next_week"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/light_sea_green"
                     android:contentDescription="Next Week"
-                    android:padding="5dp"
-                    android:src="@drawable/arrow_right" />
+                    android:drawableRight="@drawable/arrow_right"
+                    android:padding="5dp" />
             </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/container_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_week"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
                     android:visibility="visible" />
 
                 <GridView
                     android:id="@+id/grid_view_month"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_pass_background"
                     android:numColumns="7"
-                    android:visibility="gone" />
+                    android:padding="9dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/text_view_year"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Chế độ năm"
-                    android:visibility="gone" />
+                    android:text="Chế Độ Năm: "
+                    android:textColor="@color/light_black"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:visibility="visible" />
             </FrameLayout>
-
-
         </LinearLayout>
 
     </LinearLayout>

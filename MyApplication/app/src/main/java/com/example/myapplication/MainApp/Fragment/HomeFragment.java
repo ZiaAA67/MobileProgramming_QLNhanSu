@@ -21,7 +21,6 @@ import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.Manager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
-import com.example.myapplication.MainApp.Schedule.WorkSchedule;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -109,11 +108,6 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
-        btnCalender.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), WorkSchedule.class);
-            intent.putExtra("UserID", user.getUserId());
-            startActivity(intent);
-        });
 
         return view;
     }
