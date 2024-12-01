@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,8 +31,9 @@ public class AttendanceHistory extends AppCompatActivity {
     private int currentYear = LocalDate.now().getYear();
 
     private RecyclerView recyclerViewWeek;
+    private LinearLayout linearLayoutMonth;
+    private LinearLayout linearLayoutYear;
     private GridView gridViewMonth;
-    private TextView textViewYear;
     private TextView tvCurrentWeek;
     private Button btnNext, btnPrevious, btnBack, btnMonth, btnYear, btnWeek;
 
@@ -61,8 +63,9 @@ public class AttendanceHistory extends AppCompatActivity {
 
     private void initUI() {
         recyclerViewWeek = findViewById(R.id.recycler_view_week);
-        gridViewMonth = findViewById(R.id.grid_view_month);
-        textViewYear = findViewById(R.id.text_view_year);
+        gridViewMonth = findViewById(R.id.grid_view_calendar);
+        linearLayoutMonth = findViewById(R.id.linear_layout_month);
+        linearLayoutYear = findViewById(R.id.linear_layout_year);
         tvCurrentWeek = findViewById(R.id.tv_week);
         btnNext = findViewById(R.id.btn_next_week);
         btnPrevious = findViewById(R.id.btn_previous_week);
@@ -118,30 +121,67 @@ public class AttendanceHistory extends AppCompatActivity {
     }
 
     private void updateYearView() {
-        textViewYear.setText("Chế độ năm: " + currentYear);
+        int totalDays = getTotalWorkDaysForYear(userId, currentYear);
+
+        TextView textViewTotalDays = findViewById(R.id.text_view_total_days);
+        TextView textViewYear = findViewById(R.id.text_view_display_year);
+
+        tvCurrentWeek.setText("Năm " + currentYear);
+        textViewYear.setText("Năm: " + currentYear);
+        textViewTotalDays.setText("Tổng số ngày công: " + totalDays);
     }
+
+    private int getTotalWorkDaysForYear(int userId, int year) {
+        int totalDays = 0;
+
+        // Lấy nhân viên theo UserID
+        Employee employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+
+        // Lấy danh sách Employee_Session của nhân viên này
+        List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
+                .employeeSessionDao().getSessionByEmployeeId(employee.getEmployeeId());
+
+        // Lọc các phiên thuộc năm cần kiểm tra
+        for (Employee_Session employeeSession : employeeSessions) {
+            Session session = AppDatabase.getInstance(this).sessionDao()
+                    .getSessionById(employeeSession.getSessionID());
+
+            if (session.getYear() == year) {
+                // Đếm số lần chấm công (Timekeeping) trong từng phiên
+                List<Timekeeping> timekeepingList = AppDatabase.getInstance(this)
+                        .timekeepingDao().getTimekeepingBySessionId(session.getSessionId());
+                totalDays += timekeepingList.size();
+            }
+        }
+
+        return totalDays;
+    }
+
 
     private void switchToWeekMode() {
         currentMode = "week";
         recyclerViewWeek.setVisibility(View.VISIBLE);
-        gridViewMonth.setVisibility(View.GONE);
-        textViewYear.setVisibility(View.GONE);
+        linearLayoutMonth.setVisibility(View.GONE);
+        linearLayoutYear.setVisibility(View.GONE);
+        currentWeek = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
         updateWeekView();
     }
 
     private void switchToMonthMode() {
         currentMode = "month";
         recyclerViewWeek.setVisibility(View.GONE);
-        gridViewMonth.setVisibility(View.VISIBLE);
-        textViewYear.setVisibility(View.GONE);
+        linearLayoutMonth.setVisibility(View.VISIBLE);
+        linearLayoutYear.setVisibility(View.GONE);
+        currentMonth = LocalDate.now().getMonthValue();
         updateMonthView();
     }
 
     private void switchToYearMode() {
         currentMode = "year";
         recyclerViewWeek.setVisibility(View.GONE);
-        gridViewMonth.setVisibility(View.GONE);
-        textViewYear.setVisibility(View.VISIBLE);
+        linearLayoutMonth.setVisibility(View.GONE);
+        linearLayoutYear.setVisibility(View.VISIBLE);
+        currentYear = LocalDate.now().getYear();
         updateYearView();
     }
 
