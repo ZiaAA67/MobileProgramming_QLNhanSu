@@ -56,9 +56,9 @@ public class CalendarAdapter extends BaseAdapter {
         // Make green
         int day = Integer.parseInt(days.get(position));
         if (markedDays.contains(day)) {
-            dayTextView.setBackgroundColor(context.getResources().getColor(R.color.green)); // Màu xanh
+            dayTextView.setBackgroundResource(R.drawable.item_calendar_border_color_green);
         } else {
-            dayTextView.setBackgroundColor(context.getResources().getColor(R.color.white)); // Màu trắng mặc định
+            dayTextView.setBackgroundResource(R.drawable.item_calendar_border_color_gray);
         }
 
         return convertView;
