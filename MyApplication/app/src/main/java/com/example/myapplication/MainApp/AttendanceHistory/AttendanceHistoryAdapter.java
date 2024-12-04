@@ -52,7 +52,7 @@ public class AttendanceHistoryAdapter extends RecyclerView.Adapter<AttendanceHis
             holder.timeOutTimeKeeping.setText(timekeeping.getTimeOut());
 
         } catch (Exception ex) {
-            Toast.makeText(context, "Có lỗi xảy ra trong quá trình tải dữ liệu.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
     }

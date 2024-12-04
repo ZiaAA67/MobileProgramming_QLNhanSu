@@ -21,6 +21,7 @@ import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.Manager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
+import com.example.myapplication.MainApp.Timekeeping.NewTimekeeping;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment {
     private Button btnSalarySlip;
     private Button btnManager;
     private Button btnHistory;
+    private Button btnTimekeeping;
 
     @Nullable
     @Override
@@ -58,7 +60,7 @@ public class HomeFragment extends Fragment {
 
         showEmployeeInfo();
 
-        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline);
+        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline, btnManager);
 
         btnEmployeeRequest.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
@@ -102,6 +104,12 @@ public class HomeFragment extends Fragment {
 
         btnHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), AttendanceHistory.class);
+            intent.putExtra("UserID", user.getUserId());
+            startActivity(intent);
+        });
+
+        btnTimekeeping.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), NewTimekeeping.class);
             intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
@@ -172,5 +180,6 @@ public class HomeFragment extends Fragment {
         btnSalarySlip = view.findViewById(R.id.btn_salary_slip);
         btnManager = view.findViewById(R.id.btn_manager);
         btnHistory = view.findViewById(R.id.btn_history);
+        btnTimekeeping = view.findViewById(R.id.btn_checkin);
     }
 }

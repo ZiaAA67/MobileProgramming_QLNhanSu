@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_sea_green"
-    tools:context=".MainApp.Timekeeping.TimeKeeping">
+    android:background="@color/light_sea_green">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +17,8 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:padding="5dp"
+        tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/btn_back"
@@ -81,36 +81,28 @@
                 android:text="" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_pass_background"
-            android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center">
 
-            <TextView
-                android:id="@+id/textView3"
+            <Button
+                android:id="@+id/btn_checkin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Ghi Chú" />
+                android:background="@drawable/button_border"
+                android:text="Vào"
+                android:visibility="visible" />
 
-            <EditText
-                android:id="@+id/editTextMultiline"
-                android:layout_width="300dp"
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background"
-                android:gravity="top|start"
-                android:hint="Enter your message here"
-                android:importantForAccessibility="yes"
-                android:inputType="textMultiLine"
-                android:minLines="4"
-                android:padding="10dp"
-                android:scrollbars="vertical"
-                android:textSize="15sp" /> <!-- Ensure it's marked as important for accessibility -->
-
-
-        </LinearLayout>
+                android:background="@drawable/button_border"
+                android:text="Ra"
+                android:visibility="gone" />
+        </FrameLayout>
 
 
     </LinearLayout>
