@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:background="@drawable/lightlightgrey_background_lightgrey_border"
-    android:backgroundTint="#E9E9E9"
+    android:padding="10dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/edittext_border"
     android:orientation="vertical">
 
     <TextView

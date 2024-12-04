@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,7 +24,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,10 +36,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
+import com.example.myapplication.Configuration;
 import com.example.myapplication.Login.GiaoDienLogin;
+import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
+import com.example.myapplication.MainApp.ShowSpinner;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.dao.EmployeeDAO;
@@ -51,6 +60,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class InformationRegister extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_READ_STORAGE = 101;
@@ -70,8 +80,14 @@ public class InformationRegister extends AppCompatActivity {
     private Uri selectedImageUri;
     private ProgressBar progressBar;
     private EditText edtEducationLevel;
-    private EducationLevel education = new EducationLevel(null, null, null);
     private String message;
+    private EducationLevel education = new EducationLevel(null, null, null);
+    private Employee employeeUpdate;
+    private RelativeLayout relativeLayout;
+    private View subLayout;
+    private Spinner spinnerDepartment;
+    private Spinner spinnerPosition;
+    private Spinner spinnerWorkplace;
 
 
     @Override
@@ -80,10 +96,32 @@ public class InformationRegister extends AppCompatActivity {
         setContentView(R.layout.activity_information_register);
 
         message = getIntent().getStringExtra("message");
+        if(message==null) message="";
 
         initUI();
 
-        setupSpinnerGender();
+        ShowSpinner.setupSpinnerGender(spinnerGender, this);
+
+        // Nếu admin thêm nhân viên mới hoặc chỉnh sửa thông tin, sẽ bao gồm phân công công việc
+        if(message.equals("AdminUpdate") || message.equals("AdminCreate")) {
+            inflateLayout();
+
+            // binding view in sub layout
+            spinnerDepartment = subLayout.findViewById(R.id.spinner_department);
+            spinnerPosition = subLayout.findViewById(R.id.spinner_position);
+            spinnerWorkplace = subLayout.findViewById(R.id.spinner_workplace);
+
+            // load dữ liệu lên spinner
+            ShowSpinner.setupSpinnerDepartment(spinnerDepartment, InformationRegister.this);
+            ShowSpinner.setupSpinnerPosition(spinnerPosition, InformationRegister.this);
+            ShowSpinner.setupSpinnerWorkplace(spinnerWorkplace, InformationRegister.this);
+
+            if(message.equals("AdminUpdate")) {
+                employeeUpdate = (Employee) getIntent().getSerializableExtra("employeeKey");
+                btnConfirm.setText("Chỉnh Sửa");
+                loadInfoData(spinnerDepartment, spinnerPosition, spinnerWorkplace);
+            }
+        }
 
         edtBirth.setOnClickListener(v -> showDatePickerDialog());
 
@@ -91,22 +129,12 @@ public class InformationRegister extends AppCompatActivity {
             showEducationLevelDialog(education);
         });
 
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Confirm();
-            }
-        });
+        btnConfirm.setOnClickListener(view -> Confirm());
 
-        btnBack.setOnClickListener(view -> {
-//            backToLogin();
-            finish();
-        });
+        btnBack.setOnClickListener(view -> finish());
 
         // Btn check permission
-        btnUploadImage.setOnClickListener(view -> {
-            checkAndRequestPermission();
-        });
+        btnUploadImage.setOnClickListener(view -> checkAndRequestPermission());
     }
 
 
@@ -217,15 +245,6 @@ public class InformationRegister extends AppCompatActivity {
         }
     }
 
-
-    private void setupSpinnerGender() {
-        String[] items = new String[]{"Nam", "Nữ", "Khác"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spiner, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGender.setAdapter(adapter);
-    }
-
-
     private void showDatePickerDialog() {
         // Get today
         Calendar calendar = Calendar.getInstance();
@@ -255,15 +274,7 @@ public class InformationRegister extends AppCompatActivity {
         String strNumberPhone = edtPhoneNumber.getText().toString().trim();
         String strEmail = edtEmail.getText().toString().trim();
 
-        // Check validate input fields
-        if (!checkValidData(strFullName, strBirth, strCCCD, strNumberPhone, strEmail,
-                edtFullName, edtBirth, edtCCCD, edtPhoneNumber, edtEmail)) {
-            Toast.makeText(this, "Thất bại", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(selectedImageUri == null) {
-            Toast.makeText(InformationRegister.this, "Vui lòng chọn ảnh đại diện", Toast.LENGTH_SHORT).show();
+        if (!checkValidData(strFullName, strBirth, strCCCD, strNumberPhone, strEmail, edtFullName, edtBirth, edtCCCD, edtPhoneNumber, edtEmail)) {
             return;
         }
 
@@ -273,11 +284,51 @@ public class InformationRegister extends AppCompatActivity {
             return;
         }
 
+        if(!message.equals("AdminUpdate")) {
+            if (!checkUnique(strCCCD, strNumberPhone, edtCCCD, edtPhoneNumber)) {
+                return;
+            }
+
+            if(selectedImageUri == null) {
+                Toast.makeText(InformationRegister.this, "Vui lòng chọn ảnh đại diện", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            if(selectedImageUri == null) {
+                updateEmployeeInfo(strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail);
+
+                AppDatabase.getInstance(this).employeeDao().update(employeeUpdate);
+
+                // Trả về trạng thái kết quả thành công -> để load lại data
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("resultKey", "success");
+                setResult(RESULT_OK, resultIntent);
+
+                finish();
+                return;
+            }
+        }
+
         // Upload to Cloudinary
         uploadToCloudinary(selectedImageUri, new CloudinaryCallback() {
             @Override
             public void onSuccess(String imgPath) {
                 try {
+                    if(message.equals("AdminUpdate")) {
+                        updateEmployeeInfo(strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail);
+                        employeeUpdate.setImagePath(imgPath);
+
+                        AppDatabase.getInstance(InformationRegister.this).employeeDao().update(employeeUpdate);
+
+                        // Trả về trạng thái kết quả thành công -> để load lại data
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("resultKey", "success");
+                        setResult(RESULT_OK, resultIntent);
+
+                        finish();
+                        return;
+                    }
+
                     // Add education level
                     int eduID = (int)AppDatabase.getInstance(InformationRegister.this).educationLevelDao().insertReturnId(education);
                     education.setEducationId(eduID);
@@ -286,17 +337,37 @@ public class InformationRegister extends AppCompatActivity {
                     Employee employee = new Employee(strFullName, gender, strBirth, strCCCD, strAddress, strNumberPhone, strEmail,
                             true, false, imgPath, null, null, null, education.getEducationId(), null, null);
 
-                    // Lưu vào db
-                    int employeeId = (int)AppDatabase.getInstance(InformationRegister.this).employeeDao().insertReturnId(employee);
-                    employee.setEmployeeId(employeeId);
+                    // Nếu admin tạo nhân viên trực tiếp hoặc chỉnh sửa nhân viên
+                    if(message.equals("AdminCreate")) {
+                        int departmentId = spinnerDepartment.getSelectedItemPosition();
+                        int positionId = spinnerPosition.getSelectedItemPosition();
+                        int workplaceId = spinnerWorkplace.getSelectedItemPosition();
 
-                    // Trả về form Register đối tượng employee
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("employee_key", employee);
-                    setResult(RESULT_OK, resultIntent);
+                        employee.setApprove(true);
+                        employee.setDepartmentId( departmentId == 0 ? null : departmentId );
+                        employee.setPositionId( positionId == 0 ? null : positionId );
+                        employee.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
 
-                    showRegistrationSuccessDialog();
+                        AppDatabase.getInstance(InformationRegister.this).employeeDao().insert(employee);
 
+                        // Trả về trạng thái kết quả thành công -> để load lại data
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("resultKey", "success");
+                        setResult(RESULT_OK, resultIntent);
+
+                        finish();
+                    } else {
+                        // Lưu vào db
+                        int employeeId = (int)AppDatabase.getInstance(InformationRegister.this).employeeDao().insertReturnId(employee);
+                        employee.setEmployeeId(employeeId);
+
+                        // Trả về form Register đối tượng employee
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("employee_key", employee);
+                        setResult(RESULT_OK, resultIntent);
+
+                        showRegistrationSuccessDialog();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(InformationRegister.this, "Lỗi khi lưu dữ liệu:", Toast.LENGTH_SHORT).show();
@@ -308,6 +379,26 @@ public class InformationRegister extends AppCompatActivity {
                 Toast.makeText(InformationRegister.this, "Lỗi khi tải ảnh!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateEmployeeInfo(String strFullName, int gender, String strBirth, String strCCCD, String strAddress, String strNumberPhone, String strEmail) {
+        int departmentId = spinnerDepartment.getSelectedItemPosition();
+        int positionId = spinnerPosition.getSelectedItemPosition();
+        int workplaceId = spinnerWorkplace.getSelectedItemPosition();
+
+        employeeUpdate.setDepartmentId( departmentId == 0 ? null : departmentId );
+        employeeUpdate.setPositionId( positionId == 0 ? null : positionId );
+        employeeUpdate.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
+
+        employeeUpdate.setFullName(strFullName);
+        employeeUpdate.setGender(gender);
+        employeeUpdate.setBirth(strBirth);
+        employeeUpdate.setIdentityNumber(strCCCD);
+        employeeUpdate.setAddress(strAddress);
+        employeeUpdate.setPhoneNumber(strNumberPhone);
+        employeeUpdate.setEmail(strEmail);
+
+        employeeUpdate.setEducationId(education.getEducationId());
     }
 
     private boolean checkValidData(String strFullName, String strBirth, String strCCCD
@@ -346,6 +437,12 @@ public class InformationRegister extends AppCompatActivity {
             return false;
         }
 
+
+
+        return true;
+    }
+
+    private boolean checkUnique(String strCCCD, String strNumberPhone, EditText editCCCD, EditText editNumberPhone) {
         if (checkEmployeeIdentityNumberExists(strCCCD)) {
             editCCCD.setError("Số CCCD đã có người sử dụng!");
             editCCCD.requestFocus();
@@ -358,10 +455,10 @@ public class InformationRegister extends AppCompatActivity {
             return false;
         }
 
-        return true;// Valid input data
+        return true;
     }
 
-    // Check duplicate information from database
+
     private boolean checkEmployeePhoneNumberExists(String phoneNumber) {
         EmployeeDAO employeeDAO = AppDatabase.getInstance(this).employeeDao();
         Employee employee = employeeDAO.getByPhoneNumber(phoneNumber);
@@ -374,11 +471,67 @@ public class InformationRegister extends AppCompatActivity {
         return employee != null;
     }
 
-    private void backToLogin() {
-        Intent intent = new Intent(this, GiaoDienLogin.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa ngăn xếp hoạt động
-        startActivity(intent);
-        finish();
+    private void inflateLayout() {
+        relativeLayout = findViewById(R.id.relative_layout);
+
+        // Inflate layout phụ chứa spinner phân công
+        LayoutInflater inflater = LayoutInflater.from(this);
+        subLayout = inflater.inflate(R.layout.sub_layout_spinner, relativeLayout, false);
+
+        // Gán ID cho subLayout nếu chưa có
+        if (subLayout.getId() == View.NO_ID) {
+            subLayout.setId(View.generateViewId());
+        }
+
+        // Tạo LayoutParams cho subLayout, chỉ định vị trí bên dưới input email
+        RelativeLayout.LayoutParams subLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        subLayoutParams.addRule(RelativeLayout.BELOW, R.id.input_email);
+        subLayout.setLayoutParams(subLayoutParams);
+
+        // Thêm subLayout vào RelativeLayout
+        relativeLayout.addView(subLayout);
+
+        // Chỉnh lại vị trí button confirm, bên dưới spinner vừa thêm ( dưới cùng )
+        RelativeLayout.LayoutParams buttonParams = (RelativeLayout.LayoutParams) btnConfirm.getLayoutParams();
+        buttonParams.addRule(RelativeLayout.BELOW, subLayout.getId());
+        btnConfirm.setLayoutParams(buttonParams);
+    }
+
+    private void loadInfoData(Spinner spinnerDepartment, Spinner spinnerPosition, Spinner spinnerWorkplace) {
+        if(employeeUpdate != null) {
+            edtFullName.setText(employeeUpdate.getFullName());
+            edtBirth.setText(employeeUpdate.getBirth());
+            edtCCCD.setText(employeeUpdate.getIdentityNumber());
+            edtAddress.setText(employeeUpdate.getAddress());
+            edtPhoneNumber.setText(employeeUpdate.getPhoneNumber());
+            edtEmail.setText(employeeUpdate.getEmail());
+
+            spinnerGender.setSelection(employeeUpdate.getGender());
+
+            if(employeeUpdate.getDepartmentId()!=null) {
+                spinnerDepartment.setSelection(employeeUpdate.getDepartmentId());
+            }
+
+            if(employeeUpdate.getPositionId()!=null) {
+                spinnerPosition.setSelection(employeeUpdate.getPositionId());
+            }
+
+            if(employeeUpdate.getWorkplaceId()!=null) {
+                spinnerWorkplace.setSelection(employeeUpdate.getWorkplaceId());
+            }
+
+            // Hiển thị ảnh avatar
+            Glide.with(this).load(employeeUpdate.getImagePath()).circleCrop().into(imageUpload);
+
+            // Trình độ học vấn
+            if(employeeUpdate.getEducationId()!=null) {
+                education = AppDatabase.getInstance(this).educationLevelDao().getById(employeeUpdate.getEducationId());
+                edtEducationLevel.setText(education.getEducationLevelName());
+            }
+        }
     }
 
     private void showRegistrationSuccessDialog() {
@@ -400,21 +553,7 @@ public class InformationRegister extends AppCompatActivity {
 
     private void showEducationLevelDialog(EducationLevel education) {
         Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_education_level_layout);
-        dialog.setCancelable(true); // có thể bấm ra ngoài để đóng dialog
-
-        Window window = dialog.getWindow();
-        if(window == null) return;
-
-        // Set kích thước và màu nền
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        // Set gravity center
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = Gravity.CENTER;
-        window.setAttributes(windowAttributes);
+        Configuration.showDialog(dialog, R.layout.dialog_education_level_layout);
 
         // Ánh xạ view trong dialog
         Button btnCancel = dialog.findViewById(R.id.btn_education_cancel);
@@ -428,6 +567,17 @@ public class InformationRegister extends AppCompatActivity {
         ArrayAdapter eduAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listEduName);
         eduAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEducationLevel.setAdapter(eduAdapter);
+
+        if(education.getEducationLevelName()!=null) {
+            int pos = listEduName.indexOf(education.getEducationLevelName());
+            spinnerEducationLevel.setSelection(pos);
+            if(education.getMajor()!=null) {
+                edtMajor.setText(education.getMajor());
+            }
+            if(education.getInstitute()!=null) {
+                edtInstitute.setText(education.getInstitute());
+            }
+        }
 
         // btn huỷ trong dialog
         btnCancel.setOnClickListener(view -> {
@@ -453,6 +603,73 @@ public class InformationRegister extends AppCompatActivity {
         dialog.show();
     }
 
+    private void showDialogAssignment(Employee employee) {
+        // Setup dialong phân công công việc cho nhân viên mới
+        Dialog dialog = new Dialog(InformationRegister.this);
+        int layout = R.layout.dialog_assignment_layout;
+        Configuration.showDialog(dialog, layout);
+
+        // Department spinner
+        Spinner spinnerDepartment = dialog.findViewById(R.id.spinner_department);
+        ShowSpinner.setupSpinnerDepartment(spinnerDepartment, InformationRegister.this);
+
+        // Position spinner
+        Spinner spinnerPosition = dialog.findViewById(R.id.spinner_position);
+        ShowSpinner.setupSpinnerPosition(spinnerPosition, InformationRegister.this);
+
+        // Workplace spinner
+        Spinner spinnerWorkplace = dialog.findViewById(R.id.spinner_workplace);
+        ShowSpinner.setupSpinnerWorkplace(spinnerWorkplace, InformationRegister.this);
+
+        // Ánh xạ btn duyệt và từ chối
+        Button btnApprove = dialog.findViewById(R.id.btn_assignment_approve);
+        Button btnDisapprove = dialog.findViewById(R.id.btn_assignment_disapprove);
+        btnDisapprove.setVisibility(View.GONE);
+        btnApprove.setText("Xác Nhận");
+
+        // Btn duyệt sau khi phân công
+        btnApprove.setOnClickListener(view -> {
+            int departmentId = spinnerDepartment.getSelectedItemPosition();
+            int positionId = spinnerPosition.getSelectedItemPosition();
+            int workplaceId = spinnerWorkplace.getSelectedItemPosition();
+
+            String to = employee.getEmail();
+            String sub = "Đăng ký thông tin thành công!!!";
+            String content = "Chúc mừng bạn đã đăng ký thông tin thành công.\n" +
+                            "Đây là thông tin đăng nhập của bạn, vui lòng đổi mật khẩu trong lần đầu đăng nhập!\n" +
+                            "Username: " + Configuration.makeUsername(employee.getFullName(), employee.getPhoneNumber()) + "\n" +
+                            "Password: " + Configuration.randomString(20) + "\n" +
+                            "Chân thành cảm ơn bạn!!!";
+
+            // Gửi mail đăng ký thành công
+            Configuration.sendMail(this, to, sub, content);
+
+            // Lưu xuống db
+            try {
+                employee.setApprove(true);
+                employee.setDepartmentId( departmentId == 0 ? null : departmentId );
+                employee.setPositionId( positionId == 0 ? null : positionId );
+                employee.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
+
+                AppDatabase.getInstance(this).employeeDao().update(employee);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Đóng dialog
+            dialog.dismiss();
+
+            finish();
+        });
+    }
+
+    private void backToLogin() {
+        Intent intent = new Intent(this, GiaoDienLogin.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa ngăn xếp hoạt động
+        startActivity(intent);
+        finish();
+    }
 
     private void initUI() {
         edtFullName = findViewById(R.id.edt_fullName);

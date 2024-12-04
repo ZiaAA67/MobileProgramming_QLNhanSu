@@ -1,5 +1,6 @@
 package com.example.myapplication.MainApp.Employee;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,15 +10,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.MainApp.UserAccount.UserAdapter;
 import com.example.myapplication.R;
@@ -30,6 +37,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class EmployeeManagement extends AppCompatActivity {
@@ -41,6 +49,7 @@ public class EmployeeManagement extends AppCompatActivity {
     SearchView searchView;
     ExtendedFloatingActionButton fabAdd;
     Button btnBack;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +70,17 @@ public class EmployeeManagement extends AppCompatActivity {
         employeeAdapter = new EmployeeAdapter(listEmployee, new EmployeeAdapter.IClickItemEmployee() {
             @Override
             public void clickUpdateEmployee(Employee employee) {
-
+                handleClickUpdateEmployee(employee);
             }
         });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvEmployee.setLayoutManager(linearLayoutManager);
         rcvEmployee.setAdapter(employeeAdapter);
+
+        // Tạo hàm callback khi vuốt
+        ItemTouchHelper itemTouchHelper = setupItemTouchHelper();
+        itemTouchHelper.attachToRecyclerView(rcvEmployee);
 
         // Bắt sự kiện thay đổi spinner type, xử lý khi nhập input vào search bar
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -111,19 +124,54 @@ public class EmployeeManagement extends AppCompatActivity {
             }
         });
 
-        // Thêm user mới
+        // Thêm nhân viên mới
         fabAdd.setOnClickListener(v -> {
             handleClickAddEmployee();
         });
 
+        // Khi thêm nhân viên mới, nếu trạng thái là thành công thì load lại dữ liệu
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if(data!=null && Objects.equals(data.getStringExtra("resultKey"), "success")) {
+                    loadData();
+                }
+            }
+        });
+
+        btnBack.setOnClickListener(v -> finish());
+
         loadData();
     }
+
+    @NonNull
+    private ItemTouchHelper setupItemTouchHelper() {
+        MyItemTouchHelper myItemTouchHelper = new MyItemTouchHelper(position -> {
+            // thực hiện xoá item
+            Employee employee = listEmployee.get(position);
+            employee.setActive(false);
+            AppDatabase.getInstance(EmployeeManagement.this).employeeDao().update(employee);
+            listEmployee.remove(position);
+
+            // Thông báo vị trí xoá cho adapter -> load lại dữ liệu
+            employeeAdapter.notifyItemRemoved(position);
+        });
+        ItemTouchHelper.SimpleCallback simpleCallback = myItemTouchHelper.handleItemTouchHelper();
+        return new ItemTouchHelper(simpleCallback);
+    }
+
+    private void handleClickUpdateEmployee(Employee employee) {
+        Intent intent = new Intent(this, InformationRegister.class);
+        intent.putExtra("message", "AdminUpdate");
+        intent.putExtra("employeeKey", employee);
+        activityResultLauncher.launch(intent);
+    }
+
 
     private void handleClickAddEmployee() {
         Intent intent = new Intent(this, InformationRegister.class);
         intent.putExtra("message", "AdminCreate");
-        startActivity(intent);
-
+        activityResultLauncher.launch(intent);
     }
 
     private void loadData() {

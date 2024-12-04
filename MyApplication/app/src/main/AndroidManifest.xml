@@ -22,17 +22,17 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".MainApp.Employee.EmployeeManagement"-->
-<!--            android:exported="false" />-->
+<!--         <activity-->
+<!--         android:name=".MainApp.Employee.EmployeeManagement"-->
+<!--         android:exported="false" />-->
         <!--
          <activity
             android:name=".MainApp.Department.Departmment"
             android:exported="false" />
         -->
-<!--        <activity-->
-<!--            android:name=".MainApp.UserAccount.UserAccountManagement"-->
-<!--            android:exported="false" />-->
+         <activity
+         android:name=".MainApp.UserAccount.UserAccountManagement"
+         android:exported="false" />
         <activity
             android:name=".MainApp.Manager"
             android:exported="false" />
@@ -87,7 +87,7 @@
             android:exported="false" />
         <activity
             android:name=".MainApp.Employee.EmployeeManagement"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
