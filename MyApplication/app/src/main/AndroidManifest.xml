@@ -42,12 +42,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
-
         <activity
             android:name=".Register.InformationRegister"
             android:exported="false" />
         <activity
             android:name=".MainApp.Fragment.GiaoDienChinh"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Timekeeping.NewTimekeeping"
+            android:exported="false" />
+        <activity
+            android:name=".Demo.DemoMapActivity"
             android:exported="false" />
         <activity
             android:name=".MainApp.AttendanceHistory.AttendanceHistory"

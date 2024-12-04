@@ -5,8 +5,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalTime;
-
 @Entity(tableName = "Timekeeping",
         foreignKeys = @ForeignKey(
                 entity = Session.class,
@@ -37,7 +35,6 @@ public class Timekeeping {
     @ColumnInfo(name = "SessionID")
     private int sessionId;
 
-
     // Constructor
     public Timekeeping(String timeIn, String timeOut, Integer isAbsent, String overtime, int sessionId) {
         this.timeIn = timeIn;
@@ -47,6 +44,8 @@ public class Timekeeping {
         this.sessionId = sessionId;
     }
 
+    public Timekeeping() {
+    }
 
     // Getters and Setters
     public int getTimekeepingId() {
