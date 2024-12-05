@@ -147,10 +147,7 @@ public class AttendanceHistory extends AppCompatActivity {
                     .getSessionById(employeeSession.getSessionID());
 
             if (session.getYear() == year) {
-                // Đếm số lần chấm công (Timekeeping) trong từng phiên
-                List<Timekeeping> timekeepingList = AppDatabase.getInstance(this)
-                        .timekeepingDao().getTimekeepingBySessionId(session.getSessionId());
-                totalDays += timekeepingList.size();
+                totalDays += 1;
             }
         }
 
