@@ -110,7 +110,7 @@
                     android:padding="5dp" />
 
                 <TextView
-                    android:id="@+id/tv_week"
+                    android:id="@+id/tv_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
