@@ -22,6 +22,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.ShowSpinner;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
@@ -48,13 +49,13 @@ public class EmployeeRequestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+//        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_employee_request);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
 
         // Ánh xạ view
         bindingView();
@@ -132,15 +133,15 @@ public class EmployeeRequestActivity extends AppCompatActivity {
 
         // Department spinner
         Spinner spinnerDepartment = dialog.findViewById(R.id.spinner_department);
-        setupSpinnerDepartment(spinnerDepartment);
+        ShowSpinner.setupSpinnerDepartment(spinnerDepartment, EmployeeRequestActivity.this);
 
         // Position spinner
         Spinner spinnerPosition = dialog.findViewById(R.id.spinner_position);
-        setupSpinnerPosition(spinnerPosition);
+        ShowSpinner.setupSpinnerPosition(spinnerPosition, EmployeeRequestActivity.this);
 
         // Workplace spinner
         Spinner spinnerWorkplace = dialog.findViewById(R.id.spinner_workplace);
-        setupSpinnerWorkplace(spinnerWorkplace);
+        ShowSpinner.setupSpinnerWorkplace(spinnerWorkplace, EmployeeRequestActivity.this);
 
         // Ánh xạ btn duyệt và từ chối
         btnAssignmentApprove = dialog.findViewById(R.id.btn_assignment_approve);
@@ -153,45 +154,18 @@ public class EmployeeRequestActivity extends AppCompatActivity {
             int workplaceId = spinnerWorkplace.getSelectedItemPosition();
 
             String to = employee.getEmail();
-            String sub = "Đăng ký thông tin thành công!!!";
+            String sub = "Đơn đăng ký của bạn đã được duyệt!!!";
+            String content = "Chúc mừng, đơn đăng ký của bạn đã được quản trị viên duyệt thành công.\n Bạn có thể bắt đầu công việc ngay bây giờ!";
 
-//            String username = Configuration.makeUsername(employee.getFullName(), employee.getPhoneNumber());
-//            String password = Configuration.randomString(16);
-
-            String content = "Chúc mừng bạn đã đăng ký thông tin thành công. \nVui lòng chờ ban quản trị duyệt đơn yêu cầu của bạn!";
-//                    "Chúc mừng bạn đã đăng ký thông tin thành công, đây là tài khoản và mật khẩu của bạn. \n" +
-//                            "Vui lòng đổi mật khẩu trong lần đăng nhập đầu tiên! \n\n" +
-//                            "Tên tài khoản: " + username + "\n" +
-//                            "Mật khẩu: " + password + "\n";
-
-            // Gửi mail chứa tài khoản và mật khẩu
+            // Gửi mail đăng ký thành công
             Configuration.sendMail(this, to, sub, content);
 
+            // Lưu xuống db
             try {
-//                // Lưu user xuống db
-//                Role EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("EmployeeManagement");
-//
-//                // check có role là EmployeeManagement hay chưa, nếu chưa có thì tạo role
-//                if(EmployeeRole == null) {
-//                    EmployeeRole = new Role("EmployeeManagement", "Nhân viên quèn");
-//                    AppDatabase.getInstance(this).roleDao().insert(EmployeeRole);
-//                    EmployeeRole = AppDatabase.getInstance(this).roleDao().getRoleByName("EmployeeManagement");
-//                }
-//
-//                // Thêm user vào db
-//                User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY,true, EmployeeRole.getRoleId());
-//                AppDatabase.getInstance(this).userDao().insert(user);
-//                user = AppDatabase.getInstance(this).userDao().getUserByUsername(username);
-//
-//                // Set active và gán thông tin cho employee
-//                employee.setActive(1);
-
                 employee.setApprove(true);
-//                employee.setUserId(user.getUserId());
                 employee.setDepartmentId( departmentId == 0 ? null : departmentId );
                 employee.setPositionId( positionId == 0 ? null : positionId );
                 employee.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
-
 
                 AppDatabase.getInstance(this).employeeDao().update(employee);
 
@@ -240,68 +214,6 @@ public class EmployeeRequestActivity extends AppCompatActivity {
 
         dialog.create().show();
     }
-
-    private void setupSpinnerDepartment(Spinner spinner) {
-        List<String> data = new ArrayList<>();
-        List<Department> listDepartment = AppDatabase.getInstance(EmployeeRequestActivity.this).departmentDao().getActiveDepartment();
-        if(listDepartment != null) {
-            data.add("Chọn phòng ban");
-            listDepartment.forEach(d -> data.add(d.getDepartmentName()));
-        } else {
-            data.add("Không tồn tại dữ liệu");
-        }
-        SpinnerAdapter adapter = new SpinnerAdapter(EmployeeRequestActivity.this, android.R.layout.simple_spinner_item, data);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void setupSpinnerPosition(Spinner spinner) {
-        List<String> data = new ArrayList<>();
-        List<Position> listPosition = AppDatabase.getInstance(EmployeeRequestActivity.this).positionDao().getAll();
-        if(listPosition != null) {
-            data.add("Chọn vị trí của nhân viên");
-            listPosition.forEach(d -> data.add(d.getPositionName()));
-        } else {
-            data.add("Không tồn tại dữ liệu");
-        }
-        SpinnerAdapter adapter = new SpinnerAdapter(EmployeeRequestActivity.this, android.R.layout.simple_spinner_item, data);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void setupSpinnerWorkplace(Spinner spinner) {
-        List<String> data = new ArrayList<>();
-        List<Workplace> listWorkplace = AppDatabase.getInstance(EmployeeRequestActivity.this).workplaceDao().getActiveWorkplace();
-        if(listWorkplace != null) {
-            data.add("Chọn cơ sở làm việc");
-            listWorkplace.forEach(d -> data.add(d.getWorkplaceName()));
-        } else {
-            data.add("Không tồn tại dữ liệu");
-        }
-        SpinnerAdapter adapter = new SpinnerAdapter(EmployeeRequestActivity.this, android.R.layout.simple_spinner_item, data);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-//    private void showDialogAssignment(Dialog dialog) {
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.dialog_assignment_layout);
-//        dialog.setCancelable(true); // có thể bấm ra ngoài để đóng dialog
-//
-//        Window window = dialog.getWindow();
-//        if(window == null) return;
-//
-//        // Set kích thước và màu nền
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//
-//        // Set gravity center
-//        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-//        windowAttributes.gravity = Gravity.CENTER;
-//        window.setAttributes(windowAttributes);
-//
-//        dialog.show();
-//    }
 
     private void bindingView() {
         mListView = findViewById(R.id.list_view);

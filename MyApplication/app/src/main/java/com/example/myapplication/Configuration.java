@@ -108,12 +108,12 @@ public class Configuration {
 
                     Transport.send(msg);
 
-                    ((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Email sent successfully!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+//                    ((Activity) context).runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(context, "Email sent successfully!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
 
                 } catch (Exception e) {
                     e.printStackTrace();

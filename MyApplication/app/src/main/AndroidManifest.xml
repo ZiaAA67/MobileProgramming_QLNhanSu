@@ -22,17 +22,17 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <!--        <activity-->
-        <!--            android:name=".MainApp.Employee.EmployeeManagement"-->
-        <!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".MainApp.Employee.EmployeeManagement"-->
+<!--            android:exported="false" />-->
         <!--
          <activity
             android:name=".MainApp.Department.Departmment"
             android:exported="false" />
         -->
-        <!--        <activity-->
-        <!--            android:name=".MainApp.UserAccount.UserAccountManagement"-->
-        <!--            android:exported="false" />-->
+         <activity
+         android:name=".MainApp.UserAccount.UserAccountManagement"
+         android:exported="false" />
         <activity
             android:name=".MainApp.Manager"
             android:exported="false" />
@@ -50,13 +50,16 @@
             android:name=".MainApp.Fragment.GiaoDienChinh"
             android:exported="false" />
         <activity
+            android:name=".MainApp.Timekeeping.NewTimekeeping"
+            android:exported="false" />
+        <activity
+            android:name=".Demo.DemoMapActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainApp.AttendanceHistory.AttendanceHistory"
             android:exported="false" />
         <activity
             android:name=".MainApp.EmployeeProfile.EmployeeProfile"
-            android:exported="false" />
-        <activity
-            android:name=".MainApp.Schedule.WorkSchedule"
             android:exported="false" />
         <activity
             android:name=".MainApp.Salary.SalarySlip"
@@ -87,7 +90,7 @@
             android:exported="false" />
         <activity
             android:name=".Login.GiaoDienLogin"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

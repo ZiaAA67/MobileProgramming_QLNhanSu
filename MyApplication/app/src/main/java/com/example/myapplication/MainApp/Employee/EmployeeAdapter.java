@@ -32,7 +32,7 @@ import java.util.List;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder>{
     private List<Employee> listEmployee;
-    private EmployeeAdapter.IClickItemEmployee iClickItemEmployee;
+    private IClickItemEmployee iClickItemEmployee;
 
     public EmployeeAdapter(List<Employee> listEmployee, EmployeeAdapter.IClickItemEmployee iClickItemEmployee) {
         this.listEmployee = listEmployee;
@@ -69,6 +69,11 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         holder.tvEmail.setText(String.format("Email: %s", employee.getEmail()));
         holder.tvStatus.setText(String.format("Trạng thái: %s", employee.isApprove() ? "Đã được duyệt" : "Chưa được duyệt"));
 
+        // Bắt sự kiện click vào employee để update
+        holder.layoutForeground.setOnClickListener(v -> {
+            iClickItemEmployee.clickUpdateEmployee(employee);
+        });
+
         // Hiển thị ảnh avatar
         String imagePath = employee.getImagePath();
         if (!imagePath.isEmpty()) {
@@ -96,6 +101,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         TextView tvEmail;
         TextView tvStatus;
         ImageView imgAvatar;
+        View layoutForeground;
 
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +112,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             tvEmail = itemView.findViewById(R.id.tv_email);
             tvStatus = itemView.findViewById(R.id.tv_status);
             imgAvatar = itemView.findViewById(R.id.image_avatar);
+            layoutForeground = itemView.findViewById(R.id.layout_foreground);
         }
     }
 }

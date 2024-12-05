@@ -2,6 +2,7 @@ package com.example.myapplication.MainApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -10,10 +11,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.R;
 
 public class Manager extends AppCompatActivity {
+    private LinearLayout userManager;
+    private LinearLayout employeeManager;
+    private Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +31,24 @@ public class Manager extends AppCompatActivity {
             return insets;
         });
 
-        LinearLayout user = findViewById(R.id.user_manager);
-        user.setOnClickListener(v -> {
+        bindingView();
+
+        userManager.setOnClickListener(v -> {
             Intent intent = new Intent(this, UserAccountManagement.class);
             startActivity(intent);
         });
+
+        employeeManager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EmployeeManagement.class);
+            startActivity(intent);
+        });
+
+        btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void bindingView() {
+        userManager = findViewById(R.id.user_manager);
+        employeeManager = findViewById(R.id.employee_manager);
+        btnBack = findViewById(R.id.btn_back);
     }
 }

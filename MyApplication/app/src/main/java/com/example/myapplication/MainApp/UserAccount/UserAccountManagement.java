@@ -23,8 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Configuration;
 import com.example.myapplication.MainApp.CheckInput;
+import com.example.myapplication.MainApp.Employee.EmployeeManagement;
+import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Role;
 import com.example.myapplication.database.entities.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -72,8 +75,8 @@ public class UserAccountManagement extends AppCompatActivity {
         rcvUser.setAdapter(userAdapter);
 
         // Tạo hàm callback khi vuốt
-        ItemTouchHelper.SimpleCallback callback = setupItemTouchHelper();
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        // Tạo hàm callback khi vuốt
+        ItemTouchHelper itemTouchHelper = setupItemTouchHelper();
         itemTouchHelper.attachToRecyclerView(rcvUser);
 
         // clear focus cho search bar ( áp dụng với thiết bị api thấp )
@@ -115,6 +118,8 @@ public class UserAccountManagement extends AppCompatActivity {
         fabAdd.setOnClickListener(v -> {
             handleClickAddUser();
         });
+
+        btnBack.setOnClickListener(v -> finish());
 
         loadData();
     }
@@ -226,55 +231,20 @@ public class UserAccountManagement extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private ItemTouchHelper.SimpleCallback setupItemTouchHelper() {
-        // tạo callback khi vuốt qua trái
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
+    @NonNull
+    private ItemTouchHelper setupItemTouchHelper() {
+        MyItemTouchHelper myItemTouchHelper = new MyItemTouchHelper(position -> {
+            // thực hiện xoá item
+            User user = listUser.get(position);
+            user.setActive(false);
+            AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
+            listUser.remove(position);
 
-            // Hàm xử lý sau khi vuốt
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                // Lấy vị trí item xoá
-                int position = viewHolder.getAbsoluteAdapterPosition();
-
-                // thực hiện xoá item
-                User user = listUser.get(position);
-                user.setActive(false);
-                AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
-                listUser.remove(position);
-
-                // Thông báo vị trí xoá cho adapter -> load lại dữ liệu
-                userAdapter.notifyItemRemoved(position);
-            }
-
-            @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                    @NonNull RecyclerView.ViewHolder viewHolder,
-                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                // Binding các layout view
-                View itemView = viewHolder.itemView;
-                View layoutBackground = itemView.findViewById(R.id.layout_background);
-                View layoutForeground = itemView.findViewById(R.id.layout_foreground);
-
-                // Cho background xuất hiện
-                layoutBackground.setVisibility(View.VISIBLE);
-
-                // Set vị trí cho foreground khi vuốt
-                layoutForeground.setTranslationX(dX);
-
-                // Nếu kh làm gì hoặc huỷ bỏ vuốt
-                if (!isCurrentlyActive && dX == 0) {
-                    layoutBackground.setVisibility(View.GONE);
-                }
-
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
-        };
-        return simpleCallback;
+            // Thông báo vị trí xoá cho adapter -> load lại dữ liệu
+            userAdapter.notifyItemRemoved(position);
+        });
+        ItemTouchHelper.SimpleCallback simpleCallback = myItemTouchHelper.handleItemTouchHelper();
+        return new ItemTouchHelper(simpleCallback);
     }
 
     private void searchWithName(String kw) {
