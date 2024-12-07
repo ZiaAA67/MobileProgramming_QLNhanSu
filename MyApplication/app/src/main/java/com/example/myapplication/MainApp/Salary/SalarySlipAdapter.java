@@ -15,10 +15,11 @@ import java.util.List;
 
 public class SalarySlipAdapter extends BaseAdapter {
 
+    private int userId;
+
     private Context context;
     private List<SalarySlipItem> salarySlipItems;
     private LayoutInflater inflater;
-    private int userId;
 
     public SalarySlipAdapter(Context context, List<SalarySlipItem> salarySlipItems, int userId) {
         this.context = context;

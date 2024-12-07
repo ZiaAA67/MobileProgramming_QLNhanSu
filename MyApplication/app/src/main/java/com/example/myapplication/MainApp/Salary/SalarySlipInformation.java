@@ -31,6 +31,7 @@ public class SalarySlipInformation extends AppCompatActivity {
     private int userId;
     private int month;
     private int year;
+
     private ImageView imgEmployee;
     private Button btnBack;
     private TextView tvEmployeeName;
@@ -45,8 +46,8 @@ public class SalarySlipInformation extends AppCompatActivity {
     private TextView tvTotalSalary;
     private TextView tvReceiveSalary;
     private TextView tvReceiveSalary2;
-    private List<Employee_RewardDiscipline> employeeRewardDisciplines;
 
+    private List<Employee_RewardDiscipline> employeeRewardDisciplines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
