@@ -41,7 +41,7 @@ public class AttendanceHistory extends AppCompatActivity {
     private TextView tvCurrentTime;
     private Button btnNext, btnPrevious, btnBack, btnMonth, btnYear, btnWeek;
 
-    private AttendanceHistoryAdapter attendanceHistoryAdapter;
+    private AttendanceHistoryWeekAdapter attendanceHistoryWeekAdapter;
     private List<Timekeeping> mListItems;
 
     @Override
@@ -64,28 +64,13 @@ public class AttendanceHistory extends AppCompatActivity {
         btnYear.setOnClickListener(view -> switchToYearMode());
     }
 
-    private void initUI() {
-        recyclerViewWeek = findViewById(R.id.recycler_view_week);
-        gridViewMonth = findViewById(R.id.grid_view_calendar);
-        linearLayoutMonth = findViewById(R.id.linear_layout_month);
-        linearLayoutYear = findViewById(R.id.linear_layout_year);
-        tvCurrentTime = findViewById(R.id.tv_time);
-        btnNext = findViewById(R.id.btn_next_week);
-        btnPrevious = findViewById(R.id.btn_previous_week);
-        btnBack = findViewById(R.id.btn_back);
-        btnMonth = findViewById(R.id.btn_month);
-        btnYear = findViewById(R.id.btn_year);
-        btnWeek = findViewById(R.id.btn_week);
-        tvCurrentTime.setText("Tuần " + currentWeek);
-    }
-
     private void updateWeekView() {
-        attendanceHistoryAdapter = new AttendanceHistoryAdapter();
+        attendanceHistoryWeekAdapter = new AttendanceHistoryWeekAdapter();
         recyclerViewWeek.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewWeek.setAdapter(attendanceHistoryAdapter);
+        recyclerViewWeek.setAdapter(attendanceHistoryWeekAdapter);
 
         mListItems = getEmployeeTimekeeping(employeeId, currentWeek);
-        attendanceHistoryAdapter.setData(mListItems, this);
+        attendanceHistoryWeekAdapter.setData(mListItems, this);
         tvCurrentTime.setText("Tuần " + currentWeek);
     }
 
@@ -93,7 +78,7 @@ public class AttendanceHistory extends AppCompatActivity {
         ArrayList<String> days = generateDaysForMonth(currentMonth, currentYear);
         List<Integer> markedDays = getDaysWithTimekeeping(employeeId, currentMonth, currentYear);
 
-        CalendarAdapter adapter = new CalendarAdapter(this, days, currentMonth, currentYear, markedDays);
+        AttendanceHistoryMonthAdapter adapter = new AttendanceHistoryMonthAdapter(this, days, currentMonth, currentYear, markedDays);
         gridViewMonth.setAdapter(adapter);
 
         tvCurrentTime.setText("Tháng " + currentMonth);
@@ -272,5 +257,20 @@ public class AttendanceHistory extends AppCompatActivity {
         }
 
         return employee.getEmployeeId();
+    }
+
+    private void initUI() {
+        recyclerViewWeek = findViewById(R.id.recycler_view_week);
+        gridViewMonth = findViewById(R.id.grid_view_calendar);
+        linearLayoutMonth = findViewById(R.id.linear_layout_month);
+        linearLayoutYear = findViewById(R.id.linear_layout_year);
+        tvCurrentTime = findViewById(R.id.tv_time);
+        btnNext = findViewById(R.id.btn_next_week);
+        btnPrevious = findViewById(R.id.btn_previous_week);
+        btnBack = findViewById(R.id.btn_back);
+        btnMonth = findViewById(R.id.btn_month);
+        btnYear = findViewById(R.id.btn_year);
+        btnWeek = findViewById(R.id.btn_week);
+        tvCurrentTime.setText("Tuần " + currentWeek);
     }
 }
