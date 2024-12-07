@@ -1,11 +1,9 @@
 package com.example.myapplication.MainApp.RewardsDiscipline;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +20,8 @@ import com.example.myapplication.database.entities.Employee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RewardsDiscipline extends AppCompatActivity {
+public class EmployeeRewardDiscipline extends AppCompatActivity {
+
     private int userId;
 
     private Button btnBack;
@@ -30,7 +29,7 @@ public class RewardsDiscipline extends AppCompatActivity {
     private EditText edtSearch;
 
     private RecyclerView rcvEmployee;
-    private EmployeeAdapter employeeAdapter;
+    private EmployeeRewardDisciplineAdapter employeeRewardDisciplineAdapter;
     private List<Employee> mListEmployee;
 
     @Override
@@ -41,14 +40,14 @@ public class RewardsDiscipline extends AppCompatActivity {
         userId = getIntent().getIntExtra("UserID", -1);
         initUI();
 
-        employeeAdapter = new EmployeeAdapter();
+        employeeRewardDisciplineAdapter = new EmployeeRewardDisciplineAdapter();
         mListEmployee = new ArrayList<>();
-        employeeAdapter.setData(mListEmployee, this);
+        employeeRewardDisciplineAdapter.setData(mListEmployee, this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvEmployee.setLayoutManager(linearLayoutManager);
 
-        rcvEmployee.setAdapter(employeeAdapter);
+        rcvEmployee.setAdapter(employeeRewardDisciplineAdapter);
 
         getList();
 
@@ -57,7 +56,7 @@ public class RewardsDiscipline extends AppCompatActivity {
         });
 
         btnAddRewardDiscipline.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddRewardsDiscipline.class);
+            Intent intent = new Intent(this, AddRewardDiscipline.class);
             intent.putExtra("UserID", userId);
             startActivity(intent);
         });
@@ -81,24 +80,14 @@ public class RewardsDiscipline extends AppCompatActivity {
         if (mListEmployee.isEmpty()) {
             Log.e("RewardsDiscipline", "Danh sách nhân viên trống!");
         }
-        employeeAdapter.setData(mListEmployee, this);
+        employeeRewardDisciplineAdapter.setData(mListEmployee, this);
     }
 
     private void handleSearchEmployee() {
         String strKeyWord = edtSearch.getText().toString().trim();
         mListEmployee = new ArrayList<>();
         mListEmployee = AppDatabase.getInstance(this).employeeDao().searchEmployeeName(strKeyWord);
-        employeeAdapter.setData(mListEmployee, this);
-        //hideOfKeyBoard();
-    }
-
-    private void hideOfKeyBoard() {
-        try {
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        }
+        employeeRewardDisciplineAdapter.setData(mListEmployee, this);
     }
 
     private void initUI() {

@@ -77,10 +77,10 @@
             android:name=".MainApp.LeaveRequest.LeaveRequestManager"
             android:exported="false" />
         <activity
-            android:name=".MainApp.RewardsDiscipline.RewardsDiscipline"
+            android:name=".MainApp.RewardsDiscipline.EmployeeRewardDiscipline"
             android:exported="false" />
         <activity
-            android:name=".MainApp.RewardsDiscipline.AddRewardsDiscipline"
+            android:name=".MainApp.RewardsDiscipline.AddRewardDiscipline"
             android:exported="false" />
         <activity
             android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"

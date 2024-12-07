@@ -15,7 +15,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.RewardDiscipline;
 
-public class AddRewardsDiscipline extends AppCompatActivity {
+public class AddRewardDiscipline extends AppCompatActivity {
 
     private Button btnBack;
     private Button btnAddNewRewardDiscipline;

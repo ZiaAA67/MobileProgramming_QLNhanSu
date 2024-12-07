@@ -56,7 +56,8 @@
         android:background="@drawable/edittext_border"
         android:drawableLeft="@drawable/ic_money"
         android:hint="Số tiền"
-        android:inputType="number|numberDecimal"
+        android:inputType="numberDecimal"
+        android:digits="0123456789-."
         android:paddingHorizontal="20dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black" />
