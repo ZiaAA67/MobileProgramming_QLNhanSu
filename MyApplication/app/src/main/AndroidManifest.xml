@@ -71,7 +71,7 @@
             android:name=".MainApp.LeaveRequest.LeaveRequestHistory"
             android:exported="false" />
         <activity
-            android:name=".MainApp.LeaveRequest.LeaveRequestForm"
+            android:name=".MainApp.LeaveRequest.NewLeaveRequest"
             android:exported="false" />
         <activity
             android:name=".MainApp.LeaveRequest.LeaveRequestManager"

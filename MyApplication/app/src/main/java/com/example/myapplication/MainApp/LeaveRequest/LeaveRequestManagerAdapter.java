@@ -1,8 +1,6 @@
 package com.example.myapplication.MainApp.LeaveRequest;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +17,12 @@ import com.example.myapplication.database.entities.LeaveRequest;
 
 import java.util.List;
 
-public class  LeaveRequestManagerAdapter extends RecyclerView.Adapter<LeaveRequestManagerAdapter.LeaveRequestManagerViewHolder>{
+public class LeaveRequestManagerAdapter extends RecyclerView.Adapter<LeaveRequestManagerAdapter.LeaveRequestManagerViewHolder> {
     private List<LeaveRequest> leaveRequests;
     private IClickItem iClickItem;
     private Context context;
 
-
-    public interface IClickItem{
+    public interface IClickItem {
         void approvedLeaveRequest(LeaveRequest leaveRequest);
 
         void dissapprovedLeaveRequest(LeaveRequest leaveRequest);
@@ -52,7 +49,7 @@ public class  LeaveRequestManagerAdapter extends RecyclerView.Adapter<LeaveReque
     public void onBindViewHolder(@NonNull LeaveRequestManagerViewHolder holder, int position) {
         final LeaveRequest leaveRequest = leaveRequests.get(position);
 
-        if (leaveRequest == null){
+        if (leaveRequest == null) {
             return;
         }
 
@@ -81,7 +78,7 @@ public class  LeaveRequestManagerAdapter extends RecyclerView.Adapter<LeaveReque
 
         holder.tvStatus.setText(strStatus);
         holder.tvEmployeename.setText("Tên nhân viên: " + employeeName);
-        holder.tvReason.setText("Lí do: "+ leaveRequest.getReason());
+        holder.tvReason.setText("Lí do: " + leaveRequest.getReason());
         holder.tvSendDay.setText("Ngày gửi: " + leaveRequest.getSendDate());
         holder.tvFromDate.setText("Ngày bắt đầu: " + leaveRequest.getOffDateFrom());
         holder.tvToDate.setText("Ngày kết thúc: " + leaveRequest.getOffDateTo());
@@ -109,7 +106,7 @@ public class  LeaveRequestManagerAdapter extends RecyclerView.Adapter<LeaveReque
         return 0;
     }
 
-    public class LeaveRequestManagerViewHolder extends RecyclerView.ViewHolder{
+    public class LeaveRequestManagerViewHolder extends RecyclerView.ViewHolder {
         private TextView tvStatus;
         private TextView tvEmployeename;
         private TextView tvReason;
