@@ -259,9 +259,9 @@ public class InformationRegister extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Cập nhật ngày đã chọn vào EditText
                         edtBirth.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
                     }
                 }, year, month, day);
-
         datePickerDialog.show();
     }
 
