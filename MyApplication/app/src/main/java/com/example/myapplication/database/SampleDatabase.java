@@ -35,23 +35,23 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).userDao().insert(user2);
 
         Department dept1 = new Department("Nhân sự", true, "Quản lý nhân sự trong công ty");
-        Department dept2 = new Department("Marketing", true, "Tiếp thị v quảng cáo");
-        Department dept3 = new Department("IT", true, "Bảo trì và nâng cấp hệ thống");
+        Department dept2 = new Department("Marketing", true, "Tiếp thị v quảng cáo");;
         AppDatabase.getInstance(context).departmentDao().insert(dept1);
         AppDatabase.getInstance(context).departmentDao().insert(dept2);
-        AppDatabase.getInstance(context).departmentDao().insert(dept3);
 
         Position pos1 = new Position("Quản lý", "Điều hành và quản lý nhân sự, công việc trong phòng ban");
-        Position pos2 = new Position("Nhân viên", "Thực hiện công việc hàng ngày theo chỉ dẫn");
+        Position pos2 = new Position("Nhân viên", "Thực hiện công việc, nhận lương và ưu đãi theo chế độ của công ty");
+        Position pos3 = new Position("Thực tập sinh", "Thực hiện công việc hàng ngày theo chỉ dẫn");
         AppDatabase.getInstance(context).positionDao().insert(pos1);
         AppDatabase.getInstance(context).positionDao().insert(pos2);
+        AppDatabase.getInstance(context).positionDao().insert(pos3);
 
         RewardDiscipline reward1 = new RewardDiscipline("EmployeeManagement of the Month", 1, "Excellent performence");
         RewardDiscipline reward2 = new RewardDiscipline("Warning", 0, "Too lazy");
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward1);
         AppDatabase.getInstance(context).rewardDisciplineDao().insert(reward2);
 
-        Workplace workplace1 = new Workplace("Cơ sở 1 - Nguyễn Kiệm", true, 10.761506, 106.707841);
+        Workplace workplace1 = new Workplace("Nguyễn Kiệm","317 Nguyễn Kiệm, Gò Vấp", true, 10.761506, 106.707841);
         AppDatabase.getInstance(context).workplaceDao().insert(workplace1);
 
         Salary salary1 = new Salary((float) 80000000, (float) 7000000, (float) 1.5);

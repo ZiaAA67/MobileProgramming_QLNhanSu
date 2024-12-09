@@ -23,14 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Configuration;
 import com.example.myapplication.MainApp.CheckInput;
+import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Role;
 import com.example.myapplication.database.entities.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -234,14 +237,34 @@ public class UserAccountManagement extends AppCompatActivity {
     @NonNull
     private ItemTouchHelper setupItemTouchHelper() {
         MyItemTouchHelper myItemTouchHelper = new MyItemTouchHelper(position -> {
-            // thực hiện xoá item
+            // Lấy vị trí item xoá
             User user = listUser.get(position);
-            user.setActive(false);
-            AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
-            listUser.remove(position);
 
-            // Thông báo vị trí xoá cho adapter -> load lại dữ liệu
+            // Thực hiện xoá item, Thông báo vị trí xoá cho adapter -> load lại dữ liệu
+            listUser.remove(position);
             userAdapter.notifyItemRemoved(position);
+
+
+            // Hiển thị Snackbar với nút Undo
+            Snackbar.make(rcvUser, "Đã xóa " + user.getUsername(), Snackbar.LENGTH_LONG)
+                    .setAction("Hoàn tác", v -> {
+                        // Khôi phục item nếu người dùng chọn Undo
+                        listUser.add(position, user);
+                        userAdapter.notifyItemInserted(position);
+                        rcvUser.scrollToPosition(position);
+                    })
+                    .addCallback(new Snackbar.Callback() {
+                        // Nếu Snackbar bị ẩn mà không chọn Undo
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
+                                // Thực hiện xóa chính thức
+                                user.setActive(false);
+                                AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
+                            }
+                        }
+                    })
+                    .show();
         });
         ItemTouchHelper.SimpleCallback simpleCallback = myItemTouchHelper.handleItemTouchHelper();
         return new ItemTouchHelper(simpleCallback);
