@@ -237,13 +237,8 @@ public class NewTimekeeping extends AppCompatActivity {
                 return 0;
             }
 
-
             // Ra trễ
             long overtime = Duration.between(endOfShift, timeOutParsed).toMinutes();
-            Toast.makeText(this, "Giờ ra: " + timeOutParsed, Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Giờ ra shift: " + endOfShift, Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Khoảng giờ: " +(int) overtime, Toast.LENGTH_SHORT).show();
-
 
             return (int) overtime;
         } catch (Exception e) {
