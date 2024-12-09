@@ -55,9 +55,6 @@ public class SalarySlipInformation extends AppCompatActivity {
 
     private List<Employee_RewardDiscipline> employeeRewardDisciplines;
 
-    private int currentMonth = LocalDate.now().getMonthValue();
-    private int currentYear = LocalDate.now().getYear();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
