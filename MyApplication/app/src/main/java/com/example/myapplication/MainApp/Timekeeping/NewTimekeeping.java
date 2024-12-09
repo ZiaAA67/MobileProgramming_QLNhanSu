@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Session;
 import com.example.myapplication.database.entities.Shift;
 import com.example.myapplication.database.entities.Timekeeping;
+import com.example.myapplication.database.entities.Workplace;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -34,6 +36,7 @@ public class NewTimekeeping extends AppCompatActivity {
     private Button btnCheckIn;
     private Button btnCheckOut;
     private String currentMode = "In";
+    private TextView tvWorkplace;
 
     private Timekeeping timekeeping;
     private static final Integer DEFAULT_SHIFT = 1;// Ca hành chính
@@ -53,6 +56,8 @@ public class NewTimekeeping extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("UserID", -1);
         employeeId = getEmployeeId(userId);
+
+        workplace();
 
         timekeeping = new Timekeeping();
 
@@ -253,6 +258,15 @@ public class NewTimekeeping extends AppCompatActivity {
         Toast.makeText(this, toast + now, Toast.LENGTH_SHORT).show();
     }
 
+    private void workplace() {
+        Employee employee = AppDatabase.getInstance(this).employeeDao().getById(employeeId);
+        if (employee.getWorkplaceId() != null) {
+            Workplace workplace = AppDatabase.getInstance(this).workplaceDao().getWorkplaceById(employee.getWorkplaceId());
+            tvWorkplace.setText(workplace.getWorkplaceName());
+        } else
+            tvWorkplace.setText("Không rõ");
+    }
+
     private int getEmployeeId(int userId) {
         Employee employee = null;
         try {
@@ -278,5 +292,6 @@ public class NewTimekeeping extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         btnCheckIn = findViewById(R.id.btn_checkin);
         btnCheckOut = findViewById(R.id.btn_checkout);
+        tvWorkplace = findViewById(R.id.tv_workplace);
     }
 }
