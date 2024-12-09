@@ -78,35 +78,31 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:boxBackgroundColor="@color/white"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                app:boxStrokeColor="@color/light_sea_green"
-                app:boxStrokeWidth="2dp"
-                app:hintTextColor="@color/light_sea_green">
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"
+                >
 
                 <TextView
                     android:id="@+id/tv_send_date"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/edittext_border"
+                    android:paddingStart="18dp"
+                    android:paddingTop="13dp"
+                    android:background="@drawable/textview_border"
                     android:clickable="true"
-                    android:drawableEnd="@drawable/calendar"
                     android:drawableTint="@color/light_sea_green"
                     android:focusable="false"
                     android:hint="Ngày gửi"
+                    android:textColorHint="@color/black"
                     android:nextFocusDown="@id/edt_leave_from_date"
-                    android:padding="8dp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
@@ -114,9 +110,8 @@
                 app:boxCornerRadiusBottomStart="18dp"
                 app:boxCornerRadiusTopEnd="18dp"
                 app:boxCornerRadiusTopStart="18dp"
-                app:boxStrokeColor="@color/light_sea_green"
-                app:boxStrokeWidth="2dp"
-                app:hintTextColor="@color/light_sea_green">
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="2dp">
 
                 <EditText
                     android:id="@+id/edt_leave_from_date"
@@ -135,6 +130,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
@@ -142,15 +138,13 @@
                 app:boxCornerRadiusBottomStart="18dp"
                 app:boxCornerRadiusTopEnd="18dp"
                 app:boxCornerRadiusTopStart="18dp"
-                app:boxStrokeColor="@color/light_sea_green"
-                app:boxStrokeWidth="2dp"
-                app:hintTextColor="@color/light_sea_green">
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="2dp">
 
                 <EditText
                     android:id="@+id/edt_leave_to_date"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/edittext_border"
                     android:clickable="true"
                     android:drawableEnd="@drawable/calendar"
                     android:drawableTint="@color/light_sea_green"

@@ -258,7 +258,6 @@
                                 android:id="@+id/edt_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
-                                android:background="@drawable/edittext_border"
                                 android:hint="Địa Chỉ"
                                 android:nextFocusDown="@id/edt_phoneNumber"
                                 android:padding="8dp"
