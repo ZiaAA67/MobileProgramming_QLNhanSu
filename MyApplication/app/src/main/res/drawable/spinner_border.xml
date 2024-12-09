@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/white" /> <!-- Màu nền -->
+    <corners android:radius="18dp" /> <!-- Bo góc -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/grey" /> <!-- Viền màu lightseagreen -->
+</shape>
