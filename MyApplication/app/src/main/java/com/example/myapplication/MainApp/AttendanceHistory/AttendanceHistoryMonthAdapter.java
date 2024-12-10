@@ -12,7 +12,7 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalendarAdapter extends BaseAdapter {
+public class AttendanceHistoryMonthAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<String> days;
     private int currentMonth;
@@ -20,7 +20,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     private List<Integer> markedDays;
 
-    public CalendarAdapter(Context context, ArrayList<String> days, int currentMonth, int currentYear, List<Integer> markedDays) {
+    public AttendanceHistoryMonthAdapter(Context context, ArrayList<String> days, int currentMonth, int currentYear, List<Integer> markedDays) {
         this.context = context;
         this.days = days;
         this.currentMonth = currentMonth;
@@ -68,5 +68,4 @@ public class CalendarAdapter extends BaseAdapter {
 
         return convertView;
     }
-
 }
