@@ -31,37 +31,33 @@
         android:paddingHorizontal="30dp"
         android:paddingVertical="10dp"
         android:background="@drawable/edittext_border"
-
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_workplace_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="Tên nhân viên"
-            android:textColor="@color/black"/>
+            android:text="Tên cơ sở làm việc"/>
 
         <TextView
-            android:id="@+id/tv_role"
+            android:id="@+id/tv_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="3dp"
-            android:layout_below="@id/tv_username"
-            android:text="Vai trò"
-            android:textColor="@color/black"/>
+            android:layout_below="@id/tv_workplace_name"
+            android:text="Địa chỉ"/>
 
         <TextView
-            android:id="@+id/tv_status"
+            android:id="@+id/tv_quantity_employee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_role"
-            android:layout_marginTop="2dp"
             android:textSize="16sp"
-            android:text="Trạng thái"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="3dp"
+            android:layout_below="@id/tv_address"
+            android:text="Số lượng nhân viên"/>
     </RelativeLayout>
 
 </FrameLayout>

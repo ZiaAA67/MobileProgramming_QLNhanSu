@@ -78,11 +78,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return 0;
     }
 
+    @Override
+    public void onViewRecycled(@NonNull UserViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        holder.background.setVisibility(View.GONE);
+        holder.background.setTranslationX(0);
+        holder.foreground.setTranslationX(0);
+    }
+
     public class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvUsername;
         TextView tvRole;
         TextView tvStatus;
         View itemLayout;
+        View background;
+        View foreground;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +102,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvRole = itemView.findViewById(R.id.tv_role);
             tvStatus = itemView.findViewById(R.id.tv_status);
             itemLayout = itemView.findViewById(R.id.item_layout);
+            background = itemView.findViewById(R.id.layout_background);
+            foreground = itemView.findViewById(R.id.layout_foreground);
         }
     }
 }

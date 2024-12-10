@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/white_bg_radius_16"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_green_bg_top_left_top_right_radius_16"
+        android:text="Thêm Phòng Ban Mới"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/lightlightgrey_background_lightgrey_border"
+            app:cornerRadius="17dp">
+
+            <EditText
+                android:id="@+id/edt_department_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:hint="Tên phòng ban"
+                android:padding="8dp"
+                android:textSize="15sp"
+                android:nextFocusDown="@id/edt_password"
+                app:hintTextColor="@color/light_grey" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/lightlightgrey_background_lightgrey_border"
+            android:layout_marginTop="10dp"
+            app:cornerRadius="17dp">
+
+            <EditText
+                android:id="@+id/edt_department_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:hint="Mô tả"
+                android:padding="8dp"
+                android:textSize="15sp"
+                android:inputType="textMultiLine"
+                android:lines="4"
+
+                android:nextFocusDown="@id/edt_password"
+                app:hintTextColor="@color/light_grey" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dis_approve"
+                android:text="Huỷ"/>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/approve"
+                android:layout_marginLeft="20dp"
+                android:text="Thêm"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">2NT HRM</string>
-    <string name="flag_icon">Mô tả về biểu tượng cờ</string>
-    <string name="title_activity_employee">Employee</string>
     <!-- Strings used for fragments for navigation -->
 </resources>

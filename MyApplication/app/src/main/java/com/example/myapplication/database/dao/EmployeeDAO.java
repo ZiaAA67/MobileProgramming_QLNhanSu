@@ -38,7 +38,7 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE PhoneNumber LIKE :phoneNumber")
     Employee getByPhoneNumber(String phoneNumber);
 
-    @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId")
+    @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId AND Active = 1")
     List<Employee> getByDepartmentId(int departmentId);
 
     @Query("SELECT * FROM Employee WHERE Active = 1")
@@ -61,4 +61,10 @@ public interface EmployeeDAO {
 
     @Query("SELECT * FROM Employee WHERE FullName LIKE '%' || :name || '%'")
     List<Employee> searchEmployeeName(String name);
+
+    @Query("SELECT COUNT(*) FROM Employee WHERE DepartmentID = :departmentId AND Active = 1")
+    long getEmployeeCountByDepartment(long departmentId);
+
+    @Query("SELECT COUNT(*) FROM Employee WHERE WorkplaceID = :workplaceId AND Active = 1")
+    long getEmployeeCountByWorkplace(long workplaceId);
 }

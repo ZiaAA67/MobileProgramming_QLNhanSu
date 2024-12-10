@@ -1,5 +1,7 @@
 package com.example.myapplication.Demo;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +33,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
 
 public class DemoMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -52,6 +58,22 @@ public class DemoMapActivity extends AppCompatActivity implements OnMapReadyCall
             return insets;
         });
 
+        // Khởi tạo SearchView
+        SearchView searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Gọi hàm xử lý địa chỉ khi người dùng nhấn tìm kiếm
+                searchLocation(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         // Khởi tạo bản đồ, nếu thành công sẽ gọi hàm onMapReady()
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -64,6 +86,53 @@ public class DemoMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         // Lấy vị trí hiện tại của người dùng
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+    }
+
+    private void searchLocation(String address) {
+        // Sử dụng Geocoder để chuyển đổi địa chỉ thành tọa độ
+        Geocoder geocoder = new Geocoder(this);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(address, 1);
+            if (addresses == null || addresses.isEmpty()) {
+                Toast.makeText(this, "Không tìm thấy địa chỉ!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Address location = addresses.get(0);
+            LatLng searchLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+            // Di chuyển camera tới vị trí tìm kiếm
+            ggMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 15));
+
+            // Thêm Marker tại vị trí
+            if (marker != null) marker.remove();
+            marker = ggMap.addMarker(new MarkerOptions().position(searchLatLng).title("Tìm thấy: " + address));
+            targetLocation = searchLatLng;
+
+            // Kiểm tra khoảng cách
+            checkDistanceFromSearchLocation(searchLatLng);
+
+        } catch (IOException e) {
+            Toast.makeText(this, "Có lỗi xảy ra khi tìm kiếm.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void checkDistanceFromSearchLocation(LatLng searchLatLng) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+                if (location != null) {
+                    // Tính khoảng cách
+                    float[] distance = new float[1];
+                    Location.distanceBetween(location.getLatitude(), location.getLongitude(),
+                            searchLatLng.latitude, searchLatLng.longitude, distance);
+
+                    if (distance[0] <= RADIUS) {
+                        Toast.makeText(this, "Địa chỉ nằm trong bán kính 1km.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Địa chỉ ngoài bán kính 1km.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
     }
 
 

@@ -31,4 +31,7 @@ public interface DepartmentDAO {
 
     @Query("SELECT * FROM Department WHERE DepartmentName = :departmentName LIMIT 1")
     Department getByName(String departmentName);
+
+    @Query("SELECT * FROM Department WHERE LOWER(DepartmentName) = LOWER(:departmentName)")
+    List<Department> getListDepartmentByName(String departmentName);
 }
