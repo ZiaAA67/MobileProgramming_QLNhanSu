@@ -16,6 +16,7 @@ import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -148,5 +149,6 @@ public class Configuration {
 
         dialog.show();
     }
+
 }
 
