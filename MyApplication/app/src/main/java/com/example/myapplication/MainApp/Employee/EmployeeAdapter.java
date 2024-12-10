@@ -21,6 +21,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.example.myapplication.MainApp.Department.DepartmentAdapter;
 import com.example.myapplication.MainApp.UserAccount.UserAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
@@ -70,7 +71,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         holder.tvStatus.setText(String.format("Trạng thái: %s", employee.isApprove() ? "Đã được duyệt" : "Chưa được duyệt"));
 
         // Bắt sự kiện click vào employee để update
-        holder.layoutForeground.setOnClickListener(v -> {
+        holder.foreground.setOnClickListener(v -> {
             iClickItemEmployee.clickUpdateEmployee(employee);
         });
 
@@ -83,6 +84,16 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                     .apply(options)
                     .into(holder.imgAvatar);
         }
+    }
+
+
+    @Override
+    public void onViewRecycled(@NonNull EmployeeViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        holder.background.setVisibility(View.GONE);
+        holder.background.setTranslationX(0);
+        holder.foreground.setTranslationX(0);
     }
 
 
@@ -101,7 +112,8 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         TextView tvEmail;
         TextView tvStatus;
         ImageView imgAvatar;
-        View layoutForeground;
+        View background;
+        View foreground;
 
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -112,7 +124,8 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             tvEmail = itemView.findViewById(R.id.tv_email);
             tvStatus = itemView.findViewById(R.id.tv_status);
             imgAvatar = itemView.findViewById(R.id.image_avatar);
-            layoutForeground = itemView.findViewById(R.id.layout_foreground);
+            foreground = itemView.findViewById(R.id.layout_foreground);
+            background = itemView.findViewById(R.id.layout_background);
         }
     }
 }

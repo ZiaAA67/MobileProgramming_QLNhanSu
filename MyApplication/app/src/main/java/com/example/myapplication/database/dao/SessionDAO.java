@@ -14,7 +14,7 @@ import java.util.List;
 public interface SessionDAO {
 
     @Insert
-    long insert(Session session);
+    void insert(Session session);
 
     @Update
     void update(Session session);

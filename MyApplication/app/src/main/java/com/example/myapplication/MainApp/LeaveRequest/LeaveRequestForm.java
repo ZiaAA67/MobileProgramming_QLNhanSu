@@ -21,10 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NewLeaveRequest extends AppCompatActivity {
-
+public class LeaveRequestForm extends AppCompatActivity {
     private int userId;
-    private int employeeId;
+    private Employee employee;
 
     private EditText edtLeaveReason, edtLeaveFromDate, edtLeaveToDate;
     private TextView tvSendDate;
@@ -35,10 +34,8 @@ public class NewLeaveRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_request_form);
 
-        userId = getIntent().getIntExtra("UserID", -1);
-        employeeId = getEmployeeId(userId);
-
         initUI();
+        loadEmployeeData();
 
         tvSendDate.setText(Configuration.STRING_TODAY);
 
@@ -49,6 +46,18 @@ public class NewLeaveRequest extends AppCompatActivity {
         btnBack.setOnClickListener(view -> finish());
     }
 
+    private void loadEmployeeData() {
+        userId = getIntent().getIntExtra("UserID", -1);
+        try {
+            employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+            if (employee == null) {
+                throw new RuntimeException("Nhân viên không tồn tại!");
+            }
+        } catch (Exception e) {
+            showToastAndExit("Lỗi: " + e.getMessage());
+        }
+    }
+
     private void sendLeaveRequest() {
         String reason = edtLeaveReason.getText().toString();
         String fromDate = edtLeaveFromDate.getText().toString();
@@ -57,7 +66,9 @@ public class NewLeaveRequest extends AppCompatActivity {
         if (!validateInput(reason, fromDate, toDate)) return;
 
         try {
-            LeaveRequest leaveRequest = new LeaveRequest(reason, Configuration.STRING_TODAY, fromDate, toDate, 0, employeeId);
+            LeaveRequest leaveRequest = new LeaveRequest(
+                    reason, Configuration.STRING_TODAY, fromDate, toDate, 0, employee.getEmployeeId()
+            );
             AppDatabase.getInstance(this).leaveRequestDao().insert(leaveRequest);
             showToastAndExit("Yêu cầu nghỉ đã được gửi!");
         } catch (Exception e) {
@@ -124,36 +135,6 @@ public class NewLeaveRequest extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showToastAndExit(String message) {
-        showToast(message);
-        finish();
-    }
-
-    private int getEmployeeId(int userId) {
-        Employee employee = null;
-        try {
-            employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
-
-            if (employee == null) {
-                Toast.makeText(this, "Nhân viên không tồn tại!", Toast.LENGTH_SHORT).show();
-                finish();
-                return -1;
-            }
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Đã xảy ra lỗi!", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-            finish();
-            return -1;
-        }
-
-        return employee.getEmployeeId();
-    }
-
     private void initUI() {
         edtLeaveReason = findViewById(R.id.edt_leave_reason);
         tvSendDate = findViewById(R.id.tv_send_date);
@@ -161,5 +142,14 @@ public class NewLeaveRequest extends AppCompatActivity {
         edtLeaveToDate = findViewById(R.id.edt_leave_to_date);
         btnSubmitLeaveRequest = findViewById(R.id.btn_submit_leave_request);
         btnBack = findViewById(R.id.btn_back);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showToastAndExit(String message) {
+        showToast(message);
+        finish();
     }
 }

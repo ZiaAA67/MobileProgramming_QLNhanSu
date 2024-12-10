@@ -18,7 +18,7 @@ import com.example.myapplication.database.entities.Position;
 
 import java.util.List;
 
-public class EmployeeRewardDisciplineAdapter extends RecyclerView.Adapter<EmployeeRewardDisciplineAdapter.EmployeeViewHolder> {
+public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder> {
 
     private Context context;
     private List<Employee> mListEmployee;

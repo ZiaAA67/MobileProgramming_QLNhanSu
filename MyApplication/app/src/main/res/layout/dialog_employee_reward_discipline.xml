@@ -19,11 +19,10 @@
     <TextView
         android:id="@+id/tv_employee_name"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:paddingStart="18dp"
-        android:paddingTop="13dp"
         android:background="@drawable/edittext_border"
+        android:padding="10dp"
         android:text="Tên nhân viên: "
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -57,8 +56,7 @@
         android:background="@drawable/edittext_border"
         android:drawableLeft="@drawable/ic_money"
         android:hint="Số tiền"
-        android:inputType="numberDecimal"
-        android:digits="0123456789-."
+        android:inputType="number|numberDecimal"
         android:paddingHorizontal="20dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black" />

@@ -16,12 +16,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class SalarySlip extends AppCompatActivity {
-
-    private int userId;
-
     private ListView lvSalarySlips;
     private List<SalarySlipItem> salarySlipItems;
     private SalarySlipAdapter salarySlipAdapter;
+    private int userId;
     private int YEAR;
     private Button btnNextYear;
     private Button btnPreviousYear;
@@ -52,6 +50,7 @@ public class SalarySlip extends AppCompatActivity {
 
         salarySlipAdapter = new SalarySlipAdapter(this, salarySlipItems, userId);
         lvSalarySlips.setAdapter(salarySlipAdapter);
+
         lvSalarySlips.setOnItemClickListener((parent, view, position, id) -> {
             SalarySlipItem item = salarySlipItems.get(position);
             Intent intent = new Intent(SalarySlip.this, SalarySlipInformation.class);

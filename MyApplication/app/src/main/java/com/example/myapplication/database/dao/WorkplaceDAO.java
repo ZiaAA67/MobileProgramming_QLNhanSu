@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Workplace;
 
 import java.util.List;
@@ -29,6 +30,15 @@ public interface WorkplaceDAO {
 
         @Query("SELECT * FROM Workplace WHERE WorkplaceID = :workplaceId")
         Workplace getWorkplaceById(int workplaceId);
+
+        @Query("SELECT COUNT(*) FROM Workplace WHERE Active = 1 AND (LOWER(WorkplaceName) = LOWER(:name) OR LOWER(Address) = LOWER(:address))")
+        int checkDuplicate(String name, String address);
+
+        @Query("SELECT COUNT(*) FROM Workplace WHERE LOWER(WorkplaceName) = LOWER(:name) AND Active = 1")
+        int checkNameExists(String name);
+
+        @Query("SELECT COUNT(*) FROM Workplace WHERE LOWER(Address) = LOWER(:address)")
+        int checkAddressExists(String address);
 
         @Query("SELECT * FROM Workplace WHERE WorkplaceName LIKE :name")
         List<Workplace> findWorkplacesByName(String name);

@@ -11,13 +11,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
+import com.example.myapplication.MainApp.Workplace.WorkplaceManagement;
 import com.example.myapplication.R;
 
 public class Manager extends AppCompatActivity {
     private LinearLayout userManager;
     private LinearLayout employeeManager;
+    private LinearLayout departmentManager;
+    private LinearLayout workplaceManager;
     private Button btnBack;
 
     @Override
@@ -43,12 +47,24 @@ public class Manager extends AppCompatActivity {
             startActivity(intent);
         });
 
+        departmentManager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DepartmentManagement.class);
+            startActivity(intent);
+        });
+
+        workplaceManager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, WorkplaceManagement.class);
+            startActivity(intent);
+        });
+
         btnBack.setOnClickListener(v -> finish());
     }
 
     private void bindingView() {
         userManager = findViewById(R.id.user_manager);
         employeeManager = findViewById(R.id.employee_manager);
+        departmentManager = findViewById(R.id.depaerment_manager);
+        workplaceManager = findViewById(R.id.workplace_manager);
         btnBack = findViewById(R.id.btn_back);
     }
 }

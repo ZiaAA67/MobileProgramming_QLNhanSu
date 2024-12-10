@@ -28,8 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="4dp"
-            android:text="Tên tài khoản:"
-            android:textColor="@color/black"/>
+            android:text="Tên tài khoản:"/>
 
         <EditText
             android:id="@+id/edt_username"
@@ -38,8 +37,7 @@
             android:layout_marginHorizontal="30dp"
             android:paddingHorizontal="20dp"
             android:background="@drawable/lightlightgrey_background_lightgrey_border"
-            android:hint="Tên tài khoản"
-            android:textColorHint="@color/grey"/>
+            android:hint="Tên tài khoản"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -47,8 +45,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="16dp"
-            android:text="Vai trò:"
-            android:textColor="@color/black"/>
+            android:text="Vai trò:"/>
 
         <Spinner
             android:id="@+id/spinner_role"
@@ -58,8 +55,7 @@
             android:background="@drawable/lightlightgrey_background_lightgrey_border"
             android:drawableTint="@color/black"
             android:paddingHorizontal="12dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
+            android:textSize="15sp"/>
 
 <!--        <SearchView-->
 <!--            android:id="@+id/search_view"-->

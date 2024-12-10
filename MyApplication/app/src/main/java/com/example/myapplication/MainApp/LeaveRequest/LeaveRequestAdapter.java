@@ -13,7 +13,7 @@ import com.example.myapplication.database.entities.LeaveRequest;
 
 import java.util.List;
 
-public class LeaveRequestHistoryAdapter extends RecyclerView.Adapter<LeaveRequestHistoryAdapter.LeaveRequestViewHolder> {
+public class LeaveRequestAdapter extends RecyclerView.Adapter<LeaveRequestAdapter.LeaveRequestViewHolder> {
 
     private List<LeaveRequest> leaveRequests;
 

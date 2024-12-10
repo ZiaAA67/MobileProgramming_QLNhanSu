@@ -18,7 +18,7 @@ import com.example.myapplication.database.entities.Timekeeping;
 
 import java.util.List;
 
-public class AttendanceHistoryWeekAdapter extends RecyclerView.Adapter<AttendanceHistoryWeekAdapter.TimekeepingViewHolder> {
+public class AttendanceHistoryAdapter extends RecyclerView.Adapter<AttendanceHistoryAdapter.TimekeepingViewHolder> {
 
     private List<Timekeeping> timekeepings;
     private Context context;

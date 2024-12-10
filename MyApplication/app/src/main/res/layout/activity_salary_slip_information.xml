@@ -281,11 +281,11 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.7"
                             android:gravity="left"
-                            android:text="Làm thêm giờ "
+                            android:text="Giờ Công "
                             android:textColor="@color/grey" />
 
                         <TextView
-                            android:id="@+id/tv_overtime"
+                            android:id="@+id/textView13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

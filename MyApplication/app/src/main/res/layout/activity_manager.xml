@@ -119,6 +119,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/depaerment_manager"
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
                         android:layout_margin="10dp"
@@ -143,6 +144,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/workplace_manager"
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
                         android:layout_margin="10dp"

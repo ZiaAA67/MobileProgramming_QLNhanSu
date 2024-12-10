@@ -20,15 +20,10 @@ import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Employee_RewardDiscipline;
-import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Salary;
-import com.example.myapplication.database.entities.Session;
-import com.example.myapplication.database.entities.Timekeeping;
 import com.example.myapplication.database.entities.User;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SalarySlipInformation extends AppCompatActivity {
@@ -36,7 +31,6 @@ public class SalarySlipInformation extends AppCompatActivity {
     private int userId;
     private int month;
     private int year;
-
     private ImageView imgEmployee;
     private Button btnBack;
     private TextView tvEmployeeName;
@@ -44,7 +38,6 @@ public class SalarySlipInformation extends AppCompatActivity {
     private TextView tvPosition;
     private TextView tvPosition2;
     private TextView tvDepartment;
-    private TextView tvOvertime;
     private TextView tvBaseSalary;
     private TextView tvAllowance;
     private TextView tvRewardDiscipline;
@@ -52,8 +45,8 @@ public class SalarySlipInformation extends AppCompatActivity {
     private TextView tvTotalSalary;
     private TextView tvReceiveSalary;
     private TextView tvReceiveSalary2;
-
     private List<Employee_RewardDiscipline> employeeRewardDisciplines;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +121,6 @@ public class SalarySlipInformation extends AppCompatActivity {
         String fullName = (employee.getFullName() != null) ? employee.getFullName() : "Không có tên";
         String positionName = (employee.getPositionId() != null) ? getPositionName(employee.getPositionId()) : "Không có chức vụ";
         String departmentName = (employee.getDepartmentId() != null) ? getDepartmentName(employee.getDepartmentId()) : "Không có phòng ban";
-        Float overtime = getEmployeeOvertime(employee.getEmployeeId(), month, year);
         Float baseSalary = (employee.getSalaryId() != null) ? getBaseSalary(employee.getSalaryId()) : 0;
         Float allowanceSalary = (employee.getSalaryId() != null) ? getAllowanceSalary(employee.getSalaryId()) : 0;
         Float rewardDisciplineMoney = (getRewardDisciplineMoney(employee.getEmployeeId(), month, year));
@@ -141,7 +133,6 @@ public class SalarySlipInformation extends AppCompatActivity {
         tvPosition.setText(positionName);
         tvPosition2.setText(positionName);
         tvDepartment.setText(departmentName);
-        tvOvertime.setText(String.format("%.1f giờ", overtime));
         tvBaseSalary.setText(String.format("%,.0f VND", baseSalary));
         tvAllowance.setText(String.format("%,.0f VND", allowanceSalary));
         tvRewardDiscipline.setText(String.format("%,.0f VND", rewardDisciplineMoney));
@@ -196,39 +187,6 @@ public class SalarySlipInformation extends AppCompatActivity {
         return totalReward;
     }
 
-    private float getEmployeeOvertime(int employeeId, int month, int year) {
-        float totalOvertime = 0;
-
-        try {
-            List<Session> sessions = new ArrayList<>();
-            List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
-                    .employeeSessionDao().getSessionByEmployeeId(employeeId);
-
-            for (Employee_Session employeeSession : employeeSessions) {
-                Session session = AppDatabase.getInstance(this).sessionDao()
-                        .getSessionById(employeeSession.getSessionID());
-
-                if (session.getMonth() == month && session.getYear() == year) {
-                    sessions.add(session);
-                }
-            }
-
-            for (Session session : sessions) {
-                List<Timekeeping> timekeepings = AppDatabase.getInstance(this)
-                        .timekeepingDao().getTimekeepingBySessionId(session.getSessionId());
-
-                for (Timekeeping timekeeping : timekeepings) {
-                    totalOvertime += timekeeping.getOvertime();
-                }
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "Lỗi tính overtime~", Toast.LENGTH_SHORT).show();
-        }
-
-        return totalOvertime / 60;
-    }
-
-
     // Tính thuế thu nhập
     public static double calculateTax(double tntt) {
         double tax = 0;
@@ -259,7 +217,6 @@ public class SalarySlipInformation extends AppCompatActivity {
         tvPosition = findViewById(R.id.tv_position);
         tvPosition2 = findViewById(R.id.tv_position2);
         tvDepartment = findViewById(R.id.tv_department);
-        tvOvertime = findViewById(R.id.tv_overtime);
         tvBaseSalary = findViewById(R.id.tv_base_salary);
         tvAllowance = findViewById(R.id.tv_allowance);
         tvRewardDiscipline = findViewById(R.id.tv_employee_reward_discipline);

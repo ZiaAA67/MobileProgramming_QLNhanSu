@@ -25,7 +25,6 @@ import com.example.myapplication.database.entities.Workplace;
 import java.text.DecimalFormat;
 
 public class EmployeeProfile extends AppCompatActivity {
-
     private int userId;
     private int employeeId;
 
@@ -40,15 +39,21 @@ public class EmployeeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_employee_profile);
 
         userId = getIntent().getIntExtra("UserID", -1);
-        employeeId = getEmployeeId(userId);
 
         initUI();
-        displayEmployeeInfo();
+
+        try {
+            employeeId = fetchEmployeeId(userId);
+            displayEmployeeInfo(employeeId);
+        } catch (Exception e) {
+            Toast.makeText(this, "Không thể xin thông tin! Nhân viên không tồn tại!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         btnBack.setOnClickListener(view -> finish());
     }
 
-    private void displayEmployeeInfo() {
+    private void displayEmployeeInfo(int employeeId) {
         try {
             Employee employee = AppDatabase.getInstance(this).employeeDao().getById(employeeId);
 
@@ -82,14 +87,21 @@ public class EmployeeProfile extends AppCompatActivity {
     }
 
     private String getSalary(Integer salaryId) {
-        if (salaryId != null) {
-            Salary salary = AppDatabase.getInstance(this).salaryDao().getSalaryById(salaryId);
+        Salary salary = AppDatabase.getInstance(this).salaryDao().getSalaryById(salaryId);
+        if (salary != null && salary.getBasicSalary() != null) {
             float basicSalary = salary.getBasicSalary();
             DecimalFormat formatter = new DecimalFormat("#,###.###");
             return formatter.format(basicSalary);
         } else {
             return "N/A";
         }
+    }
+
+    private int fetchEmployeeId(int userId) {
+        Employee employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
+        if (employee == null)
+            throw new RuntimeException("Không tìm thấy nhân viên với UserID: " + userId);
+        return employee.getEmployeeId();
     }
 
     private String fetchDepartmentName(Integer departmentId) {
@@ -156,27 +168,6 @@ public class EmployeeProfile extends AppCompatActivity {
 
     private void safeTextViewSetText(TextView textView, String text) {
         safeTextViewSetText(textView, text, "Không rõ");
-    }
-
-    private int getEmployeeId(int userId) {
-        Employee employee = null;
-        try {
-            employee = AppDatabase.getInstance(this).employeeDao().getEmployeeByUserId(userId);
-
-            if (employee == null) {
-                Toast.makeText(this, "Nhân viên không tồn tại!", Toast.LENGTH_SHORT).show();
-                finish();
-                return -1;
-            }
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Đã xảy ra lỗi!", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-            finish();
-            return -1;
-        }
-
-        return employee.getEmployeeId();
     }
 
     private void initUI() {

@@ -30,13 +30,13 @@ public class Timekeeping {
     private Integer isAbsent;
 
     @ColumnInfo(name = "Overtime")
-    private int overtime;
+    private String overtime;
 
     @ColumnInfo(name = "SessionID")
     private int sessionId;
 
     // Constructor
-    public Timekeeping(String timeIn, String timeOut, Integer isAbsent, int overtime, int sessionId) {
+    public Timekeeping(String timeIn, String timeOut, Integer isAbsent, String overtime, int sessionId) {
         this.timeIn = timeIn;
         this.timeOut = timeOut;
         this.isAbsent = isAbsent;
@@ -80,11 +80,11 @@ public class Timekeeping {
         this.isAbsent = isAbsent;
     }
 
-    public int getOvertime() {
+    public String getOvertime() {
         return overtime;
     }
 
-    public void setOvertime(int overtime) {
+    public void setOvertime(String overtime) {
         this.overtime = overtime;
     }
 

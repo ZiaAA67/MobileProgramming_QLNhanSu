@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/btn_back"
@@ -52,27 +53,21 @@
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_workplace"
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_pass_background"
-                android:drawableLeft="@drawable/workplace"
-                android:drawableTint="@color/light_sea_green"
-                android:gravity="center_vertical"
-                android:padding="7dp"
-                android:text="Nhà bè"
-                android:textSize="12dp"
-                android:textColor="@color/black" />
+                android:padding="10dp"
+                android:text="Vị Trí" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
@@ -82,40 +77,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/rounded_pass_background"
-                android:padding="15dp"
-                android:text="Định vị ở đây" />
-
+                android:padding="10dp"
+                android:text="" />
         </LinearLayout>
-
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:padding="5dp">
+            android:background="@color/white"
+            android:gravity="center">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/btn_checkin"
-                android:layout_width="280dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:background="@drawable/button_border"
                 android:text="Vào"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:visibility="visible" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/btn_checkout"
-                android:layout_width="280dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:background="@drawable/button_border"
                 android:text="Ra"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:visibility="gone" />
         </FrameLayout>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

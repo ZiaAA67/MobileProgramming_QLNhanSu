@@ -24,15 +24,18 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.MainApp.UserAccount.UserAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,13 +45,13 @@ import java.util.stream.Collectors;
 
 public class EmployeeManagement extends AppCompatActivity {
 
-    List<Employee> listEmployee;
-    RecyclerView rcvEmployee;
-    EmployeeAdapter employeeAdapter;
-    Spinner spinnerType;
-    SearchView searchView;
-    ExtendedFloatingActionButton fabAdd;
-    Button btnBack;
+    private List<Employee> listEmployee;
+    private RecyclerView rcvEmployee;
+    private EmployeeAdapter employeeAdapter;
+    private Spinner spinnerType;
+    private SearchView searchView;
+    private ExtendedFloatingActionButton fabAdd;
+    private Button btnBack;
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
@@ -147,14 +150,34 @@ public class EmployeeManagement extends AppCompatActivity {
     @NonNull
     private ItemTouchHelper setupItemTouchHelper() {
         MyItemTouchHelper myItemTouchHelper = new MyItemTouchHelper(position -> {
-            // thực hiện xoá item
+            // Lấy vị trí item xoá
             Employee employee = listEmployee.get(position);
-            employee.setActive(false);
-            AppDatabase.getInstance(EmployeeManagement.this).employeeDao().update(employee);
-            listEmployee.remove(position);
 
-            // Thông báo vị trí xoá cho adapter -> load lại dữ liệu
+            // Thực hiện xoá item, Thông báo vị trí xoá cho adapter -> load lại dữ liệu
+            employee.setActive(false);
             employeeAdapter.notifyItemRemoved(position);
+
+
+            // Hiển thị Snackbar với nút Undo
+            Snackbar.make(rcvEmployee, "Đã xóa " + employee.getFullName(), Snackbar.LENGTH_LONG)
+                    .setAction("Hoàn tác", v -> {
+                        // Khôi phục item nếu người dùng chọn Undo
+                        listEmployee.add(position, employee);
+                        employeeAdapter.notifyItemInserted(position);
+                        rcvEmployee.scrollToPosition(position);
+                    })
+                    .addCallback(new Snackbar.Callback() {
+                        // Nếu Snackbar bị ẩn mà không chọn Undo
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
+                                // Thực hiện xóa chính thức
+                                AppDatabase.getInstance(EmployeeManagement.this).employeeDao().update(employee);
+                                listEmployee.remove(position);
+                            }
+                        }
+                    })
+                    .show();
         });
         ItemTouchHelper.SimpleCallback simpleCallback = myItemTouchHelper.handleItemTouchHelper();
         return new ItemTouchHelper(simpleCallback);

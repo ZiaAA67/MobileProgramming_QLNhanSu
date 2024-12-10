@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:id="@+id/item_layout"
     android:layout_margin="5dp"
-    android:background="@drawable/edittext_border"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -30,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
-        android:background="@drawable/bg_light_blue_radius"
+        android:background="@drawable/edittext_border"
         android:orientation="vertical">
 
         <ImageView
@@ -52,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="Tên nhân viên"
-                android:textColor="@color/black"/>
+                android:text="Tên nhân viên"/>
 
             <TextView
                 android:id="@+id/tv_birth"
@@ -62,8 +60,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="3dp"
                 android:layout_below="@id/tv_username"
-                android:text="Ngày sinh"
-                android:textColor="@color/black"/>
+                android:text="Ngày sinh"/>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -72,8 +69,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="3dp"
                 android:layout_below="@id/tv_username"
-                android:text="Địa chỉ"
-                android:textColor="@color/black"/>
+                android:text="Địa chỉ"/>
 
             <TextView
                 android:id="@+id/tv_email"
@@ -82,8 +78,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="3dp"
                 android:layout_below="@id/tv_username"
-                android:text="Email"
-                android:textColor="@color/black"/>
+                android:text="Email"/>
 
             <TextView
                 android:id="@+id/tv_status"
@@ -92,8 +87,7 @@
                 android:layout_below="@id/tv_role"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"
-                android:text="Trạng thái"
-                android:textColor="@color/black"/>
+                android:text="Trạng thái"/>
         </LinearLayout>
     </RelativeLayout>
 

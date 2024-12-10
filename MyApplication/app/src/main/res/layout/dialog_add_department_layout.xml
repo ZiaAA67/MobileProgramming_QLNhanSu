@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/light_green_bg_top_left_top_right_radius_16"
-        android:text="Thêm Tài Khoản Mới"
+        android:text="Thêm Phòng Ban Mới"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:padding="10dp"
@@ -31,12 +31,12 @@
             app:cornerRadius="17dp">
 
             <EditText
-                android:id="@+id/edt_username"
+                android:id="@+id/edt_department_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
-                android:hint="Tên Tài Khoản"
+                android:hint="Tên phòng ban"
                 android:padding="8dp"
                 android:textSize="15sp"
                 android:nextFocusDown="@id/edt_password"
@@ -48,35 +48,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="10dp"
-            app:endIconMode="password_toggle"
             android:background="@drawable/lightlightgrey_background_lightgrey_border"
+            android:layout_marginTop="10dp"
             app:cornerRadius="17dp">
 
             <EditText
-                android:id="@+id/edt_password"
+                android:id="@+id/edt_department_desc"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
-                android:hint="Mật khẩu"
+                android:hint="Mô tả"
                 android:padding="8dp"
                 android:textSize="15sp"
-                android:inputType="textPassword"
+                android:inputType="textMultiLine"
+                android:lines="4"
+
                 android:nextFocusDown="@id/edt_password"
                 app:hintTextColor="@color/light_grey" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <Spinner
-            android:id="@+id/spinner_role"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="30dp"
-            android:background="@drawable/lightlightgrey_background_lightgrey_border"
-            android:drawableTint="@color/black"
-            android:paddingHorizontal="12dp"
-            android:textSize="15sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
