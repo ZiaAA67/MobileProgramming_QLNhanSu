@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:paddingStart="15dp"
                 android:text="Thêm Khen Thường/ Kỷ Luật"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -67,35 +68,22 @@
                     android:id="@+id/edt_reward_discipline_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_border"
                     android:hint="Tên Khen Thưởng/Kỷ Luật"
                     android:inputType="text"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:boxBackgroundColor="@color/white"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="18dp"
-                app:boxCornerRadiusBottomStart="18dp"
-                app:boxCornerRadiusTopEnd="18dp"
-                app:boxCornerRadiusTopStart="18dp"
-                app:boxStrokeColor="@color/light_sea_green"
-                app:boxStrokeWidth="2dp"
-                app:hintTextColor="@color/light_sea_green">
 
-                <Spinner
-                    android:id="@+id/spinner_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_border"
-                    android:contentDescription="Chọn loại"
-                    android:hint="Loại"
-                    android:importantForAccessibility="yes" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <Spinner
+                android:id="@+id/spinner_type"
+                android:layout_width="350dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/textview_border"
+                android:contentDescription="Chọn loại"
+                android:hint="Loại"
+                android:importantForAccessibility="yes" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="350dp"

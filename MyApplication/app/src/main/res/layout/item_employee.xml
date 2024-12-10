@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="Tên nhân viên"/>
+                android:text="Tên nhân viên"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_birth"
@@ -61,7 +62,8 @@
                 android:textSize="16sp"
                 android:layout_marginTop="3dp"
                 android:layout_below="@id/tv_username"
-                android:text="Ngày sinh"/>
+                android:text="Ngày sinh"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -70,7 +72,8 @@
                 android:textSize="16sp"
                 android:layout_marginTop="3dp"
                 android:layout_below="@id/tv_username"
-                android:text="Địa chỉ"/>
+                android:text="Địa chỉ"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_email"
@@ -79,7 +82,8 @@
                 android:textSize="16sp"
                 android:layout_marginTop="3dp"
                 android:layout_below="@id/tv_username"
-                android:text="Email"/>
+                android:text="Email"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_status"
@@ -88,7 +92,8 @@
                 android:layout_below="@id/tv_role"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"
-                android:text="Trạng thái"/>
+                android:text="Trạng thái"
+                android:textColor="@color/black"/>
         </LinearLayout>
     </RelativeLayout>
 

@@ -94,10 +94,13 @@
         android:id="@+id/fab_add"
         android:layout_width="130dp"
         android:layout_height="50dp"
+        android:backgroundTint="#009688"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="50dp"
         android:drawableRight="@drawable/plus"
-        android:text="Tạo mới" />
+        android:text="Tạo mới"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 </RelativeLayout>
