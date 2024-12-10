@@ -1,282 +1,354 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:keepScreenOn="true"
+        android:background="@color/light_sea_green"
         android:orientation="vertical"
-        android:background="@color/light_sea_green">
+        tools:context=".Register.InformationRegister">
 
-        <LinearLayout
-            android:id="@+id/main"
+
+        <FrameLayout
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:keepScreenOn="true"
-            android:orientation="vertical"
-            tools:context=".Register.InformationRegister">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
-            <FrameLayout
-                android:id="@+id/topBar"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="start|center_vertical"
+                android:backgroundTint="@color/light_sea_green"
+                android:drawableLeft="@drawable/arrow_back"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp">
+                android:layout_gravity="center"
+                android:text="Đăng Ký Thành Viên"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
 
-                <Button
-                    android:id="@+id/btn_back"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="start|center_vertical"
-                    android:backgroundTint="@color/light_sea_green"
-                    android:drawableLeft="@drawable/arrow_back"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Đăng Ký Thành Viên"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/relative_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_background"
                 android:backgroundTint="@color/lavender"
                 android:gravity="center|top"
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/image_avatar"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
 
-                    <ImageView
-                        android:id="@+id/img_imageUser"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/image_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/img_imageUser"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/non_bg_radius_circle"
+                            android:clipToOutline="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/user" />
+
+                        <Button
+                            android:id="@+id/btn_choose_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="@color/light_sea_green"
+                            android:text="Chọn Ảnh"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_name"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/image_avatar"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/non_bg_radius_circle"
-                        android:clipToOutline="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/user" />
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:hintTextColor="@color/light_sea_green">
+
+
+                        <EditText
+                            android:id="@+id/edt_fullName"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:hint="Họ Tên"
+                            android:nextFocusDown="@id/spinner_gender"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_gender"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/input_name"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <Spinner
+                            android:id="@+id/spinner_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/spinner_border"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/black"
+                            android:nextFocusDown="@id/edt_birth"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_birth"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconTint="@color/grey"
+                        app:hintTextColor="@color/light_sea_green">
+
+                        <EditText
+                            android:id="@+id/edt_birth"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:cursorVisible="false"
+                            android:drawableEnd="@drawable/calendar"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/grey"
+                            android:focusable="false"
+                            android:hint="Ngày Sinh"
+                            android:nextFocusDown="@id/edt_education_level"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_education"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/input_birth"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconTint="@color/grey"
+                        app:hintTextColor="@color/light_sea_green">
+
+                        <EditText
+                            android:id="@+id/edt_education_level"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:cursorVisible="false"
+                            android:drawablePadding="10dp"
+                            android:focusable="false"
+                            android:hint="Trình Độ Học Vấn"
+                            android:nextFocusDown="@id/edt_cccd"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_cccd"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/input_education"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconTint="@color/grey"
+                        app:hintTextColor="@color/light_sea_green">
+
+                        <EditText
+                            android:id="@+id/edt_cccd"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Căn Cước Công Dân"
+                            android:nextFocusDown="@id/edt_address"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_address"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/input_cccd"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconTint="@color/grey"
+                        app:hintTextColor="@color/light_sea_green">
+
+                        <EditText
+                            android:id="@+id/edt_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Địa Chỉ"
+                            android:nextFocusDown="@id/edt_phoneNumber"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_phone"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/input_address"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconTint="@color/grey"
+                        app:hintTextColor="@color/light_sea_green">
+
+                        <EditText
+                            android:id="@+id/edt_phoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Số Điện Thoại"
+                            android:nextFocusDown="@id/edt_email"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_email"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/input_phone"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
+                        app:boxStrokeColor="@color/light_sea_green"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconTint="@color/grey"
+                        app:hintTextColor="@color/light_sea_green">
+
+                        <EditText
+                            android:id="@+id/edt_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Email"
+                            android:nextFocusDown="@id/btn_confirm"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
-                        android:id="@+id/btn_choose_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:id="@+id/btn_confirm"
+                        android:layout_width="250dp"
+                        android:layout_height="60dp"
+                        android:layout_below="@id/input_email"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:backgroundTint="@color/light_sea_green"
-                        android:text="Chọn Ảnh"
-                        android:layout_marginTop="4dp"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_name"
-                    android:layout_below="@id/image_avatar"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_fullName"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Họ Tên"
-                        android:nextFocusDown="@id/spinner_gender"
-                        android:background="@drawable/edittext_border"
-                        android:padding="8dp"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_gender"
-                    android:layout_below="@id/input_name"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <Spinner
-                        android:id="@+id/spinner_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:textSize="17sp"
-                        android:background="@drawable/edittext_border"
-                        android:drawablePadding="10dp"
-                        android:drawableTint="@color/black"
-                        android:nextFocusDown="@id/edt_birth"
-                        android:padding="8dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_birth"
-                    android:layout_below="@id/input_gender"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_birth"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:cursorVisible="false"
-                        android:drawableEnd="@drawable/calendar"
-                        android:drawablePadding="10dp"
-                        android:drawableTint="@color/grey"
-                        android:focusable="false"
-                        android:hint="Ngày Sinh"
-                        android:background="@drawable/edittext_border"
-                        android:textSize="17sp"
-                        android:nextFocusDown="@id/edt_education_level"
-                        android:padding="8dp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_education"
-                    android:layout_below="@id/input_birth"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_education_level"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:cursorVisible="false"
-                        android:drawablePadding="10dp"
-                        android:focusable="false"
-                        android:background="@drawable/edittext_border"
-                        android:textSize="17sp"
-                        android:hint="Trình Độ Học Vấn"
-                        android:nextFocusDown="@id/edt_cccd"
-                        android:padding="8dp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_cccd"
-                    android:layout_below="@id/input_education"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_cccd"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Căn Cước Công Dân"
-                        android:nextFocusDown="@id/edt_address"
-                        android:padding="8dp"
-                        android:background="@drawable/edittext_border"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_address"
-                    android:layout_below="@id/input_cccd"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Địa Chỉ"
-                        android:nextFocusDown="@id/edt_phoneNumber"
-                        android:padding="8dp"
-                        android:background="@drawable/edittext_border"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_phone"
-                    android:layout_below="@id/input_address"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_phoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Số Điện Thoại"
-                        android:nextFocusDown="@id/edt_email"
-                        android:padding="8dp"
-                        android:background="@drawable/edittext_border"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_email"
-                    android:layout_below="@id/input_phone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:id="@+id/edt_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Email"
-                        android:nextFocusDown="@id/btn_confirm"
-                        android:padding="8dp"
-                        android:background="@drawable/edittext_border"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:layout_below="@id/input_email"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/btn_confirm"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/light_sea_green"
-                    android:drawableEnd="@drawable/arrow_right"
-                    android:drawableTint="@android:color/white"
-                    android:text="Đăng Ký"
-                    android:textSize="17dp"
-                    app:cornerRadius="17dp" />
+                        android:drawableEnd="@drawable/arrow_right"
+                        android:drawableTint="@android:color/white"
+                        android:text="Đăng Ký"
+                        android:textSize="17dp"
+                        app:cornerRadius="17dp" />
+                </LinearLayout>
             </RelativeLayout>
-        </LinearLayout>
+        </ScrollView>
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone" />
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
