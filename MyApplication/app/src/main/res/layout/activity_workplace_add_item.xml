@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,25 +52,46 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="2dp"
+                android:textColorHint="@color/light_sea_green"
+                >
 
                 <EditText
                     android:id="@+id/edt_workplace_name"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_marginTop="10dp"
                     android:hint="Tên cơ sở làm việc"
-                    android:background="@drawable/edittext_border"
                     android:padding="8dp"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_birth"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginTop="10dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                app:boxStrokeColor="@color/grey"
+                app:boxStrokeWidth="2dp"
+                android:textColorHint="@color/light_sea_green"
+                >
 
                 <EditText
                     android:id="@+id/edt_workplace_address"
@@ -81,9 +103,8 @@
                     android:inputType="textMultiLine"
                     android:lines="2"
                     android:hint="Địa chỉ"
-                    android:background="@drawable/edittext_border"
                     android:padding="8dp"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
