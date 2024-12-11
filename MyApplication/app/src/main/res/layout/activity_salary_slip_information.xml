@@ -281,16 +281,16 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.7"
                             android:gravity="left"
-                            android:text="Giờ Công "
+                            android:text="Số giờ làm thêm"
                             android:textColor="@color/grey" />
 
                         <TextView
-                            android:id="@+id/textView13"
+                            android:id="@+id/tv_overtime"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="1000 Hour"
+                            android:text="0"
                             android:textColor="@color/black" />
                     </TableRow>
 
