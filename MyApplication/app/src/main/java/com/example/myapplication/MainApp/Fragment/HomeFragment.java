@@ -23,6 +23,7 @@ import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
 import com.example.myapplication.MainApp.Timekeeping.NewTimekeeping;
 import com.example.myapplication.R;
+import com.example.myapplication.Stats.Stats;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment {
     private Button btnManager;
     private Button btnHistory;
     private Button btnTimekeeping;
+    private Button btnStats;
 
     @Nullable
     @Override
@@ -114,6 +116,11 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        btnStats.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), Stats.class);
+            startActivity(intent);
+        });
+
         return view;
     }
 
@@ -181,5 +188,6 @@ public class HomeFragment extends Fragment {
         btnManager = view.findViewById(R.id.btn_manager);
         btnHistory = view.findViewById(R.id.btn_history);
         btnTimekeeping = view.findViewById(R.id.btn_checkin);
+        btnStats = view.findViewById(R.id.btn_stats);
     }
 }

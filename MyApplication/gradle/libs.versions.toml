@@ -20,6 +20,7 @@ viewpager2 = "1.1.0"
 javamail = "1.6.2"
 cloudinary-android = "3.0.2"
 glide = "4.15.1"
+mpandroidchart = "3.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -51,6 +52,7 @@ javamail-activation = { module = "com.sun.mail:android-activation", version.ref 
 cloudinary-android = { group = "com.cloudinary", name = "cloudinary-android", version.ref = "cloudinary-android" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-annotation-processor = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

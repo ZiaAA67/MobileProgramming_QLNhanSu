@@ -90,4 +90,6 @@ dependencies {
 
     implementation(libs.glide)
     annotationProcessor(libs.glide.annotation.processor)
+
+    implementation (libs.mpandroidchart)
 }

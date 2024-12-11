@@ -86,12 +86,13 @@
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:backgroundTint="#009688"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
-        android:drawableRight="@drawable/plus"
+        android:drawableEnd="@drawable/plus"
+        android:drawableTint="@color/white"
         android:text="Tạo mới"
         android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </RelativeLayout>
