@@ -39,8 +39,7 @@ public class NewTimekeeping extends AppCompatActivity {
     private TextView tvWorkplace;
 
     private Timekeeping timekeeping;
-    private static final Integer DEFAULT_SHIFT = 1;// Ca hành chính
-
+    private static Integer DEFAULT_SHIFT = 1;// Ca hành chính
 
     LocalDate today = LocalDate.now();
     int day = today.getDayOfMonth();

@@ -2,59 +2,57 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15dp">
 
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:textColor="@color/black"
-        android:text="Từ chối"
-        android:background="@color/light_sea_green"
         android:gravity="center"
-        />
+        android:text="Từ chối"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_leave_reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_status"
-        android:textColor="@color/black"
-        android:text="Lý do: Ốm đau" />
+        android:text="Lý do: Ốm đau"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tv_date_submitted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_leave_reason"
-        android:textColor="@color/black"
-        android:text="Ngày gửi: 12/11/2024" />
+        android:text="Ngày gửi: 12/11/2024"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tv_leave_from_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_date_submitted"
-        android:textColor="@color/black"
-        android:text="Ngày nghỉ từ: 15/11/2024" />
+        android:text="Ngày nghỉ từ: 15/11/2024"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tv_leave_to_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_leave_from_date"
-        android:textColor="@color/black"
-        android:text="Ngày nghỉ đến: 17/11/2024" />
+        android:text="Ngày nghỉ đến: 17/11/2024"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tv_total_leave_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_leave_to_date"
-        android:textColor="@color/black"
-        android:text="Số ngày nghỉ: 3 ngày" />
+        android:text="Số ngày nghỉ: 3 ngày"
+        android:textColor="@color/black" />
 
 </RelativeLayout>
