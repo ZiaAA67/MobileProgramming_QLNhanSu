@@ -67,11 +67,31 @@ public class AddRewardDisciplineDialog extends Dialog {
 
     private void saveRewardDiscipline(String type, String target, String amount) {
         try {
-            int amountInt = Integer.parseInt(amount);
+            if (amount.isEmpty()) {
+                Toast.makeText(getContext(), "Vui lòng nhập số tiền", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int amountInt = 0;
+            try {
+                amountInt = Integer.parseInt(amount);
+            } catch (NumberFormatException e) {
+                Toast.makeText(getContext(), "Số tiền không hợp lệ", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             RewardDiscipline rewardDiscipline = getRewardDisciplineByName(target);
             if (rewardDiscipline != null) {
                 rewardDisciplineId = rewardDiscipline.getRewardDisciplineId();
+
+                Employee_RewardDiscipline existingRecord = AppDatabase.getInstance(getContext())
+                        .employeeRewardDisciplineDao()
+                        .getEmployeeRewardDiscipline(employee.getEmployeeId(), rewardDisciplineId, Configuration.STRING_TODAY);
+
+                if (existingRecord != null) {
+                    Toast.makeText(getContext(), "Khen thưởng/kỷ luật này đã được lưu hôm nay rồi mà!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Employee_RewardDiscipline employeeRewardDiscipline = new Employee_RewardDiscipline(
                         employee.getEmployeeId(), rewardDisciplineId, Configuration.STRING_TODAY, (float) amountInt);
@@ -84,8 +104,10 @@ public class AddRewardDisciplineDialog extends Dialog {
             }
         } catch (Exception ex) {
             Toast.makeText(getContext(), "Đã xảy ra lỗi khi lưu dữ liệu", Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
         }
     }
+
 
     private RewardDiscipline getRewardDisciplineByName(String target) {
         List<RewardDiscipline> rewardDisciplineList = AppDatabase.getInstance(getContext()).rewardDisciplineDao().getRewardDisciplineByName(target);
@@ -105,6 +127,13 @@ public class AddRewardDisciplineDialog extends Dialog {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 setupSpinnerGetRewardDiscipline(position);
+
+                if (position == 0) {
+                    edtAmount.setText("-");
+                    edtAmount.setSelection(edtAmount.getText().length());
+                } else {
+                    edtAmount.setText("");
+                }
             }
 
             @Override
