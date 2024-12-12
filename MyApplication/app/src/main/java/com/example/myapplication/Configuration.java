@@ -81,7 +81,6 @@ public class Configuration {
             public void run() {
                 String from = "testmailjava2468@gmail.com";
                 String password = "poorzvdwovcmludd";
-//                String to = "nquyenminhnhat0503@gmail.com";
 
                 Properties props = new Properties();
                 props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
@@ -105,25 +104,12 @@ public class Configuration {
                     msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
                     msg.setSubject(subject);
                     msg.setSentDate(new Date());
-                    msg.setText(content, "UTF-8");
+                    msg.setContent(content, "text/html; charset=UTF-8");
 
                     Transport.send(msg);
 
-//                    ((Activity) context).runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(context, "Email sent successfully!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
             }
         });

@@ -74,4 +74,7 @@ public interface EmployeeDAO {
     //Male = 0, Female = 1, Other = 2
     @Query("SELECT COUNT(*) FROM Employee WHERE Gender = :gender AND Active = 1")
     long getEmployeeCountByGender(long gender);
+
+    @Query("SELECT * FROM Employee WHERE Active = 1 AND UserID IS NULL")
+    List<Employee> getEmployeeUnHaveUserAccount();
 }

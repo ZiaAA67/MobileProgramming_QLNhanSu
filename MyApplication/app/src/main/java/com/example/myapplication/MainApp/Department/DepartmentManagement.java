@@ -27,6 +27,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
+import com.example.myapplication.database.entities.Employee;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -193,6 +194,12 @@ public class DepartmentManagement extends AppCompatActivity {
                                 // Thực hiện xóa chính thức
                                 department.setActive(false);
                                 AppDatabase.getInstance(DepartmentManagement.this).departmentDao().update(department);
+
+                                List<Employee> list = AppDatabase.getInstance(DepartmentManagement.this).employeeDao().getByDepartmentId(department.getDepartmentId());
+                                list.forEach(e -> {
+                                    e.setDepartmentId(null);
+                                    AppDatabase.getInstance(DepartmentManagement.this).employeeDao().update(e);
+                                });
                             }
                         }
                     })

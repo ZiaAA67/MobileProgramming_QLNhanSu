@@ -53,16 +53,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initUI(view);
 
-//        userId = intent.getIntExtra("UserID", -1);
-//        user = (User) requireActivity().getIntent().getSerializableExtra("User");
-
         if (getArguments() != null) {
             user = (User) getArguments().getSerializable("User");
         }
 
         showEmployeeInfo();
 
-        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline, btnManager);
+        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline, btnManager, btnStats);
+        hideButtonInPublicRole(user, btnLeaveRequestHistory, btnSalarySlip);
 
         btnEmployeeRequest.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
@@ -169,7 +167,17 @@ public class HomeFragment extends Fragment {
         Role role = db.roleDao().getRoleById(roleId);
 
         // VISIBLE admin buttion
-        if (role != null && !rolename.equals(role.getRoleName())) {
+        if (role != null && (!rolename.equals(role.getRoleName()) && !role.getRoleName().equals("Manager")) ) {
+            for (Button button : buttons) {
+                button.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void hideButtonInPublicRole(User user, Button... buttons) {
+        String roleName = AppDatabase.getInstance(getContext()).roleDao().getRoleById(user.getRoleId()).getRoleName();
+
+        if(roleName.equals("Public")) {
             for (Button button : buttons) {
                 button.setVisibility(View.GONE);
             }

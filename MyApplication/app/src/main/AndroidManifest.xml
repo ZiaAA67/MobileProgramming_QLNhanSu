@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MainApp.UserAccount.UserAccountAddItem"
+            android:exported="false" />
+        <activity
             android:name=".Stats.Stats"
             android:exported="false" />
         <activity
