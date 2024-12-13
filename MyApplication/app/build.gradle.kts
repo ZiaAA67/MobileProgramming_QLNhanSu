@@ -91,5 +91,11 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.glide.annotation.processor)
 
-    implementation (libs.mpandroidchart)
+    implementation(libs.mpandroidchart)
+
+    // Excel
+    implementation(libs.poi)
+    implementation(libs.poiooxml)
+    implementation(libs.commonscollections4)
+    implementation(libs.gson)
 }

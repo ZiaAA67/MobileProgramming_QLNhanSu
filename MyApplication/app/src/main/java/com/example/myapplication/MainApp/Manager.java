@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.Employee.EmployeeManagement;
+import com.example.myapplication.MainApp.TimekeepingManager.TimekeepingExportExcel;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.MainApp.Workplace.WorkplaceManagement;
 import com.example.myapplication.R;
@@ -22,6 +23,7 @@ public class Manager extends AppCompatActivity {
     private LinearLayout employeeManager;
     private LinearLayout departmentManager;
     private LinearLayout workplaceManager;
+    private LinearLayout timekeepingManager;
     private Button btnBack;
 
     @Override
@@ -57,6 +59,11 @@ public class Manager extends AppCompatActivity {
             startActivity(intent);
         });
 
+        timekeepingManager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TimekeepingExportExcel.class);
+            startActivity(intent);
+        });
+
         btnBack.setOnClickListener(v -> finish());
     }
 
@@ -65,6 +72,7 @@ public class Manager extends AppCompatActivity {
         employeeManager = findViewById(R.id.employee_manager);
         departmentManager = findViewById(R.id.depaerment_manager);
         workplaceManager = findViewById(R.id.workplace_manager);
+        timekeepingManager = findViewById(R.id.timekeeping_manager);
         btnBack = findViewById(R.id.btn_back);
     }
 }
