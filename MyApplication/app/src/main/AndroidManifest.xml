@@ -7,6 +7,12 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Image permission -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        android:requestLegacyExternalStorage="true" />
+    <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
@@ -96,6 +102,9 @@
             android:exported="false" />
         <activity
             android:name=".MainApp.EmployeeRequest.EmployeeRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.TimekeepingManager.TimekeepingExportExcel"
             android:exported="false" />
         <activity
             android:name=".Login.ChangePassword"
