@@ -2,8 +2,12 @@ package com.example.myapplication.MainApp.TimekeepingManager;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,16 +18,23 @@ import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
+import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Session;
 import com.example.myapplication.database.entities.Shift;
 import com.example.myapplication.database.entities.Timekeeping;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,8 +44,8 @@ public class TimekeepingExportExcel extends AppCompatActivity {
     private Button btnExport;
     private TextView tvFromDate, tvToDate;
     private Calendar fromDate, toDate;
-
-    List<ExportItem> exportItemList = new ArrayList<>();
+    private Spinner spinnerType;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,23 +53,43 @@ public class TimekeepingExportExcel extends AppCompatActivity {
         setContentView(R.layout.activity_export_excel);
 
         initUI();
+        setupSpinnerType();
 
         tvFromDate.setOnClickListener(v -> showDatePickerDialog(tvFromDate, fromDate));
         tvToDate.setOnClickListener(v -> showDatePickerDialog(tvToDate, toDate));
 
         btnBack.setOnClickListener(v -> finish());
 
-        btnExport.setOnClickListener(v -> exportToExcel());
+        btnExport.setOnClickListener(v -> {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                fromDate.setTime(dateFormat.parse(tvFromDate.getText().toString()));
+                toDate.setTime(dateFormat.parse(tvToDate.getText().toString()));
 
-        // Test the getAllTimekeepings function with sample date range
-        int dayFrom = 1;  // Starting day
-        int monthFrom = 1;  // Starting month
-        int yearFrom = 2023;  // Starting year
-        int dayTo = 13;  // Ending day
-        int monthTo = 12;  // Ending month
-        int yearTo = 2024;  // Ending year
+                int dayFrom = fromDate.get(Calendar.DAY_OF_MONTH);
+                int monthFrom = fromDate.get(Calendar.MONTH) + 1;
+                int yearFrom = fromDate.get(Calendar.YEAR);
 
-        getAllTimekeepings(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+                int dayTo = toDate.get(Calendar.DAY_OF_MONTH);
+                int monthTo = toDate.get(Calendar.MONTH) + 1;
+                int yearTo = toDate.get(Calendar.YEAR);
+
+                String employeeIdText = searchView.getQuery().toString();
+                if (spinnerType.getSelectedItemPosition() == 1) {
+                    if (!employeeIdText.isEmpty()) {
+                        int employeeId = Integer.parseInt(employeeIdText);
+                        getSessionsForEmployeeInDateRange(employeeId, dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+                    } else {
+                        Toast.makeText(this, "Vui lòng nhập mã nhân viên!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    getAllTimekeeping(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Đã xảy ra lỗi!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showDatePickerDialog(TextView textView, Calendar calendar) {
@@ -79,119 +110,159 @@ public class TimekeepingExportExcel extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void exportToExcel() {
+    private void exportToExcel(List<ExportItem> list) {
         if (fromDate.getTimeInMillis() > toDate.getTimeInMillis()) {
             Toast.makeText(this, "Ngày bắt đầu không được sau ngày kết thúc", Toast.LENGTH_LONG).show();
             return;
         }
 
-        String fileName = "timekeeping_data.xls";
+        if (list.isEmpty()) {
+            Toast.makeText(this, "Không có dữ liệu chấm công để export.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
+        String currentDateAndTime = dateFormat.format(System.currentTimeMillis());
+
+        String fileName = "Timekeeping_" + currentDateAndTime + ".xls";
         File file = new File(getExternalFilesDir(null), fileName);
 
         try (FileOutputStream fos = new FileOutputStream(file)) {
-            // Lấy ngày hiện tại
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String currentDate = dateFormat.format(calendar.getTime());
+            Workbook workbook = new HSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Timekeeping Data");
 
-            // Tiêu đề file
-            String title = "Kiểm tra lịch sử chấm công\n";
-            String exportDate = "Ngày xuất file: " + currentDate + "\n";
+            Row titleRow = sheet.createRow(0);
+            titleRow.createCell(0).setCellValue("Quản lí chấm công");
 
-            // Thông tin khoảng ngày kiểm tra
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            String fromDateStr = format.format(fromDate.getTime());
-            String toDateStr = format.format(toDate.getTime());
-            String dateRange = "Đang kiểm tra lịch sử từ ngày: " + fromDateStr + " đến ngày: " + toDateStr + "\n\n";
+            Row dateRangeRow = sheet.createRow(1);
+            dateRangeRow.createCell(0).setCellValue("Từ ngày: " + tvFromDate.getText().toString());
+            dateRangeRow.createCell(1).setCellValue("Đến ngày: " + tvToDate.getText().toString());
 
-            // Ghi tiêu đề vào file
-            fos.write(title.getBytes());
-            fos.write(exportDate.getBytes());
-            fos.write(dateRange.getBytes());
+            Row headerRow = sheet.createRow(2);
+            headerRow.createCell(0).setCellValue("Employee ID");
+            headerRow.createCell(1).setCellValue("Full Name");
+            headerRow.createCell(2).setCellValue("Department");
+            headerRow.createCell(3).setCellValue("Position");
+            headerRow.createCell(4).setCellValue("Time In");
+            headerRow.createCell(5).setCellValue("Time Out");
+            headerRow.createCell(6).setCellValue("Overtime");
+            headerRow.createCell(7).setCellValue("Date");
+            headerRow.createCell(8).setCellValue("Shift");
 
-            // Ghi dữ liệu vào file
-            String rowData = fromDateStr + "\t" + toDateStr + "\n";
-            fos.write(rowData.getBytes());
+            int rowIndex = 3;
+            for (ExportItem exportItem : list) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(exportItem.getEmployeeID());
+                row.createCell(1).setCellValue(exportItem.getFullname());
+                row.createCell(2).setCellValue(exportItem.getDepartment());
+                row.createCell(3).setCellValue(exportItem.getPosition());
+                row.createCell(4).setCellValue(exportItem.getTimeIn());
+                row.createCell(5).setCellValue(exportItem.getTimeOut());
+                row.createCell(6).setCellValue(exportItem.getOverTime());
+                row.createCell(7).setCellValue(exportItem.getDate());
+                row.createCell(8).setCellValue(exportItem.getShiftName());
+            }
 
-            // Hiển thị thông báo thành công
+            workbook.write(fos);
+            workbook.close();
+
             Toast.makeText(this, "Xuất file thành công: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            // Hiển thị thông báo lỗi
             Toast.makeText(this, "Lỗi khi xuất file: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-    private void getAllTimekeepings(int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo) {
+    private void getSessionsForEmployeeInDateRange(int employeeId, int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo) {
         try {
-            List<Session> sessions = AppDatabase.getInstance(this).sessionDao()
+
+            List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
+                    .employeeSessionDao()
+                    .getSessionByEmployeeId(employeeId);
+
+            List<Session> allSessions = AppDatabase.getInstance(this)
+                    .sessionDao()
                     .getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
 
-            if (sessions.isEmpty()) {
-                Toast.makeText(this, "Không tìm thấy dữ liệu trong khoảng thời gian đã chọn.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Session session : sessions) {
-                List<Timekeeping> timekeepings = AppDatabase.getInstance(this)
-                        .timekeepingDao()
-                        .getTimekeepingBySessionId(session.getSessionId());
-
-                List<Integer> employeeSession = AppDatabase.getInstance(this).employeeSessionDao().getEmployeeIdsBySessionId(session.getSessionId());
-                for (Timekeeping tk : timekeepings) {
-                    // Tạo ExportItem cho mỗi Timekeeping
-                    ExportItem exportItem = new ExportItem();
-
-                    // Lấy Employee theo EmployeeID từ danh sách employeeSession
-                    for (Integer employeeId : employeeSession) {
-                        Employee employee = AppDatabase.getInstance(this)
-                                .employeeDao()
-                                .getById(employeeId);  // Pass the employeeId here
-
-                        if (employee == null) continue;
-
-                        exportItem.setEmployeeID(employee.getEmployeeId());
-                        exportItem.setFullname(employee.getFullName());
-
-                        Department department = AppDatabase.getInstance(this)
-                                .departmentDao()
-                                .getById(employee.getDepartmentId());
-
-                        Position position = AppDatabase.getInstance(this)
-                                .positionDao()
-                                .getPositionById(employee.getPositionId());
-
-                        exportItem.setDepartment(department != null ? department.getDepartmentName() : "N/A");
-                        exportItem.setPosition(position != null ? position.getPositionName() : "N/A");
-
-                        exportItem.setDate(session.getDay() + "/" + session.getMonth() + "/" + session.getYear());
-                        exportItem.setTimeIn(tk.getTimeIn());
-                        exportItem.setTimeOut(tk.getTimeOut());
-
-                        // Lấy giá trị overtime từ Timekeeping
-                        exportItem.setOverTime(String.valueOf(tk.getOvertime()));
-
-                        Shift shift = AppDatabase.getInstance(this)
-                                .shiftDao()
-                                .getShiftById(session.getShiftId());
-
-                        exportItem.setShiftName(shift != null ? shift.getShiftType() : "N/A");
-
-                        // Thêm vào danh sách export
-                        exportItemList.add(exportItem);
+            List<Session> filteredSessions = new ArrayList<>();
+            for (Employee_Session employeeSession : employeeSessions) {
+                for (Session session : allSessions) {
+                    if (employeeSession.getSessionID() == session.getSessionId()) {
+                        filteredSessions.add(session);
                     }
                 }
             }
 
-            if (exportItemList.isEmpty()) {
-                Toast.makeText(this, "Không có dữ liệu chấm công để xuất.", Toast.LENGTH_SHORT).show();
-            } else {
-                // Tiếp tục xử lý exportItemList (xuất ra file Excel hoặc hiển thị)
-                Log.d("ExportItems", "Số lượng dữ liệu: " + exportItemList.size());
+            List<Timekeeping> timekeepings = new ArrayList<>();
+            for (Session session : filteredSessions) {
+                List<Timekeeping> timekeepings1 = AppDatabase.getInstance(this).timekeepingDao()
+                        .getTimekeepingBySessionId(session.getSessionId());
+
+                timekeepings.addAll(timekeepings1);
             }
+
+            List<ExportItem> exportItemList = new ArrayList<>();
+            for (Timekeeping timekeeping : timekeepings) {
+                ExportItem exportItem = new ExportItem();
+                Employee employee = AppDatabase.getInstance(this).employeeDao().getById(employeeId);
+                exportItem.setEmployeeID(employeeId);
+                exportItem.setFullname(employee.getFullName());
+
+                Department department = AppDatabase.getInstance(this).departmentDao().getById(employee.getDepartmentId());
+                exportItem.setDepartment(department != null ? department.getDepartmentName() : "Không có!");
+
+                Position position = AppDatabase.getInstance(this).positionDao().getPositionById(employee.getPositionId());
+                exportItem.setPosition(position != null ? position.getPositionName() : "Không có!");
+
+                Session session = AppDatabase.getInstance(this).sessionDao().getSessionById(timekeeping.getSessionId());
+                exportItem.setDate(session.getDay() + "/" + session.getMonth() + "/" + session.getYear());
+
+                exportItem.setTimeIn(timekeeping.getTimeIn());
+                exportItem.setTimeOut(timekeeping.getTimeOut());
+                exportItem.setOverTime(String.valueOf(timekeeping.getOvertime()));
+
+                Shift shift = AppDatabase.getInstance(this).shiftDao().getShiftById(session.getShiftId());
+                exportItem.setShiftName(shift != null ? shift.getShiftType() : "Không có!");
+
+                exportItemList.add(exportItem);
+            }
+
+            if (!exportItemList.isEmpty()) {
+                exportToExcel(exportItemList);
+            } else {
+                Toast.makeText(this, "Không có dữ liệu chấm công để xuất.", Toast.LENGTH_SHORT).show();
+            }
+
         } catch (Exception e) {
-            Toast.makeText(this, "Đã xảy ra lỗi khi lấy danh sách!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đã xảy ra lỗi khi lấy dữ liệu!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+    }
+
+    private void getAllTimekeeping(int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo) {
+        Toast.makeText(this, "Hiện tại chưa xử lí chức năng này", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupSpinnerType() {
+        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Tất cả chấm công", "Theo mã nhân viên"}));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spiner, data);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(adapter);
+
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 0) {
+                    searchView.setEnabled(false);
+                    searchView.setQuery("", false);
+                } else {
+                    searchView.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+        });
     }
 
 
@@ -200,6 +271,8 @@ public class TimekeepingExportExcel extends AppCompatActivity {
         btnExport = findViewById(R.id.btn_export);
         tvFromDate = findViewById(R.id.tv_date_from);
         tvToDate = findViewById(R.id.tv_date_to);
+        spinnerType = findViewById(R.id.sp_filter);
+        searchView = findViewById(R.id.sv_search);
 
         fromDate = Calendar.getInstance();
         toDate = Calendar.getInstance();

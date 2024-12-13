@@ -58,14 +58,14 @@
             android:orientation="horizontal">
 
             <SearchView
-                android:id="@+id/sv_searcb"
+                android:id="@+id/sv_search"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_border"
                 android:iconifiedByDefault="false"
-                android:queryHint="Tìm kiếm ..." />
+                android:queryHint="Nhập mã nhân viên" />
 
             <Spinner
                 android:id="@+id/sp_filter"
