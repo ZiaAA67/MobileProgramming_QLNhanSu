@@ -42,16 +42,16 @@ public class LeaveRequestAdapter extends RecyclerView.Adapter<LeaveRequestAdapte
 
         if (status == 0) {
             strStatus = "Chưa xử lý";
-            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.yellow));
+            holder.itemView.setBackgroundResource(R.drawable.pending_background); // Yellow background with green border
         } else if (status == 1) {
             strStatus = "Chấp nhận";
-            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.green)); // Màu nền cho trạng thái chưa xử lý
+            holder.itemView.setBackgroundResource(R.drawable.accept_background); // Green background with yellow border
         } else if (status == 2) {
             strStatus = "Từ chối";
-            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.red)); // Màu nền cho trạng thái chưa xử lý
+            holder.itemView.setBackgroundResource(R.drawable.rejected_background); // Red background with black border
         } else {
             strStatus = "Không xác định";
-            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.grey)); // Màu nền cho trạng thái chưa xử lý
+            holder.itemView.setBackgroundResource(R.drawable.rejected_background); // Default grey background
         }
 
         holder.tvStatus.setText(strStatus);

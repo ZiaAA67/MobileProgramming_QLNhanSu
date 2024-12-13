@@ -2,17 +2,21 @@ package com.example.myapplication.MainApp.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.MainApp.AttendanceHistory.AttendanceHistory;
 import com.example.myapplication.MainApp.EmployeeProfile.EmployeeProfile;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
@@ -23,6 +27,7 @@ import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
 import com.example.myapplication.MainApp.Timekeeping.NewTimekeeping;
 import com.example.myapplication.R;
+import com.example.myapplication.Stats.Stats;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
@@ -35,6 +40,7 @@ public class HomeFragment extends Fragment {
     private User user;
     private TextView employeeNameTextView;
     private TextView positionTextView;
+    private ImageView imgEmployee;
     private Button btnEmployeeRequest;
     private Button btnLeaveRequestHistory;
     private Button btnLeaveRequestManager;
@@ -44,6 +50,7 @@ public class HomeFragment extends Fragment {
     private Button btnManager;
     private Button btnHistory;
     private Button btnTimekeeping;
+    private Button btnStats;
 
     @Nullable
     @Override
@@ -114,6 +121,11 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        btnStats.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), Stats.class);
+            startActivity(intent);
+        });
+
         return view;
     }
 
@@ -125,11 +137,19 @@ public class HomeFragment extends Fragment {
                 if (employee != null) {
                     employeeNameTextView.setText(employee.getFullName());
 
+                    if (!TextUtils.isEmpty(employee.getImagePath())) {
+                        Glide.with(this)
+                                .load(employee.getImagePath())
+                                .apply(new RequestOptions().circleCrop())
+                                .into(imgEmployee);
+                    }
+
                     Integer posId = employee.getPositionId();
                     if (posId != null) {
                         Position position = db.positionDao().getPositionById(employee.getPositionId());
                         positionTextView.setText(position.getPositionName());
                     }
+
 //                    else {
 //                        positionTextView.setText("Không chức vụ");
 //                    }
@@ -172,6 +192,7 @@ public class HomeFragment extends Fragment {
     private void initUI(View view) {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
+        imgEmployee = view.findViewById(R.id.img_image_employee);
         btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
         btnLeaveRequestHistory = view.findViewById(R.id.btn_asked_leave_request);
         btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
@@ -181,5 +202,6 @@ public class HomeFragment extends Fragment {
         btnManager = view.findViewById(R.id.btn_manager);
         btnHistory = view.findViewById(R.id.btn_history);
         btnTimekeeping = view.findViewById(R.id.btn_checkin);
+        btnStats = view.findViewById(R.id.btn_stats);
     }
 }

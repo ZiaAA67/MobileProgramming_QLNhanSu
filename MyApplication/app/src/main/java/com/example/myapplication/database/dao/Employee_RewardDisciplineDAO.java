@@ -30,4 +30,7 @@ public interface Employee_RewardDisciplineDAO {
 
     @Query("SELECT * FROM Employee_RewardDiscipline WHERE EmployeeID = :employeeId AND substr(Date, 4, 7) = :monthYear")
     List<Employee_RewardDiscipline> getByEmployeeIdAndMonthYear(int employeeId, String monthYear);
+
+    @Query("SELECT * FROM Employee_RewardDiscipline WHERE EmployeeID = :employeeId AND RewardDisciplineID = :rewardDisciplineId AND Date = :date")
+    Employee_RewardDiscipline getEmployeeRewardDiscipline(int employeeId, int rewardDisciplineId, String date);
 }

@@ -34,4 +34,7 @@ public interface DepartmentDAO {
 
     @Query("SELECT * FROM Department WHERE LOWER(DepartmentName) = LOWER(:departmentName)")
     List<Department> getListDepartmentByName(String departmentName);
+
+    @Query("SELECT COUNT(*) FROM Department WHERE Active = 1")
+    long getQuantityDepartment();
 }

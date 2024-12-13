@@ -33,4 +33,9 @@ public interface SessionDAO {
 
     @Query("SELECT * FROM Session WHERE Month = :month AND Year = :year")
     List<Session> getSessionsByMonth(int month, int year);
+
+    @Query("SELECT * FROM session WHERE (year > :yearFrom OR (year = :yearFrom AND month > :monthFrom) OR (year = :yearFrom AND month = :monthFrom AND day >= :dayFrom)) " +
+            "AND (year < :yearTo OR (year = :yearTo AND month < :monthTo) OR (year = :yearTo AND month = :monthTo AND day <= :dayTo))")
+    List<Session> getSessionsBetweenDates(int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo);
+
 }

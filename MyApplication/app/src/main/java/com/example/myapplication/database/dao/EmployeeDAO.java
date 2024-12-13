@@ -67,4 +67,11 @@ public interface EmployeeDAO {
 
     @Query("SELECT COUNT(*) FROM Employee WHERE WorkplaceID = :workplaceId AND Active = 1")
     long getEmployeeCountByWorkplace(long workplaceId);
+
+    @Query("SELECT COUNT(*) FROM Employee WHERE PositionID = :positionId AND Active = 1")
+    long getEmployeeCountByPosition(long positionId);
+
+    //Male = 0, Female = 1, Other = 2
+    @Query("SELECT COUNT(*) FROM Employee WHERE Gender = :gender AND Active = 1")
+    long getEmployeeCountByGender(long gender);
 }

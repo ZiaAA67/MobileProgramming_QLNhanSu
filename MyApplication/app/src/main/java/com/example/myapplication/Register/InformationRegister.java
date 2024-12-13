@@ -284,6 +284,7 @@ public class InformationRegister extends AppCompatActivity {
             return;
         }
 
+        // Nếu tạo nhân viên mới, check unique và ảnh đại diện kh đc trống
         if(!message.equals("AdminUpdate")) {
             if (!checkUnique(strCCCD, strNumberPhone, edtCCCD, edtPhoneNumber)) {
                 return;
@@ -457,7 +458,6 @@ public class InformationRegister extends AppCompatActivity {
 
         return true;
     }
-
 
     private boolean checkEmployeePhoneNumberExists(String phoneNumber) {
         EmployeeDAO employeeDAO = AppDatabase.getInstance(this).employeeDao();

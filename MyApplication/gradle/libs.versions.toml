@@ -20,6 +20,11 @@ viewpager2 = "1.1.0"
 javamail = "1.6.2"
 cloudinary-android = "3.0.2"
 glide = "4.15.1"
+mpandroidchart = "3.1.0"
+poi = "5.2.3"
+poiooxml = "5.2.3"
+commonscollections4 = "4.4"
+gson = "2.10.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -51,6 +56,11 @@ javamail-activation = { module = "com.sun.mail:android-activation", version.ref 
 cloudinary-android = { group = "com.cloudinary", name = "cloudinary-android", version.ref = "cloudinary-android" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-annotation-processor = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
+poiooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poiooxml" }
+commonscollections4 = { group = "org.apache.commons", name = "commons-collections4", version.ref = "commonscollections4" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
