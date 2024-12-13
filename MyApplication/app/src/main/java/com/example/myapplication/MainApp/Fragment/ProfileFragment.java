@@ -90,9 +90,9 @@ public class ProfileFragment extends Fragment {
                     Position position = db.positionDao().getPositionById(employee.getPositionId());
                     tvPosition.setText(position.getPositionName());
                 }
-//                else {
-//                    tvPosition.setText("Không chức vụ");
-//                }
+                else {
+                    tvPosition.setText("Chức vụ");
+                }
 
                 String imagePath = employee.getImagePath();
                 if (!imagePath.isEmpty()) {

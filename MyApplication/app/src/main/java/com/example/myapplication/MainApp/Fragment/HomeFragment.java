@@ -147,10 +147,9 @@ public class HomeFragment extends Fragment {
                         Position position = db.positionDao().getPositionById(employee.getPositionId());
                         positionTextView.setText(position.getPositionName());
                     }
-
-//                    else {
-//                        positionTextView.setText("Không chức vụ");
-//                    }
+                    else {
+                        positionTextView.setText("Chức vụ");
+                    }
 
                 }
 //                else {

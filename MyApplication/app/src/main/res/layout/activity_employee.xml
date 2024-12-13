@@ -65,7 +65,7 @@
 
                 <Spinner
                     android:id="@+id/spinner_type"
-                    android:layout_width="140dp"
+                    android:layout_width="180dp"
                     android:background="@drawable/lightlightgrey_background_lightgrey_border"
                     android:paddingHorizontal="5dp"
                     android:textAlignment="center"

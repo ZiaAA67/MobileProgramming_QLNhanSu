@@ -41,6 +41,9 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId AND Active = 1")
     List<Employee> getByDepartmentId(int departmentId);
 
+    @Query("SELECT * FROM Employee WHERE WorkplaceID = :workplaceId AND Active = 1")
+    List<Employee> getByWorkplaceId(int workplaceId);
+
     @Query("SELECT * FROM Employee WHERE Active = 1")
     List<Employee> getActiveEmployees();
 

@@ -90,10 +90,10 @@ public class EmployeeManagement extends AppCompatActivity {
             // Khi thay đổi input text
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 4) {
+                if(i == 3) {
                     searchWithApproveStatus();
                 }
-                if(i ==5) {
+                if(i ==4) {
                     searchWithDisapproveStatus();
                 }
 
@@ -107,13 +107,11 @@ public class EmployeeManagement extends AppCompatActivity {
                     @Override
                     public boolean onQueryTextChange(String s) {
                         switch (i) {
-                            case 0: loadData();
+                            case 0: searchWithName(s);
                                 break;
-                            case 1: searchWithName(s);
+                            case 1: searchWithAddress(s);
                                 break;
-                            case 2: searchWithAddress(s);
-                                break;
-                            case 3: searchWithEmail(s);
+                            case 2: searchWithEmail(s);
                                 break;
                         }
                         return true;
@@ -203,7 +201,7 @@ public class EmployeeManagement extends AppCompatActivity {
     }
 
     private void setupSpinnerType() {
-        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Lọc", "Theo tên", "Theo địa chỉ", "Theo email", "Đã được duyệt", "Chưa được duyệt"}));
+        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Theo tên nhân viên", "Theo địa chỉ", "Theo email", "Đã được duyệt", "Chưa được duyệt"}));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeManagement.this, android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);

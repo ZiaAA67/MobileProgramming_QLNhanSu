@@ -117,7 +117,12 @@ public class Stats extends AppCompatActivity {
         chart.getAxisLeft().setDrawGridLines(false);
         chart.getAxisRight().setDrawGridLines(false);
 
+        // Ẩn label mặc định
         chart.getDescription().setEnabled(false);
+
+        // Luôn bắt đầu giá trị Y từ 0
+        chart.getAxisLeft().setAxisMinimum(0f);
+        chart.getAxisRight().setAxisMinimum(0f);
 
         // Chú thích
         Legend legend = chart.getLegend();
@@ -187,7 +192,7 @@ public class Stats extends AppCompatActivity {
 
         for (int i=0; i<list.size(); i++) {
             Workplace w = list.get(i);
-            long count = AppDatabase.getInstance(this).employeeDao().getEmployeeCountByDepartment(w.getWorkplaceId());
+            long count = AppDatabase.getInstance(this).employeeDao().getEmployeeCountByWorkplace(w.getWorkplaceId());
             entries.add(new BarEntry(i, count));
             labels.add(w.getWorkplaceName());
         }
