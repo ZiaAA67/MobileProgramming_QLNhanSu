@@ -14,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
+import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
+import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.TimekeepingManager.TimekeepingExportExcel;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.MainApp.Workplace.WorkplaceManagement;
@@ -26,6 +28,8 @@ public class Manager extends AppCompatActivity {
     private LinearLayout workplaceManager;
     private LinearLayout timekeepingManager;
     private LinearLayout requestEmployeeManager;
+    private LinearLayout rewardDiscipline;
+    private LinearLayout leaveRequestManager;
     private Button btnBack;
 
     @Override
@@ -71,6 +75,16 @@ public class Manager extends AppCompatActivity {
             startActivity(intent);
         });
 
+        leaveRequestManager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LeaveRequestManager.class);
+            startActivity(intent);
+        });
+
+        rewardDiscipline.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RewardsDiscipline.class);
+            startActivity(intent);
+        });
+
         btnBack.setOnClickListener(v -> finish());
     }
 
@@ -81,6 +95,8 @@ public class Manager extends AppCompatActivity {
         workplaceManager = findViewById(R.id.workplace_manager);
         timekeepingManager = findViewById(R.id.timekeeping_manager);
         requestEmployeeManager = findViewById(R.id.request_employee_manager);
+        leaveRequestManager = findViewById(R.id.leave_request_manager);
+        rewardDiscipline = findViewById(R.id.reward_discipline);
         btnBack = findViewById(R.id.btn_back);
     }
 }

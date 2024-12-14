@@ -109,6 +109,9 @@
             android:name=".MainApp.TimekeepingManager.TimekeepingExportExcel"
             android:exported="false" />
         <activity
+            android:name=".MainApp.Employee.EmployeeManagement"
+            android:exported="false" />
+        <activity
             android:name=".Login.ChangePassword"
             android:exported="false" />
         <activity
