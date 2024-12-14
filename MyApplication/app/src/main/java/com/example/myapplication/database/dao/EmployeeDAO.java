@@ -1,5 +1,4 @@
 package com.example.myapplication.database.dao;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -42,6 +41,9 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId AND Active = 1")
     List<Employee> getByDepartmentId(int departmentId);
 
+    @Query("SELECT * FROM Employee WHERE WorkplaceID = :workplaceId AND Active = 1")
+    List<Employee> getByWorkplaceId(int workplaceId);
+
     @Query("SELECT * FROM Employee WHERE Active = 1")
     List<Employee> getActiveEmployees();
 
@@ -76,8 +78,8 @@ public interface EmployeeDAO {
     @Query("SELECT COUNT(*) FROM Employee WHERE Gender = :gender AND Active = 1")
     long getEmployeeCountByGender(long gender);
 
-    @Query("SELECT * FROM Employee WHERE EmployeeID IN (:employeeIds)")
-    List<Employee> getEmployeesByIds(List<Integer> employeeIds);
+    @Query("SELECT * FROM Employee WHERE Active = 1 AND UserID IS NULL")
+    List<Employee> getEmployeeUnHaveUserAccount();
 
     @Query("SELECT * FROM Employee")
     List<Employee> getAllEmployees();
