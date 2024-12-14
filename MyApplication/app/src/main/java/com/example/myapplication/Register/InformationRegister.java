@@ -603,67 +603,6 @@ public class InformationRegister extends AppCompatActivity {
         dialog.show();
     }
 
-    private void showDialogAssignment(Employee employee) {
-        // Setup dialong phân công công việc cho nhân viên mới
-        Dialog dialog = new Dialog(InformationRegister.this);
-        int layout = R.layout.dialog_assignment_layout;
-        Configuration.showDialog(dialog, layout);
-
-        // Department spinner
-        Spinner spinnerDepartment = dialog.findViewById(R.id.spinner_department);
-        ShowSpinner.setupSpinnerDepartment(spinnerDepartment, InformationRegister.this);
-
-        // Position spinner
-        Spinner spinnerPosition = dialog.findViewById(R.id.spinner_position);
-        ShowSpinner.setupSpinnerPosition(spinnerPosition, InformationRegister.this);
-
-        // Workplace spinner
-        Spinner spinnerWorkplace = dialog.findViewById(R.id.spinner_workplace);
-        ShowSpinner.setupSpinnerWorkplace(spinnerWorkplace, InformationRegister.this);
-
-        // Ánh xạ btn duyệt và từ chối
-        Button btnApprove = dialog.findViewById(R.id.btn_assignment_approve);
-        Button btnDisapprove = dialog.findViewById(R.id.btn_assignment_disapprove);
-        btnDisapprove.setVisibility(View.GONE);
-        btnApprove.setText("Xác Nhận");
-
-        // Btn duyệt sau khi phân công
-        btnApprove.setOnClickListener(view -> {
-            int departmentId = spinnerDepartment.getSelectedItemPosition();
-            int positionId = spinnerPosition.getSelectedItemPosition();
-            int workplaceId = spinnerWorkplace.getSelectedItemPosition();
-
-            String to = employee.getEmail();
-            String sub = "Đăng ký thông tin thành công!!!";
-            String content = "Chúc mừng bạn đã đăng ký thông tin thành công.\n" +
-                            "Đây là thông tin đăng nhập của bạn, vui lòng đổi mật khẩu trong lần đầu đăng nhập!\n" +
-                            "Username: " + Configuration.makeUsername(employee.getFullName(), employee.getPhoneNumber()) + "\n" +
-                            "Password: " + Configuration.randomString(20) + "\n" +
-                            "Chân thành cảm ơn bạn!!!";
-
-            // Gửi mail đăng ký thành công
-            Configuration.sendMail(this, to, sub, content);
-
-            // Lưu xuống db
-            try {
-                employee.setApprove(true);
-                employee.setDepartmentId( departmentId == 0 ? null : departmentId );
-                employee.setPositionId( positionId == 0 ? null : positionId );
-                employee.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
-
-                AppDatabase.getInstance(this).employeeDao().update(employee);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // Đóng dialog
-            dialog.dismiss();
-
-            finish();
-        });
-    }
-
     private void backToLogin() {
         Intent intent = new Intent(this, GiaoDienLogin.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa ngăn xếp hoạt động

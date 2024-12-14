@@ -50,9 +50,12 @@ public class EmployeeManagement extends AppCompatActivity {
     private EmployeeAdapter employeeAdapter;
     private Spinner spinnerType;
     private SearchView searchView;
-    private ExtendedFloatingActionButton fabAdd;
     private Button btnBack;
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private boolean isArcMenuOpen = false;
+    private Button btnAdd;
+    private Button btnAddOne;
+    private Button btnAddList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +93,10 @@ public class EmployeeManagement extends AppCompatActivity {
             // Khi thay đổi input text
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 4) {
+                if(i == 3) {
                     searchWithApproveStatus();
                 }
-                if(i ==5) {
+                if(i ==4) {
                     searchWithDisapproveStatus();
                 }
 
@@ -107,13 +110,11 @@ public class EmployeeManagement extends AppCompatActivity {
                     @Override
                     public boolean onQueryTextChange(String s) {
                         switch (i) {
-                            case 0: loadData();
+                            case 0: searchWithName(s);
                                 break;
-                            case 1: searchWithName(s);
+                            case 1: searchWithAddress(s);
                                 break;
-                            case 2: searchWithAddress(s);
-                                break;
-                            case 3: searchWithEmail(s);
+                            case 2: searchWithEmail(s);
                                 break;
                         }
                         return true;
@@ -128,8 +129,22 @@ public class EmployeeManagement extends AppCompatActivity {
         });
 
         // Thêm nhân viên mới
-        fabAdd.setOnClickListener(v -> {
+        btnAdd.setOnClickListener(v -> {
+            if (isArcMenuOpen) {
+                closeArcMenu();
+            } else {
+                openArcMenu();
+            }
+        });
+
+        btnAddOne.setOnClickListener(v -> {
             handleClickAddEmployee();
+            closeArcMenu();
+        });
+
+        btnAddList.setOnClickListener(v -> {
+            handleClickAddListEmployee();
+            closeArcMenu();
         });
 
         // Khi thêm nhân viên mới, nếu trạng thái là thành công thì load lại dữ liệu
@@ -191,6 +206,11 @@ public class EmployeeManagement extends AppCompatActivity {
     }
 
 
+    private void handleClickAddListEmployee() {
+        Intent intent = new Intent(this, EmployeeAddListItem.class);
+        activityResultLauncher.launch(intent);
+    }
+
     private void handleClickAddEmployee() {
         Intent intent = new Intent(this, InformationRegister.class);
         intent.putExtra("message", "AdminCreate");
@@ -203,7 +223,7 @@ public class EmployeeManagement extends AppCompatActivity {
     }
 
     private void setupSpinnerType() {
-        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Lọc", "Theo tên", "Theo địa chỉ", "Theo email", "Đã được duyệt", "Chưa được duyệt"}));
+        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Theo tên nhân viên", "Theo địa chỉ", "Theo email", "Đã được duyệt", "Chưa được duyệt"}));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeManagement.this, android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
@@ -234,11 +254,35 @@ public class EmployeeManagement extends AppCompatActivity {
         employeeAdapter.setData(list);
     }
 
+    private void openArcMenu() {
+        btnAddOne.setVisibility(View.VISIBLE);
+        btnAddList.setVisibility(View.VISIBLE);
+
+        btnAddOne.animate().translationX(-220).translationY(-260).rotation(60).setDuration(300).start();
+        btnAddList.animate().translationX(-390).translationY(-50).rotation(20).setDuration(300).start();
+
+        isArcMenuOpen = true;
+    }
+
+    private void closeArcMenu() {
+        btnAddOne.animate().translationX(0).translationY(0).setDuration(300).rotation(0).withEndAction(() -> {
+            btnAddOne.setVisibility(View.INVISIBLE);
+        }).start();
+
+        btnAddList.animate().translationX(0).translationY(0).setDuration(300).rotation(0).withEndAction(() -> {
+            btnAddList.setVisibility(View.INVISIBLE);
+        }).start();
+
+        isArcMenuOpen = false;
+    }
+
     private void bindingView() {
         rcvEmployee = findViewById(R.id.rcv_employee);
         spinnerType = findViewById(R.id.spinner_type);
         searchView = findViewById(R.id.search_view);
-        fabAdd = findViewById(R.id.fab_add);
         btnBack = findViewById(R.id.btn_back);
+        btnAdd = findViewById(R.id.btn_add);
+        btnAddOne = findViewById(R.id.btn_add_one);
+        btnAddList = findViewById(R.id.btn_add_list);
     }
 }

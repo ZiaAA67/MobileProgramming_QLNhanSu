@@ -23,6 +23,7 @@ import com.example.myapplication.database.entities.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DepartmentUpdateItem extends AppCompatActivity {
     private EditText edtDepartmentName;
@@ -62,6 +63,19 @@ public class DepartmentUpdateItem extends AppCompatActivity {
         rcvEmployee.setLayoutManager(linearLayoutManager);
         rcvEmployee.setAdapter(employeeAdapter);
 
+        // bắt sự kiện nhập text vào input search
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchWithName(s);
+                return true;
+            }
+        });
 
         btnUpdate.setOnClickListener(v -> handleClickUpdateInfo());
 
@@ -84,12 +98,10 @@ public class DepartmentUpdateItem extends AppCompatActivity {
             if(!checkDepartmentExist(name)) {
                 department.setDepartmentName(name);
                 department.setDescription(description);
-                Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
                 AppDatabase.getInstance(this).departmentDao().update(department);
             } else {
                 edtDepartmentName.setError("Phòng ban đã tồn tại");
                 edtDepartmentName.requestFocus();
-                Toast.makeText(this, "loi", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -116,6 +128,11 @@ public class DepartmentUpdateItem extends AppCompatActivity {
         edtDepartmentName.setText(department.getDepartmentName());
         edtEdtDepartmentDesc.setText(department.getDescription());
         oldName = department.getDepartmentName();
+    }
+
+    private void searchWithName(String kw) {
+        List<Employee> list = listEmployee.stream().filter(e -> e.getFullName().toLowerCase().contains(kw.toLowerCase())).collect(Collectors.toList());
+        employeeAdapter.setData(list);
     }
 
     private void bindingView() {

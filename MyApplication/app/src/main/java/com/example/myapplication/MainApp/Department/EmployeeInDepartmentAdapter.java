@@ -26,6 +26,11 @@ public class EmployeeInDepartmentAdapter extends RecyclerView.Adapter<EmployeeIn
         this.listEmployee = listEmployee;
     }
 
+    public void setData(List<Employee> list) {
+        this.listEmployee = list;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public EmployeeInDepartmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

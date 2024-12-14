@@ -21,9 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
+import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Workplace;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -148,6 +150,12 @@ public class WorkplaceManagement extends AppCompatActivity {
                                 // Thực hiện xóa chính thức
                                 workplace.setActive(false);
                                 AppDatabase.getInstance(WorkplaceManagement.this).workplaceDao().update(workplace);
+
+                                List<Employee> list = AppDatabase.getInstance(WorkplaceManagement.this).employeeDao().getByWorkplaceId(workplace.getWorkplaceId());
+                                list.forEach(e -> {
+                                    e.setWorkplaceId(null);
+                                    AppDatabase.getInstance(WorkplaceManagement.this).employeeDao().update(e);
+                                });
                             }
                         }
                     })

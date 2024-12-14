@@ -46,7 +46,6 @@ public class Register extends AppCompatActivity {
 
         bindingView();
 
-
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {

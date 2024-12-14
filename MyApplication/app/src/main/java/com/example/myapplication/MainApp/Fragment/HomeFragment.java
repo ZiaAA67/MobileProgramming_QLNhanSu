@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     private TextView employeeNameTextView;
     private TextView positionTextView;
     private ImageView imgEmployee;
-    private Button btnEmployeeRequest;
     private Button btnLeaveRequestHistory;
     private Button btnLeaveRequestManager;
     private Button btnEmployeeProfile;
@@ -58,21 +57,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initUI(view);
 
-//        userId = intent.getIntExtra("UserID", -1);
-//        user = (User) requireActivity().getIntent().getSerializableExtra("User");
-
         if (getArguments() != null) {
             user = (User) getArguments().getSerializable("User");
         }
 
         showEmployeeInfo();
 
-        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline, btnManager);
-
-        btnEmployeeRequest.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
-            startActivity(intent);
-        });
+        adminButton(user.getUserId(), "Admin", btnLeaveRequestManager, btnRewardDiscipline, btnManager, btnStats);
+        hideButtonInPublicRole(user, btnLeaveRequestHistory, btnSalarySlip);
 
         btnLeaveRequestHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestHistory.class);
@@ -149,10 +141,9 @@ public class HomeFragment extends Fragment {
                         Position position = db.positionDao().getPositionById(employee.getPositionId());
                         positionTextView.setText(position.getPositionName());
                     }
-
-//                    else {
-//                        positionTextView.setText("Không chức vụ");
-//                    }
+                    else {
+                        positionTextView.setText("Chức vụ");
+                    }
 
                 }
 //                else {
@@ -182,7 +173,17 @@ public class HomeFragment extends Fragment {
         Role role = db.roleDao().getRoleById(roleId);
 
         // VISIBLE admin buttion
-        if (role != null && !rolename.equals(role.getRoleName())) {
+        if (role != null && (!rolename.equals(role.getRoleName()) && !role.getRoleName().equals("Manager")) ) {
+            for (Button button : buttons) {
+                button.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void hideButtonInPublicRole(User user, Button... buttons) {
+        String roleName = AppDatabase.getInstance(getContext()).roleDao().getRoleById(user.getRoleId()).getRoleName();
+
+        if(roleName.equals("Public")) {
             for (Button button : buttons) {
                 button.setVisibility(View.GONE);
             }
@@ -193,7 +194,6 @@ public class HomeFragment extends Fragment {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
         imgEmployee = view.findViewById(R.id.img_image_employee);
-        btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
         btnLeaveRequestHistory = view.findViewById(R.id.btn_asked_leave_request);
         btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
         btnEmployeeProfile = view.findViewById(R.id.btn_employee_profile);

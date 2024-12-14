@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Quản Lý Nhân Viên"
+                android:text="Thêm Tài Khoản Cho Nhân Viên"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -63,13 +63,6 @@
                     android:queryHint="Tìm kiếm ..."
                     android:iconifiedByDefault="false"/>
 
-                <Spinner
-                    android:id="@+id/spinner_type"
-                    android:layout_width="180dp"
-                    android:background="@drawable/lightlightgrey_background_lightgrey_border"
-                    android:paddingHorizontal="5dp"
-                    android:textAlignment="center"
-                    android:layout_height="50dp"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -80,49 +73,4 @@
                 android:layout_below="@+id/search_bar"/>
         </LinearLayout>
     </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_add"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#009688"
-            android:drawableEnd="@drawable/plus"
-            android:drawableTint="@color/white"
-            android:text="Tạo mới"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_add_one"
-            android:visibility="invisible"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#009688"
-            android:text="Tạo 1 NV"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_add_list"
-            android:visibility="invisible"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#009688"
-            android:text="Tạo nhiều NV"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

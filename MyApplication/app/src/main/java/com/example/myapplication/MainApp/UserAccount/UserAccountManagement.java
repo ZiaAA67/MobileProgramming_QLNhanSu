@@ -1,6 +1,8 @@
 package com.example.myapplication.MainApp.UserAccount;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -27,6 +31,7 @@ import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.R;
+import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
@@ -38,17 +43,18 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserAccountManagement extends AppCompatActivity {
-    List<User> listUser;
-    RecyclerView rcvUser;
-    UserAdapter userAdapter;
-    Spinner spinnerType;
-    EditText edtSearch;
-    SearchView searchView;
-    ExtendedFloatingActionButton fabAdd;
-    Button btnBack;
+    private List<User> listUser;
+    private RecyclerView rcvUser;
+    private UserAdapter userAdapter;
+    private Spinner spinnerType;
+    private SearchView searchView;
+    private ExtendedFloatingActionButton fabAdd;
+    private Button btnBack;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +105,9 @@ public class UserAccountManagement extends AppCompatActivity {
                     @Override
                     public boolean onQueryTextChange(String s) {
                         switch (i) {
-                            case 0: loadData();
+                            case 0: searchWithName(s);
                                 break;
-                            case 1: searchWithName(s);
-                                break;
-                            case 2: searchWithRole(s);
+                            case 1: searchWithRole(s);
                                 break;
                         }
                         return true;
@@ -124,58 +128,21 @@ public class UserAccountManagement extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if(data!=null && Objects.equals(data.getStringExtra("resultKey"), "success")) {
+                    loadData();
+                }
+            }
+        });
+
         loadData();
     }
 
     private void handleClickAddUser() {
-        // Show dialog
-        Dialog dialog = new Dialog(UserAccountManagement.this);
-        int layout = R.layout.dialog_add_user_layout;
-        Configuration.showDialog(dialog, layout);
-
-        // Binding view
-        EditText edtUsername = dialog.findViewById(R.id.edt_username);
-        EditText edtPassword = dialog.findViewById(R.id.edt_password);
-        Spinner spinnerRole = dialog.findViewById(R.id.spinner_role);
-        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
-        Button btnAdd = dialog.findViewById(R.id.btn_add);
-
-        // Setup spinner
-        List<String> data = new ArrayList<>();
-        setupSpinnerInDialog(data, spinnerRole);
-
-        btnCancel.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
-
-        btnAdd.setOnClickListener(v -> {
-            String username = edtUsername.getText().toString().trim();
-            String password = edtPassword.getText().toString().trim();
-            String role = (String) spinnerRole.getSelectedItem();
-
-            if(!CheckInput.checkUsername(UserAccountManagement.this, edtUsername, username)) {
-                return;
-            }
-
-            if(!CheckInput.isValidPassword(password)) {
-                edtPassword.setError("Mật khẩu cần ít nhất 8 ký tự, bao gồm chữ số, chữ thường, và chữ hoa!");
-                edtPassword.requestFocus();
-                return;
-            }
-
-            int roleId = AppDatabase.getInstance(UserAccountManagement.this).roleDao().getRoleByName(role).getRoleId();
-            User user = new User(username, Configuration.md5(password), Configuration.STRING_TODAY, true, true, roleId);
-            AppDatabase.getInstance(UserAccountManagement.this).userDao().insert(user);
-
-            dialog.dismiss();
-
-            loadData();
-        });
-
-        btnBack.setOnClickListener(v -> {
-            finish();
-        });
-
+        Intent intent = new Intent(this, UserAccountAddItem.class);
+        activityResultLauncher.launch(intent);
     }
 
     private void handleClickUpdateUser(User user) {
@@ -261,6 +228,11 @@ public class UserAccountManagement extends AppCompatActivity {
                                 // Thực hiện xóa chính thức
                                 user.setActive(false);
                                 AppDatabase.getInstance(UserAccountManagement.this).userDao().update(user);
+
+                                // set account employee la null
+                                Employee em = AppDatabase.getInstance(UserAccountManagement.this).employeeDao().getEmployeeByUserId(user.getUserId());
+                                em.setUserId(null);
+                                AppDatabase.getInstance(UserAccountManagement.this).employeeDao().update(em);
                             }
                         }
                     })
@@ -291,7 +263,7 @@ public class UserAccountManagement extends AppCompatActivity {
     }
 
     private void setupSpinnerType() {
-        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Lọc", "Theo tên User", "Theo vai trò"}));
+        List<String> data = new ArrayList<>(Arrays.asList(new String[]{"Theo tên User", "Theo vai trò"}));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(UserAccountManagement.this, android.R.layout.simple_spinner_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
@@ -300,7 +272,6 @@ public class UserAccountManagement extends AppCompatActivity {
     private void bindingView() {
         rcvUser = findViewById(R.id.rcv_user);
         spinnerType = findViewById(R.id.spinner_type);
-        edtSearch = findViewById(R.id.edt_search);
         searchView = findViewById(R.id.search_view);
         fabAdd = findViewById(R.id.fab_add);
         btnBack = findViewById(R.id.btn_back);

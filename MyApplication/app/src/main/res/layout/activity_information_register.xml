@@ -104,7 +104,6 @@
                     app:boxStrokeWidth="2dp"
                     app:hintTextColor="@color/light_sea_green">
 
-
                     <EditText
                         android:id="@+id/edt_fullName"
                         android:layout_width="match_parent"
