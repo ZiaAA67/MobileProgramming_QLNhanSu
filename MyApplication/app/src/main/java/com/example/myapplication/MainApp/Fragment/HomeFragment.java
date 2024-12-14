@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     private TextView employeeNameTextView;
     private TextView positionTextView;
     private ImageView imgEmployee;
-    private Button btnEmployeeRequest;
     private Button btnLeaveRequestHistory;
     private Button btnLeaveRequestManager;
     private Button btnEmployeeProfile;
@@ -64,13 +63,8 @@ public class HomeFragment extends Fragment {
 
         showEmployeeInfo();
 
-        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline, btnManager, btnStats);
+        adminButton(user.getUserId(), "Admin", btnLeaveRequestManager, btnRewardDiscipline, btnManager, btnStats);
         hideButtonInPublicRole(user, btnLeaveRequestHistory, btnSalarySlip);
-
-        btnEmployeeRequest.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
-            startActivity(intent);
-        });
 
         btnLeaveRequestHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestHistory.class);
@@ -200,7 +194,6 @@ public class HomeFragment extends Fragment {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
         imgEmployee = view.findViewById(R.id.img_image_employee);
-        btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
         btnLeaveRequestHistory = view.findViewById(R.id.btn_asked_leave_request);
         btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
         btnEmployeeProfile = view.findViewById(R.id.btn_employee_profile);

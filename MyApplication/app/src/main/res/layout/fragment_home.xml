@@ -211,21 +211,6 @@
                     app:strokeWidth="1dp" />
 
                 <Button
-                    android:id="@+id/btn_employee_request"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/light_light_grey"
-                    android:drawableLeft="@drawable/request"
-                    android:padding="16dp"
-                    android:text="Quản Lý Yêu Cầu"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    app:cornerRadius="7dp"
-                    app:strokeColor="@color/light_black"
-                    app:strokeWidth="1dp" />
-
-                <Button
                     android:id="@+id/btn_manager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

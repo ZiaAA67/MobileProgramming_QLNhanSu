@@ -50,9 +50,12 @@ public class EmployeeManagement extends AppCompatActivity {
     private EmployeeAdapter employeeAdapter;
     private Spinner spinnerType;
     private SearchView searchView;
-    private ExtendedFloatingActionButton fabAdd;
     private Button btnBack;
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    private boolean isArcMenuOpen = false;
+    private Button btnAdd;
+    private Button btnAddOne;
+    private Button btnAddList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,8 +129,22 @@ public class EmployeeManagement extends AppCompatActivity {
         });
 
         // Thêm nhân viên mới
-        fabAdd.setOnClickListener(v -> {
+        btnAdd.setOnClickListener(v -> {
+            if (isArcMenuOpen) {
+                closeArcMenu();
+            } else {
+                openArcMenu();
+            }
+        });
+
+        btnAddOne.setOnClickListener(v -> {
             handleClickAddEmployee();
+            closeArcMenu();
+        });
+
+        btnAddList.setOnClickListener(v -> {
+            handleClickAddListEmployee();
+            closeArcMenu();
         });
 
         // Khi thêm nhân viên mới, nếu trạng thái là thành công thì load lại dữ liệu
@@ -189,6 +206,11 @@ public class EmployeeManagement extends AppCompatActivity {
     }
 
 
+    private void handleClickAddListEmployee() {
+        Intent intent = new Intent(this, EmployeeAddListItem.class);
+        activityResultLauncher.launch(intent);
+    }
+
     private void handleClickAddEmployee() {
         Intent intent = new Intent(this, InformationRegister.class);
         intent.putExtra("message", "AdminCreate");
@@ -232,11 +254,35 @@ public class EmployeeManagement extends AppCompatActivity {
         employeeAdapter.setData(list);
     }
 
+    private void openArcMenu() {
+        btnAddOne.setVisibility(View.VISIBLE);
+        btnAddList.setVisibility(View.VISIBLE);
+
+        btnAddOne.animate().translationX(-220).translationY(-260).rotation(60).setDuration(300).start();
+        btnAddList.animate().translationX(-390).translationY(-50).rotation(20).setDuration(300).start();
+
+        isArcMenuOpen = true;
+    }
+
+    private void closeArcMenu() {
+        btnAddOne.animate().translationX(0).translationY(0).setDuration(300).rotation(0).withEndAction(() -> {
+            btnAddOne.setVisibility(View.INVISIBLE);
+        }).start();
+
+        btnAddList.animate().translationX(0).translationY(0).setDuration(300).rotation(0).withEndAction(() -> {
+            btnAddList.setVisibility(View.INVISIBLE);
+        }).start();
+
+        isArcMenuOpen = false;
+    }
+
     private void bindingView() {
         rcvEmployee = findViewById(R.id.rcv_employee);
         spinnerType = findViewById(R.id.spinner_type);
         searchView = findViewById(R.id.search_view);
-        fabAdd = findViewById(R.id.fab_add);
         btnBack = findViewById(R.id.btn_back);
+        btnAdd = findViewById(R.id.btn_add);
+        btnAddOne = findViewById(R.id.btn_add_one);
+        btnAddList = findViewById(R.id.btn_add_list);
     }
 }
