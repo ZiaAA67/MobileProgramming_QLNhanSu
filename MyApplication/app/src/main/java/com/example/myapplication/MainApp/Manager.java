@@ -16,6 +16,7 @@ import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
+import com.example.myapplication.MainApp.SalaryManager.SalaryExportExcel;
 import com.example.myapplication.MainApp.TimekeepingManager.TimekeepingExportExcel;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.MainApp.Workplace.WorkplaceManagement;
@@ -30,6 +31,7 @@ public class Manager extends AppCompatActivity {
     private LinearLayout requestEmployeeManager;
     private LinearLayout rewardDiscipline;
     private LinearLayout leaveRequestManager;
+    private LinearLayout salaryManager;
     private Button btnBack;
 
     @Override
@@ -85,6 +87,11 @@ public class Manager extends AppCompatActivity {
             startActivity(intent);
         });
 
+        salaryManager.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SalaryExportExcel.class);
+            startActivity(intent);
+        });
+
         btnBack.setOnClickListener(v -> finish());
     }
 
@@ -97,6 +104,7 @@ public class Manager extends AppCompatActivity {
         requestEmployeeManager = findViewById(R.id.request_employee_manager);
         leaveRequestManager = findViewById(R.id.leave_request_manager);
         rewardDiscipline = findViewById(R.id.reward_discipline);
+        salaryManager = findViewById(R.id.salary_manager);
         btnBack = findViewById(R.id.btn_back);
     }
 }

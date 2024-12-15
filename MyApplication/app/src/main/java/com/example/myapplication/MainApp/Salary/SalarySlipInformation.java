@@ -51,6 +51,7 @@ public class SalarySlipInformation extends AppCompatActivity {
     private TextView tvTotalSalary;
     private TextView tvReceiveSalary;
     private TextView tvReceiveSalary2;
+    private TextView tvAddMoney;
 
     private List<Employee_RewardDiscipline> employeeRewardDisciplines;
 
@@ -128,10 +129,11 @@ public class SalarySlipInformation extends AppCompatActivity {
         String positionName = (employee.getPositionId() != null) ? getPositionName(employee.getPositionId()) : "Không có chức vụ";
         String departmentName = (employee.getDepartmentId() != null) ? getDepartmentName(employee.getDepartmentId()) : "Không có phòng ban";
         Float overtime = getEmployeeOvertime(employee.getEmployeeId(), month, year);
+        Float addMoney = overtime * TaxBracket.ADD_MONEY_PER_HOUR;
         Float baseSalary = (employee.getSalaryId() != null) ? getBaseSalary(employee.getSalaryId()) : 0;
         Float allowanceSalary = (employee.getSalaryId() != null) ? getAllowanceSalary(employee.getSalaryId()) : 0;
         Float rewardDisciplineMoney = (getRewardDisciplineMoney(employee.getEmployeeId(), month, year));
-        Float totalSalary = baseSalary + allowanceSalary + rewardDisciplineMoney;
+        Float totalSalary = baseSalary + allowanceSalary + rewardDisciplineMoney + addMoney;
         Float tax = (float) calculateTax(totalSalary);
         Float receiveMoney = totalSalary - tax;
 
@@ -142,12 +144,14 @@ public class SalarySlipInformation extends AppCompatActivity {
         tvDepartment.setText(departmentName);
         tvOvertime.setText(String.format("%.1f giờ", overtime));
         tvBaseSalary.setText(String.format("%,.0f VND", baseSalary));
+        tvAddMoney.setText(String.format("%,.0f VND", addMoney));
         tvAllowance.setText(String.format("%,.0f VND", allowanceSalary));
         tvRewardDiscipline.setText(String.format("%,.0f VND", rewardDisciplineMoney));
         tvTotalSalary.setText(String.format("%,.0f VND", totalSalary));
         tvTax.setText(String.format("%,.0f VND", tax));
         tvReceiveSalary.setText(String.format("%,.0f VND", receiveMoney));
         tvReceiveSalary2.setText(String.format("%,.0f VND", receiveMoney));
+
     }
 
     private Employee getEmployee(int userId) {
@@ -246,6 +250,7 @@ public class SalarySlipInformation extends AppCompatActivity {
         tvTax = findViewById(R.id.tv_tax);
         tvReceiveSalary = findViewById(R.id.tv_receive_money);
         tvReceiveSalary2 = findViewById(R.id.tv_receive_money2);
+        tvAddMoney = findViewById(R.id.tv_add_money);
         btnBack = findViewById(R.id.btn_back);
     }
 }

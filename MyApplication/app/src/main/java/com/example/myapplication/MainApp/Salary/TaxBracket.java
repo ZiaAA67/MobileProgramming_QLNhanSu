@@ -13,6 +13,7 @@ public enum TaxBracket {
     private final double upperLimit;
     private final double taxRate;
     private final double deduction;
+    public static final float ADD_MONEY_PER_HOUR = 300_000;
 
     TaxBracket(double lowerLimit, double upperLimit, double taxRate, double deduction) {
         this.lowerLimit = lowerLimit;
