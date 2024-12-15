@@ -29,7 +29,7 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).roleDao().insert(role3);
 
         User user1 = new User("ADMIN", Configuration.md5("123"), Configuration.STRING_TODAY, true, false, 1);
-        User user2 = new User("user", Configuration.md5("123"), "1/11/2024", true, false, 3);
+        User user2 = new User("user", Configuration.md5("123"), "1/11/2024", true, false, 2);
         AppDatabase.getInstance(context).userDao().insert(user1);
         AppDatabase.getInstance(context).userDao().insert(user2);
 
@@ -82,16 +82,20 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).sessionDao().insert(session9);
         AppDatabase.getInstance(context).sessionDao().insert(session10);
 
-        Timekeeping time1 = new Timekeeping("07:47", "18:05", 0, 0, 1);
-        Timekeeping time2 = new Timekeeping("07:49", "18:02", 0, 0, 2);
-        Timekeeping time3 = new Timekeeping("08:00", "18:07", 0, 0, 3);
-        Timekeeping time4 = new Timekeeping("07:55", "18:11", 0, 0, 4);
-        Timekeeping time5 = new Timekeeping("07:54", "17:50", 0, 0, 5);
-        Timekeeping time6 = new Timekeeping("07:36", "17:57", 0, 0, 6);
-        Timekeeping time7 = new Timekeeping("07:59", "18:10", 0, 0, 7);
-        Timekeeping time8 = new Timekeeping("07:48", "18:15", 0, 0, 8);
-        Timekeeping time9 = new Timekeeping("07:51", "18:21", 0, 0, 9);
-        Timekeeping time10 = new Timekeeping("07:52", "18:22", 0, 0, 10);
+        Employee employee1 = new Employee("Thái Đỗ Đỉnh", 0, "21/02/2004", "089204014523", "Đỉnh Everest", "0921343540", "2251010086thinh@ou.edu.vn", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", 1, 1, 1, null, 1, 1);
+        Employee employee2 = new Employee("Dách 5 tiệu", 0, "22/02/1997", "119204014523", "Mariana", "0921113549", "5trieujack@gmail.com", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", 2, 2, 2, null, 2, 1);
+        AppDatabase.getInstance(context).employeeDao().insert(employee1, employee2);
+
+        Timekeeping time1 = new Timekeeping("07:47", "18:05", 0, 0, 1, 2);
+        Timekeeping time2 = new Timekeeping("07:49", "18:02", 0, 0, 2, 2);
+        Timekeeping time3 = new Timekeeping("08:00", "18:07", 0, 0, 3, 2);
+        Timekeeping time4 = new Timekeeping("07:55", "18:11", 0, 0, 4, 2);
+        Timekeeping time5 = new Timekeeping("07:54", "17:50", 0, 0, 5, 2);
+        Timekeeping time6 = new Timekeeping("07:36", "17:57", 0, 0, 6, 2);
+        Timekeeping time7 = new Timekeeping("07:59", "18:10", 0, 0, 7, 2);
+        Timekeeping time8 = new Timekeeping("07:48", "18:15", 0, 0, 8, 2);
+        Timekeeping time9 = new Timekeeping("07:51", "18:21", 0, 0, 9, 2);
+        Timekeeping time10 = new Timekeeping("07:52", "18:22", 0, 0, 10, 2);
         AppDatabase.getInstance(context).timekeepingDao().insert(time1);
         AppDatabase.getInstance(context).timekeepingDao().insert(time2);
         AppDatabase.getInstance(context).timekeepingDao().insert(time3);
@@ -102,10 +106,6 @@ public class SampleDatabase {
         AppDatabase.getInstance(context).timekeepingDao().insert(time8);
         AppDatabase.getInstance(context).timekeepingDao().insert(time9);
         AppDatabase.getInstance(context).timekeepingDao().insert(time10);
-
-        Employee employee1 = new Employee("Thái Đỗ Đỉnh", 0, "21/02/2004", "089204014523", "Đỉnh Everest", "0921343540", "2251010086thinh@ou.edu.vn", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", 1, 1, 1, null, 1, 1);
-        Employee employee2 = new Employee("Dách 5 tiệu", 0, "22/02/1997", "119204014523", "Mariana", "0921113549", "5trieujack@gmail.com", true, true, "https://res.cloudinary.com/dbmwgavqz/image/upload/v1732299242/Sample_User_Icon_n52rlr.png", 2, 2, 2, null, 2, 1);
-        AppDatabase.getInstance(context).employeeDao().insert(employee1, employee2);
 
         Employee_Session empSession1 = new Employee_Session(2, 1);
         Employee_Session empSession2 = new Employee_Session(2, 2);

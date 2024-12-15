@@ -60,10 +60,9 @@
                 app:boxCornerRadiusBottomStart="18dp"
                 app:boxCornerRadiusTopEnd="18dp"
                 app:boxCornerRadiusTopStart="18dp"
-                app:boxStrokeColor="@color/grey"
+                app:boxStrokeColor="@color/light_sea_green"
                 app:boxStrokeWidth="2dp"
-                android:textColorHint="@color/light_sea_green"
-                >
+                app:hintTextColor="@color/light_sea_green">
 
                 <EditText
                     android:id="@+id/edt_workplace_name"
@@ -88,10 +87,9 @@
                 app:boxCornerRadiusBottomStart="18dp"
                 app:boxCornerRadiusTopEnd="18dp"
                 app:boxCornerRadiusTopStart="18dp"
-                app:boxStrokeColor="@color/grey"
+                app:boxStrokeColor="@color/light_sea_green"
                 app:boxStrokeWidth="2dp"
-                android:textColorHint="@color/light_sea_green"
-                >
+                app:hintTextColor="@color/light_sea_green">
 
                 <EditText
                     android:id="@+id/edt_workplace_address"
@@ -101,7 +99,7 @@
                     android:cursorVisible="false"
                     android:focusable="false"
                     android:inputType="textMultiLine"
-                    android:lines="2"
+                    android:lines="3"
                     android:hint="Địa chỉ"
                     android:padding="8dp"
                     android:textSize="18sp"

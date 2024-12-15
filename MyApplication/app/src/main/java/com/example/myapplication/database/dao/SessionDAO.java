@@ -29,7 +29,7 @@ public interface SessionDAO {
     Session getSessionById(int sessionId);
 
     @Query("SELECT * FROM Session WHERE Day = :day AND Month = :month AND Year = :year")
-    List<Session> getSessionByDayMonthYear(int day, int month, int year);
+    Session getSessionByDayMonthYear(int day, int month, int year);
 
     @Query("SELECT * FROM Session WHERE Month = :month AND Year = :year")
     List<Session> getSessionsByMonth(int month, int year);

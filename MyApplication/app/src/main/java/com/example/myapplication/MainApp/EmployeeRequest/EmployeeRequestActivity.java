@@ -49,13 +49,13 @@ public class EmployeeRequestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_employee_request);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // Ánh xạ view
         bindingView();
@@ -63,7 +63,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
         // Lấy list ds đơn cần duyệt ( chưa được duyệt )
         mlist = AppDatabase.getInstance(this).employeeDao().getDisapproveEmployees();
         if(mlist.isEmpty()) {
-            Toast.makeText(this, "Không có đơn yêu cầu nào cần được duyệt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không có yêu cầu nào cần duyệt!", Toast.LENGTH_SHORT).show();
         }
 
         // Set adapter
@@ -82,13 +82,42 @@ public class EmployeeRequestActivity extends AppCompatActivity {
         mListView.setAdapter(profileAdapter);
 
         btnApproveAll.setOnClickListener(view -> {
-            mlist.forEach(employee -> {
-                employee.setApprove(true);
-                AppDatabase.getInstance(EmployeeRequestActivity.this).employeeDao().update(employee);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("Cảnh báo!");
+            dialog.setMessage("Bạn có chắc chắn muốn duyệt tất cả?");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // check có role là User hay chưa, nếu chưa có thì tạo role
+                    Role userRole = AppDatabase.getInstance(EmployeeRequestActivity.this).roleDao().getRoleByName("User");
+                    if(userRole == null) {
+                        userRole = new Role("User", "Can access to the system, have a payslip and can request leave");
+                        int roleId = (int)AppDatabase.getInstance(EmployeeRequestActivity.this).roleDao().insertReturnId(userRole);
+                        userRole.setRoleId(roleId);
+                    }
+
+                    Role finalUserRole = userRole;
+                    mlist.forEach(employee -> {
+                        employee.setApprove(true);
+                        AppDatabase.getInstance(EmployeeRequestActivity.this).employeeDao().update(employee);
+
+                        // thay đổi role user từ public -> user
+                        User user = AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().getUserById(employee.getUserId());
+                        user.setRoleId(finalUserRole.getRoleId());
+                        AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().update(user);
+                    });
+                    Toast.makeText(EmployeeRequestActivity.this, "Duyệt tất cả thành công!", Toast.LENGTH_SHORT).show();
+                    mlist.clear();
+                    profileAdapter.notifyDataSetChanged();
+                }
             });
-            Toast.makeText(this, "Duyệt tất cả thành công!", Toast.LENGTH_SHORT).show();
-            mlist.clear();
-            profileAdapter.notifyDataSetChanged();
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            dialog.create().show();
         });
 
         btnDisapproveAll.setOnClickListener(view -> {
@@ -106,6 +135,7 @@ public class EmployeeRequestActivity extends AppCompatActivity {
                         user.setActive(false);
                         AppDatabase.getInstance(EmployeeRequestActivity.this).userDao().update(user);
                     });
+                    Toast.makeText(EmployeeRequestActivity.this, "Từ chối tất cả thành công!", Toast.LENGTH_SHORT).show();
                     mlist.clear();
                     profileAdapter.notifyDataSetChanged();
                 }
@@ -154,20 +184,35 @@ public class EmployeeRequestActivity extends AppCompatActivity {
             int workplaceId = spinnerWorkplace.getSelectedItemPosition();
 
             String to = employee.getEmail();
-            String sub = "Đơn đăng ký của bạn đã được duyệt!!!";
-            String content = "Chúc mừng, đơn đăng ký của bạn đã được quản trị viên duyệt thành công.\n Bạn có thể bắt đầu công việc ngay bây giờ!";
+            String sub = "Đơn Đăng Ký Của Bạn Đã Được Duyệt!";
+            String content = "<span><strong> Chúc mừng, đơn đăng ký của bạn đã được ban quản trị duyệt thành công &#127881;&#127881;&#127881; </strong></span>\n" +
+                            "<p> Bạn có thể bắt đầu công việc ngay bây giờ!!!</p>\n" +
+                            "<img src=\"https://res.cloudinary.com/dbmwgavqz/image/upload/v1733932636/congratulations-beautiful-greeting-card-poster-banner_mcbrqu.jpg\"/>";
 
             // Gửi mail đăng ký thành công
             Configuration.sendMail(this, to, sub, content);
 
             // Lưu xuống db
             try {
+                // update dữ liệu nhân viên
                 employee.setApprove(true);
                 employee.setDepartmentId( departmentId == 0 ? null : departmentId );
                 employee.setPositionId( positionId == 0 ? null : positionId );
                 employee.setWorkplaceId( workplaceId == 0 ? null : workplaceId );
-
                 AppDatabase.getInstance(this).employeeDao().update(employee);
+
+                // check có role là User hay chưa, nếu chưa có thì tạo role
+                Role userRole = AppDatabase.getInstance(this).roleDao().getRoleByName("User");
+                if(userRole == null) {
+                    userRole = new Role("User", "Can access to the system, have a payslip and can request leave");
+                    int roleId = (int)AppDatabase.getInstance(this).roleDao().insertReturnId(userRole);
+                    userRole.setRoleId(roleId);
+                }
+
+                // thay đổi role user từ public -> user
+                User user = AppDatabase.getInstance(this).userDao().getUserById(employee.getUserId());
+                user.setRoleId(userRole.getRoleId());
+                AppDatabase.getInstance(this).userDao().update(user);
 
                 // Xoá khỏi list chờ duyệt và lưu thay đổi
                 mlist.remove(employee);

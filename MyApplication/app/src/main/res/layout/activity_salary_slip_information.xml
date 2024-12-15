@@ -338,6 +338,37 @@
                         android:layout_height="match_parent">
 
                         <TextView
+                            android:id="@+id/textView00"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:gravity="left"
+                            android:text="Tiền tăng ca"
+                            android:textColor="@color/grey" />
+
+                        <TextView
+                            android:id="@+id/tv_add_money"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0 VND"
+                            android:textColor="@color/black" />
+                    </TableRow>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/gray" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
                             android:id="@+id/textView16"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

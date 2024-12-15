@@ -18,7 +18,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Session;
 import com.example.myapplication.database.entities.Shift;
@@ -75,10 +74,16 @@ public class TimekeepingExportExcel extends AppCompatActivity {
                 int yearTo = toDate.get(Calendar.YEAR);
 
                 String employeeIdText = searchView.getQuery().toString();
+
                 if (spinnerType.getSelectedItemPosition() == 1) {
                     if (!employeeIdText.isEmpty()) {
-                        int employeeId = Integer.parseInt(employeeIdText);
-                        getSessionsForEmployeeInDateRange(employeeId, dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+                        try {
+                            int employeeId = Integer.parseInt(employeeIdText);
+                            getSessionsForEmployeeInDateRange(employeeId, dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Mã nhân viên không hợp lệ!", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
                     } else {
                         Toast.makeText(this, "Vui lòng nhập mã nhân viên!", Toast.LENGTH_SHORT).show();
                     }
@@ -87,7 +92,7 @@ public class TimekeepingExportExcel extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Đã xảy ra lỗi!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Đã xảy ra lỗi khi export excel!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -169,63 +174,52 @@ public class TimekeepingExportExcel extends AppCompatActivity {
             Toast.makeText(this, "Xuất file thành công: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             Toast.makeText(this, "Lỗi khi xuất file: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 
     private void getSessionsForEmployeeInDateRange(int employeeId, int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo) {
         try {
+            AppDatabase db = AppDatabase.getInstance(this);
 
-            List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
-                    .employeeSessionDao()
-                    .getSessionByEmployeeId(employeeId);
-
-            List<Session> allSessions = AppDatabase.getInstance(this)
-                    .sessionDao()
-                    .getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
-
-            List<Session> filteredSessions = new ArrayList<>();
-            for (Employee_Session employeeSession : employeeSessions) {
-                for (Session session : allSessions) {
-                    if (employeeSession.getSessionID() == session.getSessionId()) {
-                        filteredSessions.add(session);
-                    }
-                }
-            }
+            // Lấy danh sách các phiên làm việc trong khoảng ngày
+            List<Session> allSessions = db.sessionDao().getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
 
             List<Timekeeping> timekeepings = new ArrayList<>();
-            for (Session session : filteredSessions) {
-                List<Timekeeping> timekeepings1 = AppDatabase.getInstance(this).timekeepingDao()
-                        .getTimekeepingBySessionId(session.getSessionId());
-
-                timekeepings.addAll(timekeepings1);
+            for (Session session : allSessions) {
+                timekeepings.addAll(AppDatabase.getInstance(this)
+                        .timekeepingDao().getTimekeepingBySessionIdAndEmployeeId(session.getSessionId(), employeeId));
             }
 
+            // Tạo danh sách ExportItem
             List<ExportItem> exportItemList = new ArrayList<>();
+            Employee employee = db.employeeDao().getById(employeeId);
             for (Timekeeping timekeeping : timekeepings) {
                 ExportItem exportItem = new ExportItem();
-                Employee employee = AppDatabase.getInstance(this).employeeDao().getById(employeeId);
+
                 exportItem.setEmployeeID(employeeId);
                 exportItem.setFullname(employee.getFullName());
 
-                Department department = AppDatabase.getInstance(this).departmentDao().getById(employee.getDepartmentId());
+                Department department = db.departmentDao().getById(employee.getDepartmentId());
                 exportItem.setDepartment(department != null ? department.getDepartmentName() : "Không có!");
 
-                Position position = AppDatabase.getInstance(this).positionDao().getPositionById(employee.getPositionId());
+                Position position = db.positionDao().getPositionById(employee.getPositionId());
                 exportItem.setPosition(position != null ? position.getPositionName() : "Không có!");
 
-                Session session = AppDatabase.getInstance(this).sessionDao().getSessionById(timekeeping.getSessionId());
+                Session session = db.sessionDao().getSessionById(timekeeping.getSessionId());
                 exportItem.setDate(session.getDay() + "/" + session.getMonth() + "/" + session.getYear());
 
                 exportItem.setTimeIn(timekeeping.getTimeIn());
                 exportItem.setTimeOut(timekeeping.getTimeOut());
                 exportItem.setOverTime(String.valueOf(timekeeping.getOvertime()));
 
-                Shift shift = AppDatabase.getInstance(this).shiftDao().getShiftById(session.getShiftId());
+                Shift shift = db.shiftDao().getShiftById(session.getShiftId());
                 exportItem.setShiftName(shift != null ? shift.getShiftType() : "Không có!");
 
                 exportItemList.add(exportItem);
             }
 
+            // Xuất ra Excel
             if (!exportItemList.isEmpty()) {
                 exportToExcel(exportItemList);
             } else {
@@ -239,7 +233,63 @@ public class TimekeepingExportExcel extends AppCompatActivity {
     }
 
     private void getAllTimekeeping(int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo) {
-        Toast.makeText(this, "Hiện tại chưa xử lí chức năng này", Toast.LENGTH_SHORT).show();
+        try {
+            AppDatabase db = AppDatabase.getInstance(this);
+
+            List<ExportItem> exportItemList = new ArrayList<>();
+
+            List<Employee> employees = AppDatabase.getInstance(this).employeeDao().getAllEmployees();
+
+
+            List<Timekeeping> timekeepings = new ArrayList<>();
+
+            for (Employee employee : employees) {
+
+                List<Session> allSessions = db.sessionDao().getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+
+                for (Session session : allSessions) {
+                    timekeepings.addAll(AppDatabase.getInstance(this)
+                            .timekeepingDao().getTimekeepingBySessionIdAndEmployeeId(session.getSessionId(), employee.getEmployeeId()));
+                }
+            }
+
+            for (Timekeeping timekeeping : timekeepings) {
+                ExportItem exportItem = new ExportItem();
+
+                Employee employee = AppDatabase.getInstance(this).employeeDao().getById(timekeeping.getEmployeeId());
+                exportItem.setEmployeeID(employee.getEmployeeId());
+                exportItem.setFullname(employee.getFullName());
+
+                Department department = db.departmentDao().getById(employee.getDepartmentId());
+                exportItem.setDepartment(department != null ? department.getDepartmentName() : "Không có!");
+
+                Position position = db.positionDao().getPositionById(employee.getPositionId());
+                exportItem.setPosition(position != null ? position.getPositionName() : "Không có!");
+
+                Session session = db.sessionDao().getSessionById(timekeeping.getSessionId());
+                exportItem.setDate(session.getDay() + "/" + session.getMonth() + "/" + session.getYear());
+
+                exportItem.setTimeIn(timekeeping.getTimeIn());
+                exportItem.setTimeOut(timekeeping.getTimeOut());
+                exportItem.setOverTime(String.valueOf(timekeeping.getOvertime()));
+
+                Shift shift = db.shiftDao().getShiftById(session.getShiftId());
+                exportItem.setShiftName(shift != null ? shift.getShiftType() : "Không có!");
+
+                exportItemList.add(exportItem);
+            }
+
+            // Xuất ra Excel
+            if (!exportItemList.isEmpty()) {
+                exportToExcel(exportItemList);
+            } else {
+                Toast.makeText(this, "Không có dữ liệu chấm công để xuất.", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Đã xảy ra lỗi khi lấy danh sách chấm công của tất cả nhân viên!", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private void setupSpinnerType() {
@@ -264,7 +314,6 @@ public class TimekeepingExportExcel extends AppCompatActivity {
             }
         });
     }
-
 
     private void initUI() {
         btnBack = findViewById(R.id.btn_back);

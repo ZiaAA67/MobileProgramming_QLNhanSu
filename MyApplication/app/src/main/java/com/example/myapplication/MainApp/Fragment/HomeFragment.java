@@ -19,11 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.MainApp.AttendanceHistory.AttendanceHistory;
 import com.example.myapplication.MainApp.EmployeeProfile.EmployeeProfile;
-import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestHistory;
-import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.Manager;
-import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
 import com.example.myapplication.MainApp.Timekeeping.NewTimekeeping;
 import com.example.myapplication.R;
@@ -41,11 +38,8 @@ public class HomeFragment extends Fragment {
     private TextView employeeNameTextView;
     private TextView positionTextView;
     private ImageView imgEmployee;
-    private Button btnEmployeeRequest;
     private Button btnLeaveRequestHistory;
-    private Button btnLeaveRequestManager;
     private Button btnEmployeeProfile;
-    private Button btnRewardDiscipline;
     private Button btnSalarySlip;
     private Button btnManager;
     private Button btnHistory;
@@ -58,21 +52,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initUI(view);
 
-//        userId = intent.getIntExtra("UserID", -1);
-//        user = (User) requireActivity().getIntent().getSerializableExtra("User");
-
         if (getArguments() != null) {
             user = (User) getArguments().getSerializable("User");
         }
 
         showEmployeeInfo();
 
-        adminButton(user.getUserId(), "Admin", btnEmployeeRequest, btnLeaveRequestManager, btnRewardDiscipline, btnManager);
-
-        btnEmployeeRequest.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), EmployeeRequestActivity.class);
-            startActivity(intent);
-        });
+        adminButton(user.getUserId(), "Admin", btnManager, btnStats);
+        hideButtonInPublicRole(user, btnLeaveRequestHistory, btnSalarySlip);
 
         btnLeaveRequestHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestHistory.class);
@@ -82,18 +69,6 @@ public class HomeFragment extends Fragment {
 
         btnEmployeeProfile.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), EmployeeProfile.class);
-            intent.putExtra("UserID", user.getUserId());
-            startActivity(intent);
-        });
-
-        btnLeaveRequestManager.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), LeaveRequestManager.class);
-            intent.putExtra("UserID", user.getUserId());
-            startActivity(intent);
-        });
-
-        btnRewardDiscipline.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), RewardsDiscipline.class);
             intent.putExtra("UserID", user.getUserId());
             startActivity(intent);
         });
@@ -148,11 +123,9 @@ public class HomeFragment extends Fragment {
                     if (posId != null) {
                         Position position = db.positionDao().getPositionById(employee.getPositionId());
                         positionTextView.setText(position.getPositionName());
+                    } else {
+                        positionTextView.setText("Chức vụ");
                     }
-
-//                    else {
-//                        positionTextView.setText("Không chức vụ");
-//                    }
 
                 }
 //                else {
@@ -182,7 +155,17 @@ public class HomeFragment extends Fragment {
         Role role = db.roleDao().getRoleById(roleId);
 
         // VISIBLE admin buttion
-        if (role != null && !rolename.equals(role.getRoleName())) {
+        if (role != null && (!rolename.equals(role.getRoleName()) && !role.getRoleName().equals("Manager"))) {
+            for (Button button : buttons) {
+                button.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void hideButtonInPublicRole(User user, Button... buttons) {
+        String roleName = AppDatabase.getInstance(getContext()).roleDao().getRoleById(user.getRoleId()).getRoleName();
+
+        if (roleName.equals("Public")) {
             for (Button button : buttons) {
                 button.setVisibility(View.GONE);
             }
@@ -193,11 +176,8 @@ public class HomeFragment extends Fragment {
         employeeNameTextView = view.findViewById(R.id.tv_emloyeename);
         positionTextView = view.findViewById(R.id.tv_position);
         imgEmployee = view.findViewById(R.id.img_image_employee);
-        btnEmployeeRequest = view.findViewById(R.id.btn_employee_request);
         btnLeaveRequestHistory = view.findViewById(R.id.btn_asked_leave_request);
-        btnLeaveRequestManager = view.findViewById(R.id.btn_leave_request_manager);
         btnEmployeeProfile = view.findViewById(R.id.btn_employee_profile);
-        btnRewardDiscipline = view.findViewById(R.id.btn_reward_discipline);
         btnSalarySlip = view.findViewById(R.id.btn_salary_slip);
         btnManager = view.findViewById(R.id.btn_manager);
         btnHistory = view.findViewById(R.id.btn_history);

@@ -5,18 +5,26 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Timekeeping",
-        foreignKeys = @ForeignKey(
-                entity = Session.class,
-                parentColumns = "SessionID",
-                childColumns = "SessionID",
-                onDelete = ForeignKey.SET_NULL
-        )
+@Entity(
+        tableName = "Timekeeping",
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Session.class,
+                        parentColumns = "SessionID",
+                        childColumns = "SessionID",
+                        onDelete = ForeignKey.SET_NULL
+                ),
+                @ForeignKey(
+                        entity = Employee.class,
+                        parentColumns = "EmployeeID",
+                        childColumns = "EmployeeID",
+                        onDelete = ForeignKey.CASCADE
+                )
+        }
 )
 public class Timekeeping {
 
     @PrimaryKey(autoGenerate = true)
-
     @ColumnInfo(name = "TimekeepingID")
     private int timekeepingId;
 
@@ -35,13 +43,17 @@ public class Timekeeping {
     @ColumnInfo(name = "SessionID")
     private int sessionId;
 
+    @ColumnInfo(name = "EmployeeID")
+    private int employeeId;
+
     // Constructor
-    public Timekeeping(String timeIn, String timeOut, Integer isAbsent, int overtime, int sessionId) {
+    public Timekeeping(String timeIn, String timeOut, Integer isAbsent, int overtime, int sessionId, int employeeId) {
         this.timeIn = timeIn;
         this.timeOut = timeOut;
         this.isAbsent = isAbsent;
         this.overtime = overtime;
         this.sessionId = sessionId;
+        this.employeeId = employeeId;
     }
 
     public Timekeeping() {
@@ -94,5 +106,13 @@ public class Timekeeping {
 
     public void setSessionId(int sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 }

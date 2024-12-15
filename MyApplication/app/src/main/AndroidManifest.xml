@@ -29,6 +29,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MainApp.Employee.EmployeeAddListItem"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.UserAccount.UserAccountAddItem"
+            android:exported="false" />
+        <activity
             android:name=".Stats.Stats"
             android:exported="false" />
         <activity
@@ -42,10 +48,9 @@
             android:exported="false" />
         <activity
             android:name=".MainApp.Department.DepartmentManagement"
-            android:exported="false" />
-        <activity
-            android:name=".MainApp.Employee.EmployeeManagement"
-            android:exported="false" />
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".MainApp.Employee.EmployeeManagement" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".MainApp.UserAccount.UserAccountManagement"
             android:exported="false" />
@@ -102,6 +107,12 @@
             android:exported="false" />
         <activity
             android:name=".MainApp.TimekeepingManager.TimekeepingExportExcel"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Employee.EmployeeManagement"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.SalaryManager.SalaryExportExcel"
             android:exported="false" />
         <activity
             android:name=".Login.ChangePassword"
