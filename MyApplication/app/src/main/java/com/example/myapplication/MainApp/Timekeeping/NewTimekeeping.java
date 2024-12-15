@@ -77,7 +77,7 @@ public class NewTimekeeping extends AppCompatActivity {
 
             if (existingSession == null) {
                 // Tạo session mới nếu không có
-                Session session = new Session(day, month, year, false, DEFAULT_SHIFT); // shiftId = 3 (ca hành chính)
+                Session session = new Session(day, month, year, false, DEFAULT_SHIFT); // shiftId = 1 (ca hành chính)
                 long insertedId = AppDatabase.getInstance(this).sessionDao().insert(session);
 
                 if (insertedId == -1) {
@@ -113,24 +113,10 @@ public class NewTimekeeping extends AppCompatActivity {
     }
 
     private Session getSessionForToday(int day, int month, int year) {
-        // Lấy danh sách sessionId của nhân viên
-        List<Integer> employeeSessionIds = AppDatabase.getInstance(this)
-                .employeeSessionDao()
-                .getSessionIdsByEmployeeId(getEmployeeId(userId));
-
-        // Lấy danh sách session của ngày hiện tại
-        List<Session> sessionsForDate = AppDatabase.getInstance(this)
+        Session sessionsForDate = AppDatabase.getInstance(this)
                 .sessionDao()
                 .getSessionByDayMonthYear(day, month, year);
-
-        // Kiểm tra session của nhân viên trong ngày
-        for (Session session : sessionsForDate) {
-            if (employeeSessionIds.contains(session.getSessionId())) {
-                return session;
-            }
-        }
-
-        return null; // Không tìm thấy session
+        return sessionsForDate != null ? sessionsForDate : null;
     }
 
     private void saveTimekeepingState() {
@@ -205,6 +191,7 @@ public class NewTimekeeping extends AppCompatActivity {
                 // Lưu thời gian chấm công vào cơ sở dữ liệu
                 timekeeping.setIsAbsent(0);
                 timekeeping.setOvertime(calculateOvertime());
+                timekeeping.setEmployeeId(employeeId);
                 AppDatabase.getInstance(this).timekeepingDao().insert(timekeeping);
                 makeToast("Chấm công ra thành công lúc ");
             } catch (Exception e) {

@@ -18,7 +18,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Session;
 import com.example.myapplication.database.entities.Shift;
@@ -36,9 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TimekeepingExportExcel extends AppCompatActivity {
 
@@ -185,30 +182,13 @@ public class TimekeepingExportExcel extends AppCompatActivity {
         try {
             AppDatabase db = AppDatabase.getInstance(this);
 
-            // Lấy danh sách sessionId của nhân viên
-            List<Employee_Session> employeeSessions = db.employeeSessionDao().getSessionByEmployeeId(employeeId);
-
             // Lấy danh sách các phiên làm việc trong khoảng ngày
             List<Session> allSessions = db.sessionDao().getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
 
-            // Lọc các session phù hợp
-            Set<Integer> employeeSessionIds = new HashSet<>();
-            for (Employee_Session employeeSession : employeeSessions) {
-                employeeSessionIds.add(employeeSession.getSessionID());
-            }
-
-            List<Session> filteredSessions = new ArrayList<>();
-            for (Session session : allSessions) {
-                if (employeeSessionIds.contains(session.getSessionId())) {
-                    filteredSessions.add(session);
-                }
-            }
-
-            // Lấy dữ liệu chấm công
             List<Timekeeping> timekeepings = new ArrayList<>();
-            for (Session session : filteredSessions) {
-                List<Timekeeping> timekeepingsBySession = db.timekeepingDao().getTimekeepingBySessionId(session.getSessionId());
-                timekeepings.addAll(timekeepingsBySession);
+            for (Session session : allSessions) {
+                timekeepings.addAll(AppDatabase.getInstance(this)
+                        .timekeepingDao().getTimekeepingBySessionIdAndEmployeeId(session.getSessionId(), employeeId));
             }
 
             // Tạo danh sách ExportItem
@@ -258,58 +238,45 @@ public class TimekeepingExportExcel extends AppCompatActivity {
 
             List<ExportItem> exportItemList = new ArrayList<>();
 
-            // Lấy toàn bộ nhân viên
             List<Employee> employees = AppDatabase.getInstance(this).employeeDao().getAllEmployees();
+
+
+            List<Timekeeping> timekeepings = new ArrayList<>();
+
             for (Employee employee : employees) {
 
-                // Lấy danh sách các phiên làm việc của nhân viên
-                List<Employee_Session> employee_sessions = db.employeeSessionDao().getSessionByEmployeeId(employee.getEmployeeId());
-
-                // Lấy danh sách các phiên làm việc trong khoảng ngày
                 List<Session> allSessions = db.sessionDao().getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
 
-                // Tạo một danh sách các sessionID từ employee_sessions
-                Set<Integer> employeeSessionIds = new HashSet<>();
-                for (Employee_Session employeeSession : employee_sessions) {
-                    employeeSessionIds.add(employeeSession.getSessionID());
-                }
-
-                // Lọc các session trong allSessions dựa trên sessionID
-                List<Session> filteredSessions = new ArrayList<>();
                 for (Session session : allSessions) {
-                    if (employeeSessionIds.contains(session.getSessionId())) {
-                        filteredSessions.add(session);
-                    }
+                    timekeepings.addAll(AppDatabase.getInstance(this)
+                            .timekeepingDao().getTimekeepingBySessionIdAndEmployeeId(session.getSessionId(), employee.getEmployeeId()));
                 }
+            }
 
-                for (Session session : filteredSessions) {
-                    List<Timekeeping> timekeepings = new ArrayList<>();
-                    timekeepings.addAll(db.timekeepingDao().getTimekeepingBySessionId(session.getSessionId()));
-                    for (Timekeeping timekeeping : timekeepings) {
-                        ExportItem exportItem = new ExportItem();
+            for (Timekeeping timekeeping : timekeepings) {
+                ExportItem exportItem = new ExportItem();
 
-                        exportItem.setEmployeeID(employee.getEmployeeId() != 0 ? employee.getEmployeeId() : 0);
-                        exportItem.setFullname(employee.getFullName());
+                Employee employee = AppDatabase.getInstance(this).employeeDao().getById(timekeeping.getEmployeeId());
+                exportItem.setEmployeeID(employee.getEmployeeId());
+                exportItem.setFullname(employee.getFullName());
 
-                        Department department = db.departmentDao().getById(employee.getDepartmentId());
-                        exportItem.setDepartment(department != null ? department.getDepartmentName() : "Không có!");
+                Department department = db.departmentDao().getById(employee.getDepartmentId());
+                exportItem.setDepartment(department != null ? department.getDepartmentName() : "Không có!");
 
-                        Position position = db.positionDao().getPositionById(employee.getPositionId());
-                        exportItem.setPosition(position != null ? position.getPositionName() : "Không có!");
+                Position position = db.positionDao().getPositionById(employee.getPositionId());
+                exportItem.setPosition(position != null ? position.getPositionName() : "Không có!");
 
-                        Session session1 = db.sessionDao().getSessionById(timekeeping.getSessionId());
-                        exportItem.setDate(session.getDay() + "/" + session.getMonth() + "/" + session.getYear());
+                Session session = db.sessionDao().getSessionById(timekeeping.getSessionId());
+                exportItem.setDate(session.getDay() + "/" + session.getMonth() + "/" + session.getYear());
 
-                        exportItem.setTimeIn(timekeeping.getTimeIn());
-                        exportItem.setTimeOut(timekeeping.getTimeOut());
-                        exportItem.setOverTime(String.valueOf(timekeeping.getOvertime()));
+                exportItem.setTimeIn(timekeeping.getTimeIn());
+                exportItem.setTimeOut(timekeeping.getTimeOut());
+                exportItem.setOverTime(String.valueOf(timekeeping.getOvertime()));
 
-                        Shift shift = db.shiftDao().getShiftById(session.getShiftId());
-                        exportItem.setShiftName(shift != null ? shift.getShiftType() : "Không có!");
+                Shift shift = db.shiftDao().getShiftById(session.getShiftId());
+                exportItem.setShiftName(shift != null ? shift.getShiftType() : "Không có!");
 
-                        exportItemList.add(exportItem);
-                    }
-                }
+                exportItemList.add(exportItem);
             }
 
             // Xuất ra Excel

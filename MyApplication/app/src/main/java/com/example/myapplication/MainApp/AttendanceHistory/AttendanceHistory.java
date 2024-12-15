@@ -21,8 +21,10 @@ import com.example.myapplication.database.entities.Timekeeping;
 
 import java.time.LocalDate;
 import java.time.temporal.IsoFields;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AttendanceHistory extends AppCompatActivity {
 
@@ -95,26 +97,34 @@ public class AttendanceHistory extends AppCompatActivity {
         textViewTotalDays.setText("Tổng số ngày công: " + totalDays);
     }
 
-    private List<Timekeeping> getEmployeeTimekeeping(int employeeId, int weekNumber) {
-        // Get all Session of this employee
-        List<Employee_Session> employeeSessions = AppDatabase.getInstance(this)
-                .employeeSessionDao().getSessionByEmployeeId(employeeId);
+    public List<Session> getSessionsByWeek(int weekNumber, int year) {
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
+        LocalDate startOfWeek = firstDayOfYear.with(weekFields.weekOfYear(), weekNumber).with(weekFields.dayOfWeek(), 1);
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
 
-        List<Session> sessionsForWeek = new ArrayList<>();
-        for (Employee_Session employeeSession : employeeSessions) {
-            Session session = AppDatabase.getInstance(this).sessionDao()
-                    .getSessionById(employeeSession.getSessionID());
-            int sessionWeek = getWeekOfYear(session.getYear(), session.getMonth(), session.getDay());
-            if (sessionWeek == weekNumber) {
-                sessionsForWeek.add(session);
-            }
-        }
+        // Lấy ngày, tháng, năm bắt đầu và kết thúc tuần
+        int dayFrom = startOfWeek.getDayOfMonth();
+        int monthFrom = startOfWeek.getMonthValue();
+        int yearFrom = startOfWeek.getYear();
+
+        int dayTo = endOfWeek.getDayOfMonth();
+        int monthTo = endOfWeek.getMonthValue();
+        int yearTo = endOfWeek.getYear();
+
+        return AppDatabase.getInstance(this).sessionDao().getSessionsBetweenDates(dayFrom, monthFrom, yearFrom, dayTo, monthTo, yearTo);
+    }
+
+    private List<Timekeeping> getEmployeeTimekeeping(int employeeId, int weekNumber) {
+
+        List<Session> sessionsForWeek = getSessionsByWeek(weekNumber, currentYear);
 
         List<Timekeeping> timekeepingList = new ArrayList<>();
         for (Session session : sessionsForWeek) {
             timekeepingList.addAll(AppDatabase.getInstance(this)
-                    .timekeepingDao().getTimekeepingBySessionId(session.getSessionId()));
+                    .timekeepingDao().getTimekeepingBySessionIdAndEmployeeId(session.getSessionId(), employeeId));
         }
+
         return timekeepingList;
     }
 
@@ -186,7 +196,13 @@ public class AttendanceHistory extends AppCompatActivity {
 
     private void handleNext() {
         if (currentMode.equals("week")) {
-            currentWeek++;
+            // Check if the current week exceeds the maximum number of weeks in the year
+            if (currentWeek < 52) {  // Assuming the maximum is 52 weeks
+                currentWeek++;
+            } else {
+                currentWeek = 1; // Loop back to the first week of the next year
+                currentYear++;
+            }
             updateWeekView();
         } else if (currentMode.equals("month")) {
             if (currentMonth < 12) {
@@ -204,7 +220,12 @@ public class AttendanceHistory extends AppCompatActivity {
 
     private void handlePrevious() {
         if (currentMode.equals("week")) {
-            currentWeek--;
+            if (currentWeek > 1) {
+                currentWeek--;
+            } else {
+                currentWeek = 52;
+                currentYear--;
+            }
             updateWeekView();
         } else if (currentMode.equals("month")) {
             if (currentMonth > 1) {
@@ -220,7 +241,6 @@ public class AttendanceHistory extends AppCompatActivity {
         }
     }
 
-    // Tính tuần của năm từ ngày, tháng, năm
     private int getWeekOfYear(int year, int month, int day) {
         LocalDate date = LocalDate.of(year, month, day);
         return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
