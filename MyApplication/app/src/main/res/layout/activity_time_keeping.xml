@@ -59,7 +59,7 @@
                 android:id="@+id/tv_workplace"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded_pass_background"
+                android:background="@drawable/bg_radius"
                 android:drawableLeft="@drawable/workplace"
                 android:drawableTint="@color/light_sea_green"
                 android:gravity="center_vertical"
@@ -73,7 +73,8 @@
             android:layout_width="350dp"
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/bg_radius">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
