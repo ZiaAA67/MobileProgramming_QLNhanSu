@@ -21,6 +21,7 @@ import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Salary;
 import com.example.myapplication.database.entities.Session;
 import com.example.myapplication.database.entities.Timekeeping;
+import com.example.myapplication.database.entities.User;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -75,7 +76,8 @@ public class SalaryExportExcel extends AppCompatActivity {
                 if (!employeeIdText.isEmpty()) {
                     try {
                         int employeeId = Integer.parseInt(employeeIdText);
-                        getSessionsForEmployeeInDateRange(employeeId, startMonth, startYear, endMonth, endYear);
+                        Employee employee = AppDatabase.getInstance(this).employeeDao().getById(employeeId);
+                        getSalaryDataForEmployee(employee, startMonth, startYear, endMonth, endYear);
                     } catch (NumberFormatException e) {
                         Toast.makeText(this, "Mã nhân viên không hợp lệ!", Toast.LENGTH_SHORT).show();
                     }
@@ -83,7 +85,7 @@ public class SalaryExportExcel extends AppCompatActivity {
                     Toast.makeText(this, "Vui lòng nhập mã nhân viên!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Chức năng chưa được triển khai.", Toast.LENGTH_SHORT).show();
+                getAll(startMonth, startYear, endMonth, endYear);
             }
         } catch (Exception e) {
             Toast.makeText(this, "Đã xảy ra lỗi khi export Excel!", Toast.LENGTH_SHORT).show();
@@ -140,24 +142,79 @@ public class SalaryExportExcel extends AppCompatActivity {
         }
     }
 
-    private void getSessionsForEmployeeInDateRange(int employeeId, int startMonth, int startYear, int endMonth, int endYear) {
+    private void getAll(int startMonth, int startYear, int endMonth, int endYear) {
         try {
             AppDatabase db = AppDatabase.getInstance(this);
+            List<Employee> employees = db.employeeDao().getAllEmployees(); // Lấy tất cả nhân viên
+            List<ExportItemSalary> allExportItems = new ArrayList<>();
 
-            List<ExportItemSalary> exportItemList = new ArrayList<>();
+            for (Employee employee : employees) {
+                List<ExportItemSalary> employeeExportItems = getSalaryDataForEmployee(employee, startMonth, startYear, endMonth, endYear);
+                if (employeeExportItems != null) {
+                    allExportItems.addAll(employeeExportItems); // Gộp dữ liệu
+                }
+            }
 
-            // Query to filter data within the date range
-            // Use startMonth, startYear, endMonth, and endYear in your query logic.
-
-            if (!exportItemList.isEmpty()) {
-                exportToExcel(exportItemList);
+            if (!allExportItems.isEmpty()) {
+                exportToExcel(allExportItems);
             } else {
                 Toast.makeText(this, "Không có dữ liệu để xuất.", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(this, "Đã xảy ra lỗi khi lấy dữ liệu!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private List<ExportItemSalary> getSalaryDataForEmployee(Employee employee, int startMonth, int startYear, int endMonth, int endYear) {
+        List<ExportItemSalary> exportItemList = new ArrayList<>();
+
+        try {
+            User user = AppDatabase.getInstance(this).userDao().getUserById(employee.getUserId());
+            String createDate = user.getCreateDate();
+
+            int[] adjustedStart = adjustStartMonthAndYear(createDate, startMonth, startYear);
+            startMonth = adjustedStart[0];
+            startYear = adjustedStart[1];
+
+            for (int currentYear = startYear; currentYear <= endYear; currentYear++) {
+                int monthStart = (currentYear == startYear) ? startMonth : 1;
+                int monthEnd = (currentYear == endYear) ? endMonth : 12;
+
+                for (int currentMonth = monthStart; currentMonth <= monthEnd; currentMonth++) {
+                    ExportItemSalary item = readItem(employee.getEmployeeId(), currentMonth, currentYear);
+                    if (item != null) {
+                        exportItemList.add(item);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Lỗi xử lý nhân viên " + employee.getFullName(), Toast.LENGTH_SHORT).show();
+        }
+
+        return exportItemList;
+    }
+
+    private int[] adjustStartMonthAndYear(String createDate, int startMonth, int startYear) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar createCal = Calendar.getInstance();
+            createCal.setTime(sdf.parse(createDate));
+
+            int createYear = createCal.get(Calendar.YEAR);
+            int createMonth = createCal.get(Calendar.MONTH) + 1;
+
+            if (createYear > startYear || (createYear == startYear && createMonth > startMonth)) {
+                return new int[]{createMonth, createYear};
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Lỗi xử lý ngày tạo tài khoản!", Toast.LENGTH_SHORT).show();
+        }
+        return new int[]{startMonth, startYear};
+    }
+
 
     private void setupSpinnerType() {
         List<String> data = Arrays.asList("Tất cả nhân viên", "Theo mã nhân viên");
@@ -198,13 +255,14 @@ public class SalaryExportExcel extends AppCompatActivity {
             exportItemSalary.setEmployeeId(employee.getEmployeeId());
             exportItemSalary.setFullname(employee.getFullName());
             exportItemSalary.setMonthYear(String.format("%d/%d", month, year));
-            exportItemSalary.setTotal(String.valueOf(receiveMoney));
-            exportItemSalary.setBasicSalary(String.valueOf(salary.getBasicSalary()));
-            exportItemSalary.setAllowance(String.valueOf(salary.getAllowance()));
+            exportItemSalary.setTotal(String.format("%.2f", receiveMoney));
+            exportItemSalary.setGetRewardDisciplineMoney(String.format("%.2f", rewardDisciplineMoney));
+            exportItemSalary.setBasicSalary(String.format("%.2f", salary.getBasicSalary()));
+            exportItemSalary.setAllowance(String.format("%.2f", salary.getAllowance()));
             exportItemSalary.setCoefficient(String.valueOf(salary.getCoefficient()));
             exportItemSalary.setOverTime(String.valueOf(overtime));
-            exportItemSalary.setOverTimeMoney(String.valueOf(overtime * TaxBracket.ADD_MONEY_PER_HOUR));
-            exportItemSalary.setTax(String.valueOf(tax));
+            exportItemSalary.setOverTimeMoney(String.format("%.2f", addMoney));
+            exportItemSalary.setTax(String.format("%.2f", tax));
 
             return exportItemSalary;
         } catch (Exception e) {
@@ -229,7 +287,7 @@ public class SalaryExportExcel extends AppCompatActivity {
     }
 
     private float getRewardDisciplineMoney(int employeeId, int month, int year) {
-        String strMonthAndYear = month + "/" + year;
+        String strMonthAndYear = String.format("%02d/%d", month, year);
         List<Employee_RewardDiscipline> employeeRewardDisciplines = AppDatabase
                 .getInstance(this)
                 .employeeRewardDisciplineDao()
@@ -295,7 +353,7 @@ public class SalaryExportExcel extends AppCompatActivity {
 
         List<String> years = new ArrayList<>();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = currentYear - 10; i <= currentYear + 10; i++) {
+        for (int i = currentYear - 10; i <= currentYear; i++) {
             years.add(String.valueOf(i));
         }
 
