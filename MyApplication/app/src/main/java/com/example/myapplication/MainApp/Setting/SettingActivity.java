@@ -2,6 +2,8 @@ package com.example.myapplication.MainApp.Setting;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +17,7 @@ import com.example.myapplication.R;
 
 public class SettingActivity extends AppCompatActivity {
     Switch switchTheme;
+    private Button btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,15 @@ public class SettingActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        switchTheme = findViewById(R.id.switch_theme);
+
+        initUI();
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Lấy trạng thái từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("ThemePrefs", MODE_PRIVATE);
@@ -51,5 +62,9 @@ public class SettingActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
+    }
+    private void initUI() {
+        switchTheme = findViewById(R.id.switch_theme);
+        btnBack = findViewById(R.id.btn_back);
     }
 }
