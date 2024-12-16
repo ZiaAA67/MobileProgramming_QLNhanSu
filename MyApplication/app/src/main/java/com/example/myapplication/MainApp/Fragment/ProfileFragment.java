@@ -18,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Login.ChangePassword;
 import com.example.myapplication.Login.GiaoDienLogin;
 import com.example.myapplication.R;
+import com.example.myapplication.SettingActivity;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
@@ -53,6 +54,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ChangePassword.class);
+                intent.putExtra("user_key", user);
+                startActivity(intent);
+            }
+        });
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
                 intent.putExtra("user_key", user);
                 startActivity(intent);
             }

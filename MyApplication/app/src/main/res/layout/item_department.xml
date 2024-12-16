@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="Tên phòng ban"/>
+            android:text="Tên phòng ban"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_department_desc"
@@ -48,7 +49,8 @@
             android:textSize="16sp"
             android:layout_marginTop="3dp"
             android:layout_below="@id/tv_department_name"
-            android:text="Mô tả"/>
+            android:text="Mô tả"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_quantity_employee"
@@ -57,7 +59,8 @@
             android:textSize="16sp"
             android:layout_marginTop="3dp"
             android:layout_below="@id/tv_department_desc"
-            android:text="Số lượng "/>
+            android:text="Số lượng "
+            android:textColor="@color/black"/>
     </RelativeLayout>
 
 </FrameLayout>

@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="30dp"
         android:paddingVertical="20dp"
-        android:background="@drawable/grey_solid_radius_box"
+        android:background="@drawable/bg_radius"
         android:orientation="vertical">
 
         <LinearLayout

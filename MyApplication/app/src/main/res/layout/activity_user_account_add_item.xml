@@ -10,14 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_sea_green"
         android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:background="@color/light_sea_green">
 
             <Button
                 android:id="@+id/btn_back"
@@ -42,26 +42,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_lavender_radius_top_left_top_right"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_lavender_radius"
-                android:padding="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <SearchView
                     android:id="@+id/search_view"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="1"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/lightlightgrey_background_lightgrey_border"
-                    android:queryHint="Tìm kiếm ..."
-                    android:iconifiedByDefault="false"/>
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Tìm kiếm ..." />
 
             </LinearLayout>
 

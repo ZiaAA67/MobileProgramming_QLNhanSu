@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="55dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/light_sea_green"
             android:padding="15dp"
             android:text="Đăng Nhập"
@@ -141,27 +141,16 @@
                 app:cornerRadius="10dp" />
 
             <TextView
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="Quên Mật Khẩu"
-                android:textColor="#0066CC"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
                 android:id="@+id/version_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="120dp"
                 android:gravity="center_horizontal"
                 android:text="Phiên Bản: 21.02.04"
                 android:textColor="@color/light_black"
                 android:textSize="12sp"
-                tools:ignore="MissingConstraints" />
+                />
         </LinearLayout>
 
     </LinearLayout>

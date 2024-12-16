@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/light_sea_green">
+        >
 
         <FrameLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:background="@color/light_sea_green">
 
             <Button
                 android:id="@+id/btn_back"
@@ -44,8 +45,6 @@
             android:id="@+id/linearLayoutTotal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/lavender"
             android:gravity="center|top"
             android:orientation="vertical"
             android:padding="10dp"

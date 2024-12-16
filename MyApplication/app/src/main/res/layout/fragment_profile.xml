@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_sea_green">
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -14,7 +14,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:background="@color/light_sea_green">
 
         <TextView
             android:id="@+id/tv_username"
@@ -54,7 +54,6 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/bg_lavender_radius_top_left_top_right"
         android:gravity="center|top"
         android:orientation="vertical"
         android:padding="10dp"
