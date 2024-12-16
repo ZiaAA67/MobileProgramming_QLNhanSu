@@ -18,7 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.Login.ChangePassword;
 import com.example.myapplication.Login.GiaoDienLogin;
 import com.example.myapplication.R;
-import com.example.myapplication.SettingActivity;
+import com.example.myapplication.MainApp.Setting.SettingActivity;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
