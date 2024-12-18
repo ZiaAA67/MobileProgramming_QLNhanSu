@@ -82,9 +82,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Tài Khoản"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -108,9 +108,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Nhân Viên"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </TableRow>
 
@@ -140,9 +140,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Phòng Ban"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -167,9 +167,9 @@
                             android:layout_marginTop="5dp"
                             android:text="Cơ Sở Làm Việc"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </TableRow>
 
@@ -199,9 +199,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Đơn Yêu Cầu"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black" />
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -225,9 +225,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Đơn Xin Nghỉ"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
 
@@ -261,9 +261,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:text="Khen thưởng/kỷ luật"
+                                android:textColor="@color/black"
                                 android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"/>
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -280,16 +280,17 @@
                             <ImageView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:src="@drawable/icon_excel" />
+                                android:background="@drawable/button_border"
+                                android:src="@drawable/ic_salary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:text="Lương"
+                                android:textColor="@color/black"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"/>
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </TableRow>
                 </LinearLayout>
@@ -322,9 +323,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:text="Excel quản lý chấm công"
+                                android:textColor="@color/black"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"/>
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </TableRow>
                 </LinearLayout>

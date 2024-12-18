@@ -16,7 +16,7 @@ import com.example.myapplication.MainApp.Employee.EmployeeManagement;
 import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
 import com.example.myapplication.MainApp.LeaveRequest.LeaveRequestManager;
 import com.example.myapplication.MainApp.RewardsDiscipline.RewardsDiscipline;
-import com.example.myapplication.MainApp.SalaryManager.SalaryExportExcel;
+import com.example.myapplication.MainApp.SalaryManager.SalaryManager;
 import com.example.myapplication.MainApp.TimekeepingManager.TimekeepingExportExcel;
 import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
 import com.example.myapplication.MainApp.Workplace.WorkplaceManagement;
@@ -88,7 +88,7 @@ public class Manager extends AppCompatActivity {
         });
 
         salaryManager.setOnClickListener(v -> {
-            Intent intent = new Intent(this, SalaryExportExcel.class);
+            Intent intent = new Intent(this, SalaryManager.class);
             startActivity(intent);
         });
 

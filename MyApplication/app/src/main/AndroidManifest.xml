@@ -118,6 +118,12 @@
             android:name=".MainApp.SalaryManager.SalaryExportExcel"
             android:exported="false" />
         <activity
+            android:name=".MainApp.SalaryManager.SalaryManager"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.SalaryManager.EmployeeSalaryManager"
+            android:exported="false" />
+        <activity
             android:name=".Login.ChangePassword"
             android:exported="false" />
         <activity
