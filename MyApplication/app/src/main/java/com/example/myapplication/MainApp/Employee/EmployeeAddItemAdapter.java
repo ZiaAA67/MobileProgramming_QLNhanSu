@@ -70,36 +70,30 @@ public class EmployeeAddItemAdapter extends RecyclerView.Adapter<EmployeeAddItem
 
         Context context = holder.itemView.getContext();
 
-        if(!checkIdentity(context, employee) || !checkPhone(context, employee) || !checkDate(employee)) {
+        if(!checkIdentity(context, employee) || !checkPhone(context, employee) || !checkEmail(context, employee) || !checkDate(employee)) {
             if(!checkIdentity(context, employee)) {
                 holder.tvIdentity.setTextColor(ContextCompat.getColor(context, R.color.dis_approve));
-                holder.foreground.setBackgroundResource(R.drawable.red_solid_radius_box);
             }
 
             if(!checkPhone(context, employee)) {
                 holder.tvPhone.setTextColor(ContextCompat.getColor(context, R.color.dis_approve));
-                holder.foreground.setBackgroundResource(R.drawable.red_solid_radius_box);
+            }
+
+            if(!checkEmail(context, employee)) {
+                holder.tvEmail.setTextColor(ContextCompat.getColor(context, R.color.dis_approve));
             }
 
             if(!checkDate(employee)) {
                 holder.tvBirth.setTextColor(ContextCompat.getColor(context, R.color.dis_approve));
-                holder.foreground.setBackgroundResource(R.drawable.red_solid_radius_box);
             }
+
+            holder.foreground.setBackgroundResource(R.drawable.red_solid_radius_box);
         } else {
             holder.foreground.setBackgroundResource(R.drawable.green_solid_radius_box);
             AppDatabase.getInstance(holder.itemView.getContext()).employeeDao().insert(employee);
         }
     }
 
-
-    @Override
-    public void onViewRecycled(@NonNull EmployeeAddItemAdapter.EmployeeAddItemViewHolder holder) {
-        super.onViewRecycled(holder);
-
-        holder.background.setVisibility(View.GONE);
-        holder.background.setTranslationX(0);
-        holder.foreground.setTranslationX(0);
-    }
 
 
     @Override
@@ -118,8 +112,6 @@ public class EmployeeAddItemAdapter extends RecyclerView.Adapter<EmployeeAddItem
         TextView tvGender;
         TextView tvIdentity;
         TextView tvPhone;
-
-        View background;
         View foreground;
 
         public EmployeeAddItemViewHolder(@NonNull View itemView) {
@@ -134,9 +126,9 @@ public class EmployeeAddItemAdapter extends RecyclerView.Adapter<EmployeeAddItem
             tvIdentity = itemView.findViewById(R.id.tv_identity);
 
             foreground = itemView.findViewById(R.id.layout_foreground);
-            background = itemView.findViewById(R.id.layout_background);
         }
     }
+
 
     private boolean checkIdentity(Context context, Employee employee) {
         return AppDatabase.getInstance(context).employeeDao().getByIdentityNumber(employee.getIdentityNumber()) == null;
@@ -144,6 +136,10 @@ public class EmployeeAddItemAdapter extends RecyclerView.Adapter<EmployeeAddItem
 
     private boolean checkPhone(Context context, Employee employee) {
         return AppDatabase.getInstance(context).employeeDao().getByPhoneNumber(employee.getPhoneNumber()) == null;
+    }
+
+    private boolean checkEmail(Context context, Employee employee) {
+        return AppDatabase.getInstance(context).employeeDao().getByEmail(employee.getEmail()) == null;
     }
 
     private boolean checkDate(Employee employee) {

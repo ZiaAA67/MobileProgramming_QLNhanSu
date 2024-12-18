@@ -1,5 +1,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/grey"/>
+    <solid android:color="@color/light_light_grey"/>
     <corners android:radius="150dp" /> <!-- Độ bo tròn của vòng tròn -->
     <size android:width="150dp" android:height="150dp" /> <!-- Kích thước vòng tròn -->
 </shape>

@@ -169,7 +169,7 @@ public class EmployeeManagement extends AppCompatActivity {
             Employee employee = listEmployee.get(position);
 
             // Thực hiện xoá item, Thông báo vị trí xoá cho adapter -> load lại dữ liệu
-            employee.setActive(false);
+            listEmployee.remove(position);
             employeeAdapter.notifyItemRemoved(position);
 
 
@@ -187,8 +187,8 @@ public class EmployeeManagement extends AppCompatActivity {
                         public void onDismissed(Snackbar snackbar, int event) {
                             if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
                                 // Thực hiện xóa chính thức
+                                employee.setActive(false);
                                 AppDatabase.getInstance(EmployeeManagement.this).employeeDao().update(employee);
-                                listEmployee.remove(position);
                             }
                         }
                     })

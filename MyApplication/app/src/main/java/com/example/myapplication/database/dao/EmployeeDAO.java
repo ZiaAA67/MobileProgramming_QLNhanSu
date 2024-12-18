@@ -38,6 +38,9 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE PhoneNumber LIKE :phoneNumber")
     Employee getByPhoneNumber(String phoneNumber);
 
+    @Query("SELECT * FROM Employee WHERE Email LIKE :email")
+    Employee getByEmail(String email);
+
     @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId AND Active = 1")
     List<Employee> getByDepartmentId(int departmentId);
 

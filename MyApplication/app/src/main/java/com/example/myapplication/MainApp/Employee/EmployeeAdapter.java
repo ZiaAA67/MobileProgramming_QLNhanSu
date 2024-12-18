@@ -76,13 +76,15 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         });
 
         // Hiển thị ảnh avatar
-        String imagePath = employee.getImagePath();
-        if (!imagePath.isEmpty()) {
-            RequestOptions options = new RequestOptions().circleCrop();
-            Glide.with(holder.itemView.getContext())
-                    .load(imagePath)
-                    .apply(options)
-                    .into(holder.imgAvatar);
+        if(employee.getImagePath()!=null) {
+            String imagePath = employee.getImagePath();
+            if (!imagePath.isEmpty()) {
+                RequestOptions options = new RequestOptions().circleCrop();
+                Glide.with(holder.itemView.getContext())
+                        .load(imagePath)
+                        .apply(options)
+                        .into(holder.imgAvatar);
+            }
         }
     }
 

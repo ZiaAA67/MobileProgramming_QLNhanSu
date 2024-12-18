@@ -65,11 +65,11 @@
                 android:layout_weight="1"/>
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/btn_add_list"
+                android:id="@+id/btn_confirm"
                 android:layout_width="260dp"
                 android:layout_height="50dp"
                 android:backgroundTint="#009688"
-                android:text="Thêm Danh Sách Nhân Viên"
+                android:text="Xác Nhận"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
