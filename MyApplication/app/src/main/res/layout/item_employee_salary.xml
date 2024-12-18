@@ -82,15 +82,4 @@
     </LinearLayout>
 
     <!-- Nút sửa lương -->
-    <Button
-        android:id="@+id/btn_edit_salary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FF9800"
-        android:drawableTint="@color/white"
-        android:padding="10dp"
-        android:text="Sửa lương"
-        android:textColor="@android:color/white" />
 </RelativeLayout>

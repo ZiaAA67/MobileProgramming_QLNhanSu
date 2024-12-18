@@ -44,7 +44,15 @@ public class EmployeeSalaryManager extends AppCompatActivity {
             employeeList = AppDatabase.getInstance(this).employeeDao().getAllEmployees();
 
             employeeSalaryManagerAdapter = new EmployeeSalaryManagerAdapter(this, employee -> {
-                Toast.makeText(this, "Clicked: " + employee.getFullName(), Toast.LENGTH_SHORT).show();
+                DialogAddSalary dialogAddSalary = new DialogAddSalary(this, employee);
+
+                dialogAddSalary.setOnDismissListener(dialog -> {
+                    employeeList = AppDatabase.getInstance(this).employeeDao().getAllEmployees(); // Làm mới dữ liệu
+                    employeeSalaryManagerAdapter.setData(this, employeeList); // Cập nhật adapter
+                    employeeSalaryManagerAdapter.notifyDataSetChanged(); // Làm mới RecyclerView
+                });
+
+                dialogAddSalary.show();
             });
 
             employeeSalaryManagerAdapter.setData(this, employeeList);
@@ -58,6 +66,7 @@ public class EmployeeSalaryManager extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     private void setupSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

@@ -13,7 +13,7 @@ import java.util.List;
 public interface SalaryDAO {
 
     @Insert
-    void insert(Salary salary);
+    long insert(Salary salary);
 
     @Update
     void update(Salary salary);
