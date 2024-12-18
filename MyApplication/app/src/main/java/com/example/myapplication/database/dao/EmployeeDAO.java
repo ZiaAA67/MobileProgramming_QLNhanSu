@@ -56,6 +56,9 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE IsApprove = 1 AND Active = 1")
     List<Employee> getApproveEmployees();
 
+    @Query("SELECT * FROM Employee WHERE IsApprove = 1 AND Active = 1 AND EmployeeID = :employeeId")
+    Employee getApproveEmployeeById(int employeeId);
+
     @Query("SELECT * FROM Employee WHERE IsApprove = 0 AND Active = 1")
     List<Employee> getDisapproveEmployees();
 
