@@ -24,7 +24,7 @@ import com.example.myapplication.MainApp.Manager;
 import com.example.myapplication.MainApp.Salary.SalarySlip;
 import com.example.myapplication.MainApp.Timekeeping.NewTimekeeping;
 import com.example.myapplication.R;
-import com.example.myapplication.Stats.Stats;
+import com.example.myapplication.MainApp.Stats.Stats;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Position;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
         showEmployeeInfo();
 
         adminButton(user.getUserId(), "Admin", btnManager, btnStats);
-        hideButtonInPublicRole(user, btnLeaveRequestHistory, btnSalarySlip);
+        hideButtonInPublicRole(user, btnLeaveRequestHistory, btnSalarySlip, btnTimekeeping);
 
         btnLeaveRequestHistory.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LeaveRequestHistory.class);

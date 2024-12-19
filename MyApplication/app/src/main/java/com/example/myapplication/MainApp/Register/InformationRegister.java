@@ -1,4 +1,4 @@
-package com.example.myapplication.Register;
+package com.example.myapplication.MainApp.Register;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -7,24 +7,17 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -37,13 +30,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
-import com.example.myapplication.Configuration;
-import com.example.myapplication.Login.GiaoDienLogin;
-import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
+import com.example.myapplication.MainApp.Configuration;
+import com.example.myapplication.MainApp.Login.GiaoDienLogin;
 import com.example.myapplication.MainApp.ShowSpinner;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
@@ -51,16 +42,13 @@ import com.example.myapplication.database.dao.EmployeeDAO;
 import com.example.myapplication.database.entities.EducationLevel;
 import com.example.myapplication.database.entities.Employee;
 import com.google.android.gms.common.util.IOUtils;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class InformationRegister extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_READ_STORAGE = 101;
@@ -88,6 +76,7 @@ public class InformationRegister extends AppCompatActivity {
     private Spinner spinnerDepartment;
     private Spinner spinnerPosition;
     private Spinner spinnerWorkplace;
+    private EducationLevel educationUpdate;
 
 
     @Override
@@ -286,7 +275,7 @@ public class InformationRegister extends AppCompatActivity {
 
         // Nếu tạo nhân viên mới, check unique và ảnh đại diện kh đc trống
         if(!message.equals("AdminUpdate")) {
-            if (!checkUnique(strCCCD, strNumberPhone, edtCCCD, edtPhoneNumber)) {
+            if (!checkUnique(strCCCD, strNumberPhone, strEmail, edtCCCD, edtPhoneNumber, edtEmail)) {
                 return;
             }
 
@@ -399,7 +388,14 @@ public class InformationRegister extends AppCompatActivity {
         employeeUpdate.setPhoneNumber(strNumberPhone);
         employeeUpdate.setEmail(strEmail);
 
-        employeeUpdate.setEducationId(education.getEducationId());
+        if(employeeUpdate.getEducationId() == null) {
+            //tao edu
+            int eduID = (int)AppDatabase.getInstance(InformationRegister.this).educationLevelDao().insertReturnId(education);
+            education.setEducationId(eduID);
+            employeeUpdate.setEducationId(eduID);
+        } else {
+            AppDatabase.getInstance(InformationRegister.this).educationLevelDao().update(education);
+        }
     }
 
     private boolean checkValidData(String strFullName, String strBirth, String strCCCD
@@ -431,19 +427,17 @@ public class InformationRegister extends AppCompatActivity {
             return false;
         }
 
-        String emailPattern = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";// Kiểm tra ký tự của chuỗi email
+        String emailPattern = "^[a-zA-Z0-9]+([._-][0-9a-zA-Z]+)*@[a-zA-Z0-9]+([.-][0-9a-zA-Z]+)*\\.[a-zA-Z]{2,}$";
         if (TextUtils.isEmpty(strEmail) || !strEmail.matches(emailPattern)) {
             editEmail.setError("Vui lòng nhập chính xác email!");
             editEmail.requestFocus();
             return false;
         }
 
-
-
         return true;
     }
 
-    private boolean checkUnique(String strCCCD, String strNumberPhone, EditText editCCCD, EditText editNumberPhone) {
+    private boolean checkUnique(String strCCCD, String strNumberPhone, String strEmail, EditText editCCCD, EditText editNumberPhone, EditText edtEmail) {
         if (checkEmployeeIdentityNumberExists(strCCCD)) {
             editCCCD.setError("Số CCCD đã có người sử dụng!");
             editCCCD.requestFocus();
@@ -453,6 +447,12 @@ public class InformationRegister extends AppCompatActivity {
         if (checkEmployeePhoneNumberExists(strNumberPhone)) {
             editNumberPhone.setError("Số điện thoại đã có người sử dụng!");
             editNumberPhone.requestFocus();
+            return false;
+        }
+
+        if (checkEmployeeEmailExists(strEmail)) {
+            edtEmail.setError("Địa chỉ email đã có người sử dụng!");
+            edtEmail.requestFocus();
             return false;
         }
 
@@ -470,6 +470,12 @@ public class InformationRegister extends AppCompatActivity {
         Employee employee = employeeDAO.getByIdentityNumber(identityNumber);
         return employee != null;
     }
+    private boolean checkEmployeeEmailExists(String email) {
+        EmployeeDAO employeeDAO = AppDatabase.getInstance(this).employeeDao();
+        Employee employee = employeeDAO.getByEmail(email);
+        return employee != null;
+    }
+
 
     private void inflateLayout() {
         relativeLayout = findViewById(R.id.relative_layout);
@@ -564,7 +570,7 @@ public class InformationRegister extends AppCompatActivity {
 
         // Setup spinner hiển thị tên cấp bậc trình độ học vấn
         List<String> listEduName = new ArrayList<>(Arrays.asList(new String[]{"Chưa tốt nghiệp", "Cao đẳng", "Đại học", "Cao học", "khác"}));
-        ArrayAdapter eduAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listEduName);
+        ArrayAdapter<String> eduAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listEduName);
         eduAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEducationLevel.setAdapter(eduAdapter);
 

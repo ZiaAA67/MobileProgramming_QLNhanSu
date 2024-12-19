@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="Tên cơ sở làm việc"/>
+            android:text="Tên cơ sở làm việc"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_address"
@@ -48,7 +49,8 @@
             android:textSize="16sp"
             android:layout_marginTop="3dp"
             android:layout_below="@id/tv_workplace_name"
-            android:text="Địa chỉ"/>
+            android:text="Địa chỉ"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_quantity_employee"
@@ -57,7 +59,8 @@
             android:textSize="16sp"
             android:layout_marginTop="3dp"
             android:layout_below="@id/tv_address"
-            android:text="Số lượng nhân viên"/>
+            android:text="Số lượng nhân viên"
+            android:textColor="@color/black"/>
     </RelativeLayout>
 
 </FrameLayout>

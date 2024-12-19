@@ -38,6 +38,9 @@ public interface EmployeeDAO {
     @Query("SELECT * FROM Employee WHERE PhoneNumber LIKE :phoneNumber")
     Employee getByPhoneNumber(String phoneNumber);
 
+    @Query("SELECT * FROM Employee WHERE Email LIKE :email")
+    Employee getByEmail(String email);
+
     @Query("SELECT * FROM Employee WHERE DepartmentID = :departmentId AND Active = 1")
     List<Employee> getByDepartmentId(int departmentId);
 
@@ -52,6 +55,9 @@ public interface EmployeeDAO {
 
     @Query("SELECT * FROM Employee WHERE IsApprove = 1 AND Active = 1")
     List<Employee> getApproveEmployees();
+
+    @Query("SELECT * FROM Employee WHERE IsApprove = 1 AND Active = 1 AND EmployeeID = :employeeId")
+    Employee getApproveEmployeeById(int employeeId);
 
     @Query("SELECT * FROM Employee WHERE IsApprove = 0 AND Active = 1")
     List<Employee> getDisapproveEmployees();

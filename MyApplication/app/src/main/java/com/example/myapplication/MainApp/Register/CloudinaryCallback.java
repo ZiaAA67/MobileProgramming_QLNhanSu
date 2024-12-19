@@ -1,4 +1,4 @@
-package com.example.myapplication.Register;
+package com.example.myapplication.MainApp.Register;
 
 public interface CloudinaryCallback {
     void onSuccess(String imgPath);

@@ -1,11 +1,9 @@
 package com.example.myapplication.MainApp.Workplace;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,8 +18,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Configuration;
-import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
@@ -33,7 +29,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class WorkplaceManagement extends AppCompatActivity {
     private List<Workplace> listWorkplace;

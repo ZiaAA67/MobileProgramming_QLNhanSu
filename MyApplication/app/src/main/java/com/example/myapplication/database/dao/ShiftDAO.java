@@ -1,4 +1,5 @@
 package com.example.myapplication.database.dao;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,5 +29,5 @@ public interface ShiftDAO {
     Shift getShiftById(int shiftId);
 
     @Query("SELECT * FROM Shift WHERE ShiftType = :shiftType")
-    List<Shift> getShiftsByType(String shiftType);
+    Shift getShiftByType(String shiftType);
 }

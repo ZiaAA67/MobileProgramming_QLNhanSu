@@ -3,14 +3,8 @@ package com.example.myapplication.MainApp.EmployeeRequest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,18 +15,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Configuration;
 import com.example.myapplication.MainApp.ShowSpinner;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
-import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.database.entities.Position;
 import com.example.myapplication.database.entities.Role;
 import com.example.myapplication.database.entities.User;
-import com.example.myapplication.database.entities.Workplace;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRequestActivity extends AppCompatActivity {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="100dp"
-    tools:context=".Demo.DemoReadExcel">
+    tools:context=".MainApp.Demo.DemoReadExcel">
 
     <LinearLayout
         android:id="@+id/btn"

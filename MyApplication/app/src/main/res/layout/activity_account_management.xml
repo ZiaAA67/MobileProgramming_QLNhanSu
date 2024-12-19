@@ -6,19 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/light_sea_green"
     tools:context=".MainApp.UserAccount.UserAccountManagement">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/light_sea_green">
+        >
 
         <FrameLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_sea_green"
             android:padding="5dp">
 
             <Button
@@ -45,8 +45,6 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/lavender"
             android:gravity="center|top"
             android:orientation="vertical"
             android:padding="10dp"
@@ -77,7 +75,8 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/lightlightgrey_background_lightgrey_border"
                     android:paddingHorizontal="5dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    />
 
             </LinearLayout>
 

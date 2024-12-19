@@ -1,4 +1,4 @@
-package com.example.myapplication.Stats;
+package com.example.myapplication.MainApp.Stats;
 
 import android.graphics.Color;
 import android.os.Bundle;

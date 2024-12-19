@@ -2,7 +2,7 @@ package com.example.myapplication.database;
 
 import android.content.Context;
 
-import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Configuration;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
 import com.example.myapplication.database.entities.Employee_Session;

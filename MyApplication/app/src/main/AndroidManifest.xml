@@ -17,7 +17,7 @@
         android:maxSdkVersion="32" />
 
     <application
-        android:name=".InitMediaManager"
+        android:name=".MainApp.InitMediaManager"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,13 +29,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MainApp.Setting.SettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainApp.Employee.EmployeeAddListItem"
             android:exported="false" />
         <activity
             android:name=".MainApp.UserAccount.UserAccountAddItem"
             android:exported="false" />
         <activity
-            android:name=".Stats.Stats"
+            android:name=".MainApp.Stats.Stats"
             android:exported="false" />
         <activity
             android:name=".MainApp.Workplace.WorkplaceAddItem"
@@ -58,14 +61,14 @@
             android:name=".MainApp.Manager"
             android:exported="false" />
         <activity
-            android:name=".Register.Register"
+            android:name=".MainApp.Register.Register"
             android:exported="false" /> <!-- Google map API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABKnZEUqE2vVkWD7TDrEHj_xELh0xgRkY" />
 
         <activity
-            android:name=".Register.InformationRegister"
+            android:name=".MainApp.Register.InformationRegister"
             android:exported="false" />
         <activity
             android:name=".MainApp.Fragment.GiaoDienChinh"
@@ -115,10 +118,16 @@
             android:name=".MainApp.SalaryManager.SalaryExportExcel"
             android:exported="false" />
         <activity
-            android:name=".Login.ChangePassword"
+            android:name=".MainApp.SalaryManager.SalaryManager"
             android:exported="false" />
         <activity
-            android:name=".Login.GiaoDienLogin"
+            android:name=".MainApp.SalaryManager.EmployeeSalaryManager"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Login.ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".MainApp.Login.GiaoDienLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

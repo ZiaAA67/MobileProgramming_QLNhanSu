@@ -9,29 +9,12 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/layout_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_red_radius"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_delete"
-            app:tint="@android:color/white" />
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/layout_foreground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="30dp"
         android:paddingVertical="20dp"
-        android:background="@drawable/grey_solid_radius_box"
+        android:background="@drawable/bg_radius"
         android:orientation="vertical">
 
         <LinearLayout

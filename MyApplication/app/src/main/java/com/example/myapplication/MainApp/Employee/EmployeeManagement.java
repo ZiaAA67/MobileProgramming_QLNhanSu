@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,17 +22,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
-import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
-import com.example.myapplication.MainApp.UserAccount.UserAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.Register.InformationRegister;
+import com.example.myapplication.MainApp.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
-import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.database.entities.User;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -169,7 +161,7 @@ public class EmployeeManagement extends AppCompatActivity {
             Employee employee = listEmployee.get(position);
 
             // Thực hiện xoá item, Thông báo vị trí xoá cho adapter -> load lại dữ liệu
-            employee.setActive(false);
+            listEmployee.remove(position);
             employeeAdapter.notifyItemRemoved(position);
 
 
@@ -187,8 +179,8 @@ public class EmployeeManagement extends AppCompatActivity {
                         public void onDismissed(Snackbar snackbar, int event) {
                             if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
                                 // Thực hiện xóa chính thức
+                                employee.setActive(false);
                                 AppDatabase.getInstance(EmployeeManagement.this).employeeDao().update(employee);
-                                listEmployee.remove(position);
                             }
                         }
                     })

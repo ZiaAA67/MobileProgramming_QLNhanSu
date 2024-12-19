@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/light_sea_green">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_sea_green"
         android:orientation="vertical" />
 
     <FrameLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/light_sea_green"
         android:padding="5dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -43,13 +42,36 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/lavender"
         android:gravity="center|top"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="Ca:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinner_shift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_border"
+                android:padding="8dp"
+                android:popupBackground="@color/white" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="350dp"
@@ -61,7 +83,7 @@
                 android:id="@+id/tv_workplace"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded_pass_background"
+                android:background="@drawable/bg_radius"
                 android:drawableLeft="@drawable/workplace"
                 android:drawableTint="@color/light_sea_green"
                 android:gravity="center_vertical"
@@ -73,16 +95,16 @@
 
         <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="150dp"
+            android:layout_height="300dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/bg_radius"
             android:orientation="vertical">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/search_view" />
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 

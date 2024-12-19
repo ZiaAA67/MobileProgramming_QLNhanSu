@@ -6,7 +6,6 @@ public class ExportItemSalary {
     private String fullname;
     private String monthYear;
     private String total;
-    private String rewardDisciplineName;
     private String getRewardDisciplineMoney;
     private String basicSalary;
     private String allowance;
@@ -45,14 +44,6 @@ public class ExportItemSalary {
 
     public void setTotal(String total) {
         this.total = total;
-    }
-
-    public String getRewardDisciplineName() {
-        return rewardDisciplineName;
-    }
-
-    public void setRewardDisciplineName(String rewardDisciplineName) {
-        this.rewardDisciplineName = rewardDisciplineName;
     }
 
     public String getGetRewardDisciplineMoney() {
@@ -111,7 +102,7 @@ public class ExportItemSalary {
         this.tax = tax;
     }
 
-    public ExportItemSalary(int employeeId, String fullname, String monthYear, String total, String rewardDisciplineName, String getRewardDisciplineMoney, String basicSalary, String allowance, String coefficient, String overTime, String overTimeMoney, String tax) {
+    public ExportItemSalary(int employeeId, String fullname, String monthYear, String total, String getRewardDisciplineMoney, String basicSalary, String allowance, String coefficient, String overTime, String overTimeMoney, String tax) {
         this.employeeId = employeeId;
         this.fullname = fullname;
         this.monthYear = monthYear;

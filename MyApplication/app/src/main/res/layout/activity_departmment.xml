@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_sea_green"
     tools:context=".MainApp.Department.Departmment">
 
     <LinearLayout
@@ -17,6 +16,7 @@
             android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_sea_green"
             android:padding="5dp">
 
             <Button
@@ -44,7 +44,6 @@
             android:id="@+id/linearLayoutTotal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_lavender_radius_top_left_top_right"
             android:gravity="center|top"
             android:orientation="vertical"
             android:padding="10dp"

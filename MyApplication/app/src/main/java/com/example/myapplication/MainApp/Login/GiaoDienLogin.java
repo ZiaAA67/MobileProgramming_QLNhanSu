@@ -1,12 +1,9 @@
-package com.example.myapplication.Login;
+package com.example.myapplication.MainApp.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,14 +11,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Configuration;
 import com.example.myapplication.R;
-import com.example.myapplication.Register.Register;
+import com.example.myapplication.MainApp.Register.Register;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.User;
 import com.example.myapplication.MainApp.Fragment.GiaoDienChinh;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class GiaoDienLogin extends AppCompatActivity {
