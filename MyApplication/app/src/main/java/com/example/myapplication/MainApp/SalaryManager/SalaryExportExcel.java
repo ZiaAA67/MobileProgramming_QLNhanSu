@@ -167,6 +167,7 @@ public class SalaryExportExcel extends AppCompatActivity {
     }
 
     private List<ExportItemSalary> getSalaryDataForEmployee(Employee employee, int startMonth, int startYear, int endMonth, int endYear) {
+
         List<ExportItemSalary> exportItemList = new ArrayList<>();
 
         try {
@@ -238,6 +239,7 @@ public class SalaryExportExcel extends AppCompatActivity {
     }
 
     private ExportItemSalary readItem(int employeeId, int month, int year) {
+
         ExportItemSalary exportItemSalary = new ExportItemSalary();
 
         try {

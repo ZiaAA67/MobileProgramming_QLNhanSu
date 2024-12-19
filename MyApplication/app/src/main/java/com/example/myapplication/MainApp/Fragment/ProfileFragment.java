@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.myapplication.Login.ChangePassword;
-import com.example.myapplication.Login.GiaoDienLogin;
+import com.example.myapplication.MainApp.Login.ChangePassword;
+import com.example.myapplication.MainApp.Login.GiaoDienLogin;
 import com.example.myapplication.R;
 import com.example.myapplication.MainApp.Setting.SettingActivity;
 import com.example.myapplication.database.AppDatabase;

@@ -7,7 +7,10 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.myapplication.Demo.DemoMapActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Employee;
@@ -24,6 +26,7 @@ import com.example.myapplication.database.entities.Employee_Session;
 import com.example.myapplication.database.entities.Session;
 import com.example.myapplication.database.entities.Shift;
 import com.example.myapplication.database.entities.Timekeeping;
+import com.example.myapplication.database.entities.User;
 import com.example.myapplication.database.entities.Workplace;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -40,7 +43,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallback {
@@ -61,9 +64,9 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
     int day = today.getDayOfMonth();
     int month = today.getMonthValue();
     int year = today.getYear();
+    private Spinner spinnerShift;
 
-
-    private static final float RADIUS =100; // Khoảng cách cho phép ( 100m )
+    private static final float RADIUS = 100; // Khoảng cách cho phép ( 100m )
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GoogleMap ggMap; // Đối tượng google map
     private Marker marker; // Con trỏ vị trí
@@ -77,6 +80,7 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
         setContentView(R.layout.activity_time_keeping);
 
         initUI();
+        setupSpinnerShift();
 
         // Khởi tạo bản đồ, nếu thành công sẽ gọi hàm onMapReady()
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -133,7 +137,6 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
                     .getSessionIdsByEmployeeId(employeeId);
 
             if (existingEmployeeSessions.contains(sessionId)) {
-                Toast.makeText(this, "Phiên làm viêc hôm nay đã tồn tại!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -185,10 +188,39 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
+    private boolean checkExistingTimekeeping(int employeeId, int sessionid, int shiftid) {
+
+        List<Timekeeping> timekeepings = AppDatabase.getInstance(this)
+                .timekeepingDao()
+                .getTimekeepingBySessionId(sessionid);
+
+
+        for (Timekeeping timekeeping : timekeepings) {
+            Session session = AppDatabase.getInstance(this)
+                    .sessionDao()
+                    .getSessionById(timekeeping.getSessionId());
+            if (session.getShiftId() == shiftid && timekeeping.getEmployeeId() == employeeId)
+                return false;
+        }
+
+        return true;
+    }
+
     private void checkIn() {
         checkUserLocation(isWithinRadius -> {
-            if(isWithinRadius) {
+            if (!isWithinRadius) {
                 createSessionIfNeeded();
+
+                Session session = AppDatabase.getInstance(this).sessionDao().getSessionByDayMonthYear(day, month, year);
+
+                boolean isNewTimekeeping = checkExistingTimekeeping(
+                        employeeId, session.getSessionId(), DEFAULT_SHIFT);
+
+                if (!isNewTimekeeping) {
+                    Toast.makeText(this, "Ca này hôm nay đã chấm công rồi mà!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ;
                 if (currentMode.equals("In")) {
                     String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
                     timekeeping.setTimeIn(now);
@@ -203,9 +235,6 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
                 return;
             }
         });
-
-
-
     }
 
     private void checkOut() {
@@ -324,11 +353,57 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
         return employee.getEmployeeId();
     }
 
+    private void setupSpinnerShift() {
+        List<String> data = new ArrayList<>();
+        List<Shift> shifts = AppDatabase.getInstance(this).shiftDao().getAllShifts();
+
+        if (shifts != null && !shifts.isEmpty()) {
+            for (Shift shift : shifts) {
+                data.add(shift.getShiftType());
+            }
+        } else {
+            data.add("Không tồn tại dữ liệu");
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_spiner, data);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerShift.setAdapter(adapter);
+
+        spinnerShift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updateShiftFromSpinner();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void updateShiftFromSpinner() {
+        if (spinnerShift != null && spinnerShift.getSelectedItem() != null) {
+            String selectedShiftType = spinnerShift.getSelectedItem().toString();
+
+            Shift selectedShift = AppDatabase.getInstance(this).shiftDao().getShiftByType(selectedShiftType);
+
+            if (selectedShift != null) {
+                DEFAULT_SHIFT = selectedShift.getShiftId();
+                Toast.makeText(this, "Đã chọn ca: " + selectedShiftType, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Ca làm việc không tồn tại!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Vui lòng chọn ca làm việc!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void initUI() {
         btnBack = findViewById(R.id.btn_back);
         btnCheckIn = findViewById(R.id.btn_checkin);
         btnCheckOut = findViewById(R.id.btn_checkout);
         tvWorkplace = findViewById(R.id.tv_workplace);
+        spinnerShift = findViewById(R.id.spinner_shift);
     }
 
     // callback để trả về kết quả vị trí
@@ -341,7 +416,7 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
         // Lưu đối tượng gg map được trả về sau khi load map thành công
         ggMap = googleMap;
 
-        if(wp != null) {
+        if (wp != null) {
             targetLocation = new LatLng(wp.getLatitude(), wp.getLongitude());
             if (marker != null) {
                 marker.remove();

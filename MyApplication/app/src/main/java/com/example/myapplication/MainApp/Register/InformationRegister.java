@@ -1,4 +1,4 @@
-package com.example.myapplication.Register;
+package com.example.myapplication.MainApp.Register;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -7,24 +7,17 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -37,13 +30,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
-import com.example.myapplication.Configuration;
-import com.example.myapplication.Login.GiaoDienLogin;
-import com.example.myapplication.MainApp.EmployeeRequest.EmployeeRequestActivity;
+import com.example.myapplication.MainApp.Configuration;
+import com.example.myapplication.MainApp.Login.GiaoDienLogin;
 import com.example.myapplication.MainApp.ShowSpinner;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;
@@ -51,16 +42,13 @@ import com.example.myapplication.database.dao.EmployeeDAO;
 import com.example.myapplication.database.entities.EducationLevel;
 import com.example.myapplication.database.entities.Employee;
 import com.google.android.gms.common.util.IOUtils;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class InformationRegister extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_READ_STORAGE = 101;

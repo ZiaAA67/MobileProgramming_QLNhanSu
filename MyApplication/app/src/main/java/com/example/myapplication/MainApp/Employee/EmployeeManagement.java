@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,17 +22,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.MainApp.Department.DepartmentManagement;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
-import com.example.myapplication.MainApp.UserAccount.UserAccountManagement;
-import com.example.myapplication.MainApp.UserAccount.UserAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.Register.InformationRegister;
+import com.example.myapplication.MainApp.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
-import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
-import com.example.myapplication.database.entities.User;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

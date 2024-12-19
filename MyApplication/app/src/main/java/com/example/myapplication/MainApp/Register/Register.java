@@ -1,4 +1,4 @@
-package com.example.myapplication.Register;
+package com.example.myapplication.MainApp.Register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Configuration;
 import com.example.myapplication.MainApp.CheckInput;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;

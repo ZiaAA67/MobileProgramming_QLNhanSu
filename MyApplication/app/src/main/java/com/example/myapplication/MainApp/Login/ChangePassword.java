@@ -1,4 +1,4 @@
-package com.example.myapplication.Login;
+package com.example.myapplication.MainApp.Login;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Configuration;
 import com.example.myapplication.MainApp.CheckInput;
 import com.example.myapplication.R;
 import com.example.myapplication.database.AppDatabase;

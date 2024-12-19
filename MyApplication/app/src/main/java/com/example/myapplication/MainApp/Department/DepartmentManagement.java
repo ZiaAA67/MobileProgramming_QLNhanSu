@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,10 +20,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Configuration;
+import com.example.myapplication.MainApp.Configuration;
 import com.example.myapplication.MainApp.MyItemTouchHelper;
 import com.example.myapplication.R;
-import com.example.myapplication.Register.InformationRegister;
 import com.example.myapplication.database.AppDatabase;
 import com.example.myapplication.database.entities.Department;
 import com.example.myapplication.database.entities.Employee;
