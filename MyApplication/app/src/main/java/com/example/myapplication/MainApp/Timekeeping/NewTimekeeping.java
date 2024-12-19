@@ -208,7 +208,7 @@ public class NewTimekeeping extends AppCompatActivity implements OnMapReadyCallb
 
     private void checkIn() {
         checkUserLocation(isWithinRadius -> {
-            if (!isWithinRadius) {
+            if (isWithinRadius) {
                 createSessionIfNeeded();
 
                 Session session = AppDatabase.getInstance(this).sessionDao().getSessionByDayMonthYear(day, month, year);
